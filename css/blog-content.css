@@ -1,0 +1,169 @@
+.portada{
+  width: 100%;
+  position: relative;
+  height: 600px;
+  object-fit: cover;
+  clip-path: circle(220% at 50% -390%);
+  display: flex;
+  text-align: center;
+  align-items: center;
+  display: grid;
+  place-items: center;
+}
+
+img.portada{
+  position: fixed;
+  width: 100%;
+  z-index: 0;
+}
+
+.image-overlay{
+  position: absolute;
+  width: 100%;
+  height: 600px;
+  background-color: #000;
+  opacity: 80%;
+  z-index: 1;
+  align-self: center;
+  border-radius: 0px;
+}
+
+h1.tituloportada{
+  position: absolute;
+  z-index: 2;
+  color: white;
+  font-weight: 500;
+  letter-spacing: 2;
+  line-height: 1.1;
+  top: 26%;
+  font-size: 2.5em
+}
+
+p.subtituloportada{
+  position: absolute;
+  z-index: 3;
+  color: white;
+  font-weight: 500;
+  letter-spacing: 2;
+  line-height: 1;
+  font-size: 0.8em;
+  opacity: 50%;
+}
+
+.linea-fina-blog {
+  position: absolute;
+  border: none;
+  height: 0.5px;
+  background-color: #6B6B6B;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: -3.5%;
+}
+
+.contenedorpadding{
+
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+.contenedorambos{
+
+    display: flex;
+    align-items: center;
+    align-items: flex-start;
+      justify-content: space-between;
+}
+
+
+.contenedorpost{
+  text-align: justify;
+  text-align-last: left;
+  position: relative;
+  background-color: white;
+  color: #555;
+  height: auto;
+  width: 1000px;
+  margin-bottom: 5%;
+  margin-right: 10%;
+
+}
+
+.contenedorrecientes{
+  text-align-last: left;
+  position: relative;
+  height: auto;
+  width: 320px;
+}
+
+.seccionesbc {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  color: #6B6B6B;
+  text-align: left;
+}
+
+.linea-seccionesbc {
+  border: none;
+  height: 5px;
+  background-color: #d6418c;
+  width: 25px;
+  margin-right: 13px;
+  margin-top: 31px;
+}
+
+h2.seccionbc{
+  font-weight: 500;
+  font-size: 1.4em;
+}
+
+.contenedor-seccionbc {
+  width: 300px;
+  display: flex;
+  box-sizing: border-box;
+  z-index: 4;
+  position: absolute;
+  margin-left: auto;
+  margin-top: -34px;
+}
+.contenedorrecientestexto {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  margin-top: 30px;
+  width: 100%;
+  padding: 20px 0;
+}
+
+.recientestexto {
+  margin-bottom: -10px;
+  width: 100%;
+  position: relative;
+
+}
+
+.recientestexto a {
+  text-decoration: none;
+
+}
+
+.linea-fina-recientes {
+  border: none;
+  height: 0.5px;
+  background-color: #6B6B6B;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+p.recientes {
+  letter-spacing: 1;
+  line-height: 1.5;
+  color: #6B6B6B;
+  font-size: 0.7em;
+  font-weight: 500;
+  position: relative;
+  margin-top: 10px;
+}
