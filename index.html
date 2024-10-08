@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="img/ico/favicon.ico" type="image/x-icon">
+  <title>Borealis - Creadores de Ideas</title>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="menu">
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#portafolio">Portafolio</a></li>
+          <li><a href="html/blog.html">Blog</a></li>
+        </ul>
+      </div>
+      <a class="logo"><img src="img/png/logo.png"></a>
+      <button class="open-modal-btn" onclick="openModalcontact()">Agendar Cita</button>
+      <div id="contactModal" class="modal">
+          <div class="modal-content">
+              <span class="close" onclick="closeModalcontact()">&times;</span>
+              <h2 class="modaltittle">Envíanos un Mensaje</h2>
+              <form action="ruta_a_donde_enviar_formulario" method="POST">
+                  <div class="form-group">
+                      <input type="text" id="name" name="name" class="form-control" placeholder="Tu Nombre" required>
+                  </div>
+                  <div class="form-group">
+                      <input type="email" id="email" name="email" class="form-control" placeholder="Tu Correo" required>
+                  </div>
+                  <div class="form-group">
+                      <textarea id="message" name="message" class="form-control" placeholder="Escribe tu mensaje aquí..." rows="4" required></textarea>
+                  </div>
+                  <button type="submit" class="modalbtn">Enviar</button>
+              </form>
+          </div>
+      </div>
+  <a href="https://www.instagram.com/borealis_crea/">
+    <img class="logoinstagram" src="img/png/insta.png" width="30px" alt="">
+  </a>
+  </header>
+    <section id="inicio">
+      </section>
+    <div class="slider-container">
+      <div class="slider">
+        <div class="slide active-slide">
+          <img class="img" src="img/jpeg/slide1.jpg" >
+          <h1 id="holaText" class="tituloslide-fixed1">¡Hola!</h1>
+          <h1 class="tituloslide-fixed2">Soy <b>Ángel</b> J. <b>Gómez</b> H.</h1>
+          <p class="tituloslide-fixed3">Licenciado en Diseño Integral | Encargado principal de <b>Borealis</b></p>
+         <a href="html/acerca-de-mi.html" style="text-decoration: none;">
+           <button class="slide-button-fixed">Acerca de Mí</button> </a>
+        </div>
+        <div class="slide">
+          <img src="img/jpeg/slide2.jpg">
+          <div class="slide-content">
+            <h2></h2>
+            <p>Somos profesionales en lo que hacemos, y lo que hacemos es darte un servicio único y de calidad.</p>
+          </div>
+        </div>
+        <div class="slide">
+          <video src="videos/mov/slide3.mov" loop muted autoplay width="100%"></video>
+          <div class="slide-content">
+            <h2></h2>
+            <p>Creamos una variedad de soluciones audiovisuales, impulsando así tu trabajo con nuestras habilidades.</p>
+          </div>
+        </div>
+      </div>
+      <ul class="slide-dots">
+        <li class="dot active-dot" onclick="currentSlide(0)"></li>
+        <li class="dot" onclick="currentSlide(1)"></li>
+        <li class="dot" onclick="currentSlide(2)"></li>
+      </ul>
+    </div>
+    <section id="portafolio">
+        </section>
+        <div class="todoport">
+
+
+      <!-- Contenido que se mostrará al hacer scroll -->
+      <div class="scroll-trigger">
+        <div class="contenedor-seccion">
+        <div class="secciones">
+        <hr class="linea-secciones">
+        <h2 class="seccion">BRANDING</h2>
+        </div>
+          </div>
+  <!-- fila de imágenes -->
+    <div class="image-row">
+        <div class="image-containerizq">
+            <a href="enlace1.html">
+                <div class="image-mask">
+                    <img src="img/disenos/1.jpg">
+                       <div class="image-overlay">
+                        <div class="overlay-title">RAR Creative</div>
+                        <div class="overlay-text">Empresa familiar encargada de la producción de material audiovisual en el condado de Los Angeles - California - USA.</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="image-container">
+            <a href="enlace2.html">
+                <div class="image-mask">
+                    <img src="img/disenos/2.jpg">
+                  <div class="image-overlay">
+                        <div class="overlay-title">Isnnal | Dress in Style</div>
+                        <div class="overlay-text">Marca de ropa que se destaca por su estilo único, llamativo y juvenil.</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="image-containerder">
+            <a href="enlace3.html">
+                <div class="image-mask">
+                    <img src="img/disenos/3.jpg">
+                <div class="image-overlay">
+                        <div class="overlay-title">Paseo Los Incas</div>
+                        <div class="overlay-text">Cadena de centro comerciales que se distinguen por sus excelentes locales en alquiler.</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Otra fila de imágenes -->
+    <div class="image-row">
+        <div class="image-containerizq">
+            <a href="enlace4.html">
+                <div class="image-mask">
+                    <img src="img/disenos/4.jpg">
+                  <div class="image-overlay">
+                        <div class="overlay-title">IMO Distribuciones</div>
+                        <div class="overlay-text">Empresa con gran alza durante la pandemia, está <br>dedicada a la distribución de productos de bioseguridad.</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="image-container">
+            <a href="enlace5.html">
+                <div class="image-mask">
+                    <img src="img/disenos/5.jpg">
+                  <div class="image-overlay">
+                        <div class="overlay-title">Rugido | El Verdadero Quita Manchas</div>
+                        <div class="overlay-text">Marca de detergentes que se destacan en <br>el mercado peruano por su excelente eficacia <br>contra la suciedad y las manchas.</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="image-containerder">
+            <a href="enlace6.html">
+                <div class="image-mask">
+                    <img src="img/disenos/6.jpg">
+                  <div class="image-overlay">
+                        <div class="overlay-title">Decorrar | Inspirando Entornos</div>
+                        <div class="overlay-text">Una empresa familiar dedicada al diseño de <br>interiores, de entornos y de identidad.</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+      <!-- fila de imágenes doble -->
+    <div class="image-row">
+    <div class="image-containerizq">
+        <a href="enlace4.html">
+            <div class="image-mask2">
+                <img src="img/disenos/7.jpg">
+              <div class="image-overlay2">
+                    <div class="overlay-title">Sugey | Centro Psicológico</div>
+                    <div class="overlay-text">Consultorio dedicado a la terapia y tratamiento psicológico en distintas <br>áreas, para mejorar la vida de sus pacientes.</div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="image-containerder">
+        <a href="enlace5.html">
+            <div class="image-mask2">
+                <img src="img/disenos/8.jpg">
+              <div class="image-overlay2">
+                    <div class="overlay-title">Delirium | Flores y Detalles</div>
+                    <div class="overlay-text">Negocio que se dedica a brindar lo mejor en detalles, regalos y que <br>se destaca por hacer trabajos únicos con flores y rosas.</div>
+                </div>
+            </div>
+        </a>
+    </div>
+        </div>
+
+        <div class="contenedor-seccion">
+        <div class="secciones">
+        <hr class="linea-secciones">
+        <h2 class="seccion">AUDIOVISUALES</h2>
+        </div>
+          </div>
+  <!-- Video -->
+        <div class="image-container full-width-image">
+            <a href="enlace.html">
+                <div class="image-mask">
+<video src="videos/mov/videomuestra.mov" muted loop autoplay></video>
+                    <div class="image-overlay">
+                        <div class="overlay-title">Soluciones audiovisuales</div>
+                        <div class="overlay-text">Trabajar de cerca en la creación de marcas y con las necesidades de nuestros clientes, no has llevado a brindar <br>un catálogo completo de soluciones audiovisuales a nivel MASIVO que pueden impulsar tu trabajo.</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="contenedor-seccion">
+        <div class="secciones">
+        <hr class="linea-secciones">
+        <h2 class="seccion">DISEÑO GRÁFICO</h2>
+        </div>
+          </div>
+  <!-- varias imagenes fila-->
+  <div class="image-row">
+
+    <div class="image-container1" onclick="openModal('modal1')">
+        <div class="image-mask">
+            <img src="img/disenos/DG1.jpg">
+            <div class="image-overlay">
+                <div class="overlay-title">Carteles</div>
+                <div class="overlay-text">Para cortometrajes.</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal1" class="modal2">
+        <div class="modal-content2">
+            <span class="close-modal2" onclick="closeModal('modal1')">&times;</span>
+            <img id="modalImage1" src="img/disenos/DG1.jpg">
+        </div>
+    </div>
+
+    <div class="image-container" onclick="openModal('modal2')">
+        <div class="image-mask">
+            <img src="img/disenos/DG2.jpg">
+            <div class="image-overlay">
+                <div class="overlay-title">FLyers</div>
+                <div class="overlay-text">Para eventos, reuniones y fiestas.</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal2">
+        <div class="modal-content2">
+            <span class="close-modal2" onclick="closeModal('modal2')">&times;</span>
+            <img id="modalImage2" src="img/disenos/DG2.jpg" >
+        </div>
+    </div>
+
+    <div class="image-container" onclick="openModal('modal3')">
+        <div class="image-mask">
+            <img src="img/disenos/DG3.jpg">
+            <div class="image-overlay">
+                <div class="overlay-title">Posts</div>
+                <div class="overlay-text">Para redes sociales</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal3" class="modal2">
+        <div class="modal-content2">
+            <span class="close-modal2" onclick="closeModal('modal3')">&times;</span>
+            <img id="modalImage3" src="img/disenos/DG3.jpg" alt="Imagen grande">
+        </div>
+    </div>
+
+    <div class="image-container" onclick="openModal('modal4')">
+        <div class="image-mask">
+            <img src="img/disenos/DG4.jpg">
+            <div class="image-overlay">
+                <div class="overlay-title">Soluciones Creativas</div>
+                <div class="overlay-text">Para el impulso de productos.</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal4" class="modal2">
+        <div class="modal-content2">
+            <span class="close-modal2" onclick="closeModal('modal4')">&times;</span>
+            <img id="modalImage4" src="img/disenos/DG4.jpg">
+        </div>
+    </div>
+
+    <div class="image-container2" onclick="openModal('modal5')">
+        <div class="image-mask">
+            <img src="img/disenos/DG5.jpg">
+            <div class="image-overlay">
+                <div class="overlay-title">Fotomontajes</div>
+                <div class="overlay-text">Dedicados a la promoción</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal5" class="modal2">
+        <div class="modal-content2">
+            <span class="close-modal2" onclick="closeModal('modal5')">&times;</span>
+            <img id="modalImage5" src="img/disenos/DG5.jpg" >
+        </div>
+    </div>
+</div>
+
+
+  <!-- Packagin -->
+  <div class="contenedor-seccion">
+  <div class="secciones">
+  <hr class="linea-secciones">
+  <h2 class="seccion">PACKAGING</h2>
+  </div>
+    </div>
+
+  <div class="image-container full-width-image">
+      <a href="enlace.html">
+          <div class="image-mask3">
+<img src="img/disenos/p1.jpg" >
+              <div class="image-overlay3">
+                <div class="overlay-title">Galletas Shaggys | ¡Sabor Irresistible!</div>
+                <div class="overlay-text">Creación de identidad gráfica, empaque primario, secundario terciario de las celebres galletas Shaggys.</div>
+            </div>
+          </div>
+          </div>
+      </a>
+  </div>
+
+</div>
+</div>
+<br><br>
+  <footer class="footer">
+        <img class="logo2" src="img/png/logo2.png">
+
+        <div class="menufooter">
+          <ul>
+            <li><a href="#inicio">INICIO</a></li>
+            <li><a href="#portafolio">PORTAFOLIO</a></li>
+            <li><a href="html/blog.html">BLOG</a></li>
+            <li><a href="html/acerca-de-mi.html">ACERCA DE MÍ</a></li>
+            <li><a href="html/audiovisuales.html">AUDIOVISUALES</a></li>
+          </ul>
+        </div>
+        <a href="https://www.instagram.com/borealis_crea/">
+          <img class="logoinstagram2" src="img/png/insta.png" width="30px" alt="">
+        </a>
+        <hr class="linea-fina" width= "92.8%">
+    <div class="copyright">
+  <p class="footertext"> ©2024 DISEÑADO POR ÁNGEL J. GÓMEZ H.</p>
+      </div>
+  </footer>
+  <script src="js/scripts.js"></script>
+  <script src="js/header.js"></script>
+</body>
+</html>
