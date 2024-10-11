@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <div class="modal-content">
                 <span class="close" onclick="closeModalcontact()">&times;</span>
                 <h2 class="modaltittle">Envíanos un Mensaje</h2>
-                <form action="ruta_a_donde_enviar_formulario" method="POST">
+                <form action="https://formsubmit.co/borealiscreadoresdeideas@gmail.com" method="POST">
                     <div class="form-group">
                         <input type="text" id="name" name="name" class="form-control" placeholder="Tu Nombre" required>
                     </div>
@@ -26,9 +26,19 @@ document.addEventListener("DOMContentLoaded", function() {
                         <input type="email" id="email" name="email" class="form-control" placeholder="Tu Correo" required>
                     </div>
                     <div class="form-group">
+                        <input type="phone" id="phone" name="phone" class="form-control" placeholder="Teléfono" required>
+                    </div>
+                    <div class="form-group">
                         <textarea id="message" name="message" class="form-control" placeholder="Escribe tu mensaje aquí..." rows="4" required></textarea>
                     </div>
+
                     <button type="submit" class="modalbtn">Enviar</button>
+
+                    <input type="hidden" name="_next" value="borealisweb.github.io">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_autoresponse" value="Recibimos tu mensaje con éxito, en breve tendrá repsuestas, gracias...">
+                    <input type="hidden" name="_template" value="table">
+
                 </form>
             </div>
         </div>
