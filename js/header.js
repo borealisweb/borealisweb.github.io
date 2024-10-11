@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
                         <input type="hidden" name="_next" value="borealisweb.github.io">
                         <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_autoresponse" value="Recibimos tu mensaje con éxito, en breve tendrá repsuestas, gracias...">
                         <input type="hidden" name="_template" value="table">
 
                     </div>
