@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
                       <textarea id="message" name="message" class="form-control" placeholder="Escribe tu mensaje aquí..." rows="4" required></textarea>
                   </div>
 
-                  <input type="hidden" name="_next" value="borealisweb.github.io/html/gracias.html">
+                  <input type="hidden" name="_next" value="borealisweb.github.io/gracias.html">
                   <input type="hidden" name="_captcha" value="false">
                   <input type="hidden" name="_template" value="table">
 
@@ -49,31 +49,4 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Agregar el contenido del header al div con id="header"
     document.getElementById('header').innerHTML = headerHTML;
-});
-
-
-// Función para cambiar el estilo del header al hacer scroll
-window.addEventListener('scroll', function() {
-    var header = document.querySelector('header');
-    var scrollTop = window.scrollY;
-
-    if (scrollTop > 50) { // Cambiar el número según cuánto quieres que se haga scroll antes de cambiar
-        header.classList.add('header-scrolled');
-    } else {
-        header.classList.remove('header-scrolled');
-    }
-});
-
-window.addEventListener('scroll', () => {
-  const header = document.querySelector('header');
-  const footer = document.querySelector('footer'); // Asegúrate de que tienes un pie de página
-  const footerPosition = footer.getBoundingClientRect().top; // Posición del footer
-  const threshold = window.innerHeight; // O usa un valor fijo en píxeles
-
-  // Comprueba si el scroll ha llegado a la posición deseada
-  if (footerPosition <= threshold) {
-      header.classList.add('static-header'); // Cambiar a clase estática
-  } else {
-      header.classList.remove('static-header'); // Mantener como fijo
-  }
 });
