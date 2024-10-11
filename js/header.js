@@ -30,15 +30,14 @@ document.addEventListener("DOMContentLoaded", function() {
                     </div>
                     <div class="form-group">
                         <textarea id="message" name="message" class="form-control" placeholder="Escribe tu mensaje aquí..." rows="4" required></textarea>
+
+                        <input type="hidden" name="_next" value="borealisweb.github.io">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_autoresponse" value="Recibimos tu mensaje con éxito, en breve tendrá repsuestas, gracias...">
+                        <input type="hidden" name="_template" value="table">
+
                     </div>
-
                     <button type="submit" class="modalbtn">Enviar</button>
-
-                    <input type="hidden" name="_next" value="borealisweb.github.io">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_autoresponse" value="Recibimos tu mensaje con éxito, en breve tendrá repsuestas, gracias...">
-                    <input type="hidden" name="_template" value="table">
-
                 </form>
             </div>
         </div>
