@@ -32,11 +32,13 @@ document.addEventListener("DOMContentLoaded", function() {
                       <textarea id="message" name="message" class="form-control" placeholder="Escribe tu mensaje aquí..." rows="4" required></textarea>
                   </div>
 
-                  <input type="hidden" name="_next" value="borealisweb.github.io/gracias.html">
+              
                   <input type="hidden" name="_captcha" value="false">
                   <input type="hidden" name="_template" value="table">
 
+
                   <button type="submit" class="modalbtn">Enviar</button>
+
               </form>
             </div>
         </div>
