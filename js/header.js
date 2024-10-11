@@ -30,12 +30,12 @@ document.addEventListener("DOMContentLoaded", function() {
                   </div>
                   <div class="form-group">
                       <textarea id="message" name="message" class="form-control" placeholder="Escribe tu mensaje aquí..." rows="4" required></textarea>
-                  </div>
-                  <input type="hidden" name="_captcha" value="false">
-                  <input type="hidden" name="_template" value="table">
-                  <input type="hidden" name="_next" value="https://borealisweb.github.io/html/gracias.html">
-                  <button type="submit" class="modalbtn">Enviar</button>
-              </form>
+                      </div>
+                      <input type="hidden" name="_captcha" value="false">
+                      <input type="hidden" name="_template" value="table">
+                      <a class="enlacebuttom" href="https://borealisweb.github.io/html/gracias.html">
+                      <button type="submit" class="modalbtn">Enviar</button></a>
+                  </form>
             </div>
         </div>
 
