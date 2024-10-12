@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", function() {
         <div class="menu">
           <ul id="menu">
             <li><a href="../index.html#inicio">Inicio</a></li>
-            <li><a href="../index.html#portafolio">Portafolio</a></li>
+            <li><a href="../index.html#portafolio">Portafolio Diseño</a></li>
+            <li><a href="../html/audiovisuales.html">Edición de Video</a></li>
             <li><a href="../html/blog.html">Blog</a></li>
           </ul>
         </div>
@@ -33,8 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
                       </div>
                       <input type="hidden" name="_captcha" value="false">
                       <input type="hidden" name="_template" value="table">
-                      <a class="enlacebuttom" href="https://borealisweb.github.io/html/gracias.html">
-                      <button type="submit" class="modalbtn">Enviar</button></a>
+                      <button type="submit" class="modalbtn">Enviar</button>
                   </form>
             </div>
         </div>

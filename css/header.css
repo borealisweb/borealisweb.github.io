@@ -59,20 +59,20 @@ header {
 
 .menu li {
     list-style: none;
-margin-left: 30px;
+margin-left: 40px;
 }
 
 .menu a {
     text-decoration: none;
     color: #333;
-    font-size: 1.1em;
+    font-size: 1em;
     font-weight: 400;
     letter-spacing: 0;
     transition: color 0.3s;
 }
 
 .menu a:hover {
-    color: #555;
+    color: #bebebe;
 }
 
 .open-modal-btn {
@@ -178,6 +178,10 @@ h2.modaltittle{
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
     border-radius: 20px;
+}
+
+a.enlacebuttom{
+      text-decoration: none;
 }
 
 .logoinstagram{

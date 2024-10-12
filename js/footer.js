@@ -8,10 +8,10 @@ document.addEventListener("DOMContentLoaded", function() {
             <div class="menufooter">
               <ul>
               <li><a href="../index.html#inicio">INICIO</a></li>
-              <li><a href="../index.html#portafolio">PORTAFOLIO</a></li>
-                <li><a href="../html/blog.html">BLOG</a></li>
+              <li><a href="../index.html#portafolio">PORTAFOLIO DISEÑO</a></li>
                 <li><a href="../html/acerca-de-mi.html">ACERCA DE MÍ</a></li>
-                <li><a href="../html/audiovisuales.html">AUDIOVISUALES</a></li>
+                <li><a href="../html/videos.html">EDICIÓN DE VIDEO</a></li>
+                <li><a href="../html/blog.html">BLOG</a></li>
               </ul>
             </div>
             <a href="https://www.instagram.com/borealis_crea/">

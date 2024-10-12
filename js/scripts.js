@@ -91,13 +91,13 @@ function showSlides() {
 function startSlider() {
     // Mostrar la primera slide con una duración de 10 segundos
     showSlides();
-    slideInterval = setInterval(showSlides, 10000); // Cambiar slide cada 10 segundos inicialmente
+    slideInterval = setInterval(showSlides, 6000); // Cambiar slide cada 10 segundos inicialmente
 
     // Restablecer el intervalo para cambiar a cada 4 segundos después de la primera slide
     setTimeout(function() {
         clearInterval(slideInterval); // Detener el intervalo actual
-        slideInterval = setInterval(showSlides, 10000); // Cambiar slide cada 4 segundos después de 10 segundos
-    }, 7000);
+        slideInterval = setInterval(showSlides, 6000); // Cambiar slide cada 4 segundos después de 10 segundos
+    }, 4000);
 }
 
 // Iniciar el slider automáticamente al cargar la página
@@ -110,7 +110,7 @@ function currentSlide(n) {
     showSlides(); // Mostrar la diapositiva actual
 
     // Restablecer el intervalo para cambiar slides cada 4 segundos
-    slideInterval = setInterval(showSlides, 7000);
+    slideInterval = setInterval(showSlides, 4000);
 }
 
 // Agregar event listeners a los puntos de navegación

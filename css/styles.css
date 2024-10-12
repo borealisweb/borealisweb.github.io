@@ -56,7 +56,7 @@ body {
     color: #fff;
     z-index: 1;
     padding: 40px 20px;
-    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.7));
+    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.9));
 }
 
 .slide-content h2 {
@@ -70,6 +70,7 @@ body {
     max-width: 500px;
     margin: 0 auto;
     text-align: center;
+    letter-spacing: 0.5;
 }
 
 .slide-button-fixed {
