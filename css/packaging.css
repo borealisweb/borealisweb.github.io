@@ -1,0 +1,80 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  transition: background-color 0.3s ease-in-out;
+  position: relative;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden; /* Evita el scroll horizontal */
+}
+
+.contenedor {
+  width: 100%; /* Asegura que el contenedor ocupe el 100% del ancho disponible */
+  padding: 0;
+  margin: 0;
+  margin-top: -16%;
+  display: flex;
+  flex-direction: column; /* Alinea las imágenes una debajo de otra */
+}
+
+img.imagenes {
+  width: 100%; /* Asegura que las imágenes ocupen todo el ancho del contenedor */
+  height: auto; /* Mantiene la proporción de la imagen */
+  object-fit: cover; /* Hace que la imagen cubra todo el ancho si es necesario */
+  display: block; /* Evita el espacio blanco alrededor de las imágenes */
+  margin: 0; /* Elimina cualquier margen */
+border-bottom: 5px solid #f0f0f0;
+}
+
+.topimg{
+  width: 100%;
+  position: relative;
+  height: 700px;
+  object-fit: cover;
+  clip-path: circle(170% at 50% -250%);
+}
+
+img.topimg{
+  position: fixed;
+  height: 450px;
+  width: 100%;
+  z-index: 0;
+}
+
+.topimg-content {
+    position: absolute;
+    bottom: 35%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    z-index: 1;
+    padding-bottom: 2%;
+    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.9));
+}
+
+.topimg-content p {
+    font-size: 1.2em;
+    max-width: 550px;
+    margin: 0 auto;
+    text-align: center;
+    letter-spacing: 0.5;
+}
+
+.image-overlay{
+  position: absolute;
+  width: 100%;
+  height: 600px;
+  background-color: #000;
+  opacity: 50%;
+  z-index: 1;
+  align-self: center;
+  border-radius: 0px;
+}
