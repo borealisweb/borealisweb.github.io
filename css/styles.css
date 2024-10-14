@@ -102,19 +102,25 @@ body {
 
 @media (max-width: 500px) {
     .slider-container {
-        clip-path: circle(160% at 50% -112%);
+        clip-path: circle(160% at 50% -110%);
+    }
+}
+
+@media (max-width: 450px) {
+    .slider-container {
+        clip-path: circle(160% at 50% -110%);
     }
 }
 
 @media (max-width: 400px) {
     .slider-container {
-        clip-path: circle(160% at 50% -112%);
+        clip-path: circle(160% at 50% -109%);
     }
 }
 
 @media (max-width: 300px) {
     .slider-container {
-        clip-path: circle(160% at 50% -112%); 
+        clip-path: circle(160% at 50% -109%);
     }
 }
 
