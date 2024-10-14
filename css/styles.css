@@ -171,6 +171,12 @@ body {
     background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.9));
 }
 
+@media (max-width: 550px) {
+    .slide-content {
+        padding: 6vw 0vw;
+    }
+}
+
 .slide-content h2 {
     font-size: 2.5vw;
     margin-bottom: 5vw;
@@ -266,6 +272,12 @@ p.tituloslide-fixed3 {
     padding: 0;
     margin: 0;
     z-index: 10;
+}
+
+@media (max-width: 550px) {
+  .slide-dots {
+      top: 36.5vw;
+    }
 }
 
 .slide-dots .dot {
