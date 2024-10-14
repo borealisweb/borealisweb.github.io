@@ -113,10 +113,21 @@ body {
 
 @media (max-width: 400px) {
     .slider-container {
-        clip-path: circle(160% at 50% -110%); /* Valor mínimo */
+        clip-path: circle(160% at 50% -109%); /* Valor mínimo */
     }
 }
 
+@media (max-width: 300px) {
+    .slider-container {
+        clip-path: circle(160% at 50% -108%); /* Valor mínimo */
+    }
+}
+
+@media (max-width: 200px) {
+    .slider-container {
+        clip-path: circle(160% at 50% -107%); /* Valor mínimo */
+    }
+}
 
 
 .slide {
