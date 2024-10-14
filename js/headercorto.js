@@ -7,10 +7,10 @@ document.addEventListener("DOMContentLoaded", function() {
       <div class="header-content">
         <div class="menu">
           <ul id="menu">
-            <li><a href="../index.html#inicio">Inicio</a></li>
-            <li><a href="../index.html#portafolio">Portafolio Diseño</a></li>
-            <li><a href="../html/audiovisuales.html">Edición de Video</a></li>
-            <li><a href="../html/blog.html">Blog</a></li>
+            <li class="li2"><a href="../index.html#inicio">Inicio</a></li>
+            <li class="li1"><a href="../index.html#portafolio">Portafolio Diseño</a></li>
+            <li class="li1"><a href="../html/videos.html">Edición de Video</a></li>
+            <li class="li2"><a href="../html/blog.html">Blog</a></li>
           </ul>
         </div>
         <a class="logo"><img src="../img/png/logo.png"></a>
@@ -34,13 +34,14 @@ document.addEventListener("DOMContentLoaded", function() {
                       </div>
                       <input type="hidden" name="_captcha" value="false">
                       <input type="hidden" name="_template" value="table">
+                      <input type="hidden" name="_next" value="https://borealisweb.github.io/html/gracias.html">
                       <button type="submit" class="modalbtn">Enviar</button>
                   </form>
             </div>
         </div>
 
     <a href="https://www.instagram.com/borealis_crea/">
-      <img class="logoinstagram" src="../img/png/insta.png" width="30px" alt="">
+      <img class="logoinstagram" src="../img/png/insta.png" alt="">
     </a>
     </header>
     `;
