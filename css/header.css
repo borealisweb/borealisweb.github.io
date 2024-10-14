@@ -5,9 +5,9 @@ header {
     z-index: 900;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 15px 0;
-    height: 3.5%;
-      margin-top: -0.5%;
+    padding: 1vw 0;
+    height: 1.8vw;
+
       transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease; /
 }
 
@@ -19,7 +19,9 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 50px;
+    margin: 0 3vw;
+    margin-top: -0.4vw;
+
 }
 
 .header-scrolled {
@@ -32,12 +34,14 @@ header {
 }
 
 .logo {
+  position: relative;
   display: flex;
   justify-content: center;
+  left: -15vw;
 }
 
 .logo img {
-  width: 9%;
+  width: 12%;
 }
 
 .header-scrolled .logo img {
@@ -45,30 +49,41 @@ header {
 }
 
 .menu {
-  position: absolute;
- left: 1.7%;
+  position: relative;
+ left: 1.7vw;
+
 }
 
 .menu ul {
+position: relative;
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
     align-items: center;
+    margin-top: -0.6vw;
 }
 
-.menu li {
+.menu li.li1 {
+
     list-style: none;
-margin-left: 40px;
+margin-right: 10vw;
+}
+
+.menu li.li2{
+margin-right: 5vw;
 }
 
 .menu a {
+
+position:absolute;
     text-decoration: none;
     color: #333;
-    font-size: 1em;
+    font-size: 0.9vw;
     font-weight: 400;
     letter-spacing: 0;
     transition: color 0.3s;
+
 }
 
 .menu a:hover {
@@ -76,11 +91,11 @@ margin-left: 40px;
 }
 
 .open-modal-btn {
-    padding: 8px 15px;
+    padding: 0.5vw 1vw;
     border: none;
     background-color: #333;
     color: #fff;
-    font-size: 1em;
+    font-size: 1vw;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
     border-radius: 20px;
@@ -184,11 +199,13 @@ a.enlacebuttom{
       text-decoration: none;
 }
 
-.logoinstagram{
-  margin-top: -1%;
+img.logoinstagram{
+  margin-top: -1.1vw;
   position: absolute;
-  margin-left: -2.2%;
+  margin-left: -2.2vw;
+  width: 1.9vw;
 }
+
 
 .header-scrolled .logoinstagram{
   filter: invert(100%) grayscale(100%);
