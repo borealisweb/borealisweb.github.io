@@ -134,7 +134,7 @@ body {
 .slide {
     position: absolute;
     width: 100%;
-    height: 700px;
+    height: 42vw;
     top: 0;
     left: 0;
     opacity: 0;
@@ -161,24 +161,24 @@ body {
 
 .slide-content {
     position: absolute;
-    bottom: 0;
+    bottom: 0vw;
     left: 0;
     width: 100%;
     text-align: center;
     color: #fff;
     z-index: 1;
-    padding: 6vh 00vh;
+    padding: 4vw 0vw;
     background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.9));
 }
 
 .slide-content h2 {
-    font-size: 2.5em;
-    margin-bottom: 5vh;
+    font-size: 2.5vw;
+    margin-bottom: 5vw;
     text-align: center;
 }
 
 .slide-content p {
-    font-size: 1.2em;
+    font-size: 1.2vw;
     max-width: 40%;
     margin: 0 auto;
     text-align: center;
@@ -187,42 +187,42 @@ body {
 
 .slide-button-fixed {
     position: fixed;
-    top: 46%;
+    top: 26vw;
     left: 30%;
     transform: translateX(-50%);
     padding: 0.8% 2%;
     border: none;
     background-color: #333;
     color: #fff;
-    font-size: 1.5em;
+    font-size: 1.5vw;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
-    border-radius: 2vh;
+    border-radius: 1vw;
     z-index: 1;
 }
 
 .slide-button-fixed:hover {
     position: fixed;
-    top: 46%;
+    top: 26vw;
     left: 30%;
     transform: translateX(-50%);
     padding: 0.8% 2%;
     border: none;
     background-color: #d4007f;
     color: #fff;
-    font-size: 1.5em;
+    font-size: 1.5vw;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
-    border-radius: 2vh;
+    border-radius: 1vw;
     z-index: 1;
 }
 
 h1.tituloslide-fixed1 {
 font-weight: 800;
-    font-size: 8.0em;
+    font-size: 8.0vw;
     color: #333;
     position: fixed;
-    top: 14%;
+    top: 7vw;
     left: 21.9%;
     transform: translateX(-50%);
     transform: translate(-50%, -50%);
@@ -236,27 +236,27 @@ font-weight: 800;
 
 h1.tituloslide-fixed2 {
 font-weight: 500;
-    font-size: 3.6em;
+    font-size: 3.6vw;
     color: #333;
     position: fixed;
-    top: 28%;
+    top: 15vw;
     left: 30%;
     transform: translateX(-50%);
 }
 
 p.tituloslide-fixed3 {
 
-    font-size: 1.28em;
+    font-size: 1.28vw;
     color: #333;
     position: fixed;
-    top: 37%;
+    top: 20.8vw;
     left: 29.9%;
     transform: translateX(-50%);
 }
 
 .slide-dots {
     position: absolute;
-    bottom: 3%;
+    top: 39vw;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -269,11 +269,11 @@ p.tituloslide-fixed3 {
 }
 
 .slide-dots .dot {
-    width: 1vh;
-    height: 1vh;
+    width: 0.6vw;
+    height: 0.6vw;
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 50%;
-    margin: 0 0.5vh;
+    margin: 0 0.3vw;
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -286,7 +286,7 @@ p.tituloslide-fixed3 {
 div.todoport{
   padding-left: 2%;
   padding-right: 2%;
-
+top: 0;
 }
 
 .contenedor-seccion {
