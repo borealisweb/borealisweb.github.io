@@ -300,12 +300,6 @@ div.todoport{
   padding-right: 2vw;
 }
 
-@media (max-width: 550px) {
-  div.todoport {
-      margin-top: -53vh;
-    }
-}
-
 .contenedor-seccion {
   display: flex;
   justify-content: flex-start;
