@@ -314,7 +314,9 @@ h2.seccion{
 
 @media (max-width: 600px) {
 .close-modal2{
-      margin-right: 0vw;
+  font-size: 4vw;
+  margin-top: -1.8%;
+  margin-right: 0%;
     }
 }
 
@@ -382,7 +384,9 @@ h2.seccion{
 
 @media (max-width: 600px) {
 .close-modal3{
-      margin-right: 0vw;
+  font-size: 4vw;
+  margin-top: -2%;
+  margin-right: 0%;
     }
 }
 

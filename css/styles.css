@@ -241,6 +241,7 @@ top: 23vw;
 div.todoport{
   padding-left: 5vw;
   padding-right: 5vw;
+  z-index: 1
 }
 
 .contenedor-seccion {
@@ -664,33 +665,21 @@ h2.seccion{
 .modal2 {
     display: none;
     position: fixed;
-    z-index: 1000;
-    left: -3%;
-    top: -10%;
-    width: 110%;
-    height: 120%;
+    z-index: 9999 ;
+    left: 0%;
+    top: 0%;
+    width: 100%;
+    height: 100%;
     overflow: auto;
     backdrop-filter: blur(1vw);
     background-color: rgba(0, 0, 0, 0.8);
-
 }
-
-
-@media (max-width: 600px) {
-    .modal2 {
-        left: 0vw;
-        width: 100%;
-        height: 100%;
-        padding: -10vw;
-    }
-}
-
 
 
 .modal-content2 {
     background-color: #fefefe;
     position: fixed;
-    top: 70%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 2vh;
@@ -712,9 +701,17 @@ h2.seccion{
     float: right;
     margin-top: -2.5%;
     margin-right: -1%;
-    font-size: 2em;
+    font-size: 2vw;
     font-weight: bold;
     cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .close-modal2 {
+    font-size: 4vw;
+    margin-top: -4%;
+    margin-right: -1.5%;
+    }
 }
 
 .close-modal2:hover .close-modal2:focus {
