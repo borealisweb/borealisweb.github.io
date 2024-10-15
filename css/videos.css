@@ -272,6 +272,12 @@ h2.seccion{
     background-color: rgba(0, 0, 0, 0.8);
 }
 
+@media (max-width: 600px) {
+.modal2 {
+      left: 0%;
+    }
+}
+
 
 .modal-content2 {
     background-color: #fefefe;
