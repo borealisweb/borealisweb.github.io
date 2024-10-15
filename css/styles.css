@@ -59,7 +59,7 @@ body {
     background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.9));
 }
 
-@media (max-width: 550px) {
+@media (max-width: 600px) {
     .slide-content {
         padding: 6vw 0vw;
     }
@@ -121,6 +121,15 @@ max-width: 60vw;
 
 @media (max-width: 600px) {
     .slide-button-fixed {
+    font-size: 3vw;
+    padding: 1vw 3vw;
+    border-radius: 1.5vw;
+    top: 28vw;
+    }
+}
+
+@media (max-width: 600px) {
+    .slide-button-fixed:hover {
     font-size: 3vw;
     padding: 1vw 3vw;
     border-radius: 1.5vw;
