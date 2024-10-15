@@ -73,10 +73,17 @@ body {
 
 .slide-content p {
     font-size: 1.2vw;
-    max-width: 40%;
+    max-width: 40vw;
     margin: 0 auto;
     text-align: center;
     letter-spacing: 0.5;
+}
+
+@media (max-width: 600px) {
+  .slide-content p {
+font-size: 2.5vw;
+max-width: 60vw;
+    }
 }
 
 .slide-button-fixed {
@@ -111,6 +118,17 @@ body {
     z-index: 1;
 }
 
+
+@media (max-width: 600px) {
+    .slide-button-fixed {
+    font-size: 3vw;
+    padding: 1vw 3vw;
+    border-radius: 1.5vw;
+    top: 28vw;
+    }
+}
+
+
 h1.tituloslide-fixed1 {
 font-weight: 800;
     font-size: 8.0vw;
@@ -122,6 +140,13 @@ font-weight: 800;
     transform: translate(-50%, -50%);
     opacity: 0;
     transition: opacity 1s;
+}
+
+@media (max-width: 600px) {
+  h1.tituloslide-fixed1 {
+    top: 8vw;
+font-size: 9.5vw;
+    }
 }
 
 .fade-in {
@@ -138,8 +163,14 @@ font-weight: 500;
     transform: translateX(-50%);
 }
 
-p.tituloslide-fixed3 {
+@media (max-width: 600px) {
+  h1.tituloslide-fixed2 {
+    top: 17vw;
+font-size: 3.95vw;
+    }
+}
 
+p.tituloslide-fixed3 {
     font-size: 1.28vw;
     color: #333;
     position: fixed;
@@ -147,6 +178,14 @@ p.tituloslide-fixed3 {
     left: 29.9%;
     transform: translateX(-50%);
 }
+
+@media (max-width: 600px) {
+  p.tituloslide-fixed3 {
+font-size: 1.4vw;
+top: 23vw;
+    }
+}
+
 
 .slide-dots {
     position: absolute;
@@ -162,9 +201,9 @@ p.tituloslide-fixed3 {
     z-index: 10;
 }
 
-@media (max-width: 550px) {
+@media (max-width: 600px) {
   .slide-dots {
-      top: 36.5vw;
+      top: 38vw;
     }
 }
 
@@ -182,17 +221,24 @@ p.tituloslide-fixed3 {
     background-color: rgba(255, 255, 255, 1);
 }
 
+@media (max-width: 600px) {
+  .slide-dots .dot {
+    width: 1.8vw;
+    height: 1.8vw;
+    margin: 0 1vw;
+    }
+}
 
 div.todoport{
-  padding-left: 2vw;
-  padding-right: 2vw;
+  padding-left: 5vw;
+  padding-right: 5vw;
 }
 
 .contenedor-seccion {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  margin-top: 0;
+  margin-top: ;
   box-sizing: border-box;
   width: 100%;
 }
@@ -212,8 +258,17 @@ div.todoport{
   background-color: #d6418c;
   width: 1.7vw;
   margin-right: 1vw;
-  margin-top: 1.6vw;
+  margin-top: 1.7vw;
   margin-left: 2.9vw;
+}
+
+@media (max-width: 600px) {
+    .linea-secciones {
+      height: 0.4vw;
+      width: 2.5vw;
+      margin-right: 1vw;
+      margin-top: 3.4vw;
+    }
 }
 
 h2.seccion{
@@ -221,6 +276,12 @@ h2.seccion{
   font-size: 1.3vw;
 }
 
+
+@media (max-width: 600px) {
+    h2.seccion {
+        font-size: 2.5vw;
+    }
+}
 
   .image-row {
     display: flex;
