@@ -1,5 +1,5 @@
 html{
-  
+
    scroll-behavior: smooth;
 }
 
@@ -81,17 +81,23 @@ p.subtituloportada{
 }
 
 .contenedorpadding{
-
   padding-left: 15vw;
   padding-right: 15vw;
 }
 
 .contenedorambos{
-
     display: flex;
     align-items: center;
     align-items: flex-start;
       justify-content: space-between;
+}
+
+@media (max-width: 600px) {
+    .contenedorambos {
+      display: block;
+              align-items: initial;
+              justify-content: initial;
+    }
 }
 
 
@@ -108,11 +114,23 @@ p.subtituloportada{
 
 }
 
+@media (max-width: 600px) {
+    .contenedorpost{
+  width: 100%;
+    }
+}
+
 .contenedorrecientes{
   text-align-last: left;
   position: relative;
   height: auto;
   width: 19vw;
+}
+
+@media (max-width: 600px) {
+    .contenedorrecientes{
+  width: 100%;
+    }
 }
 
 .contenedor-seccion {
