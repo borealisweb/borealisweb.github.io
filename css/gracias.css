@@ -1,9 +1,9 @@
 .contenedor{
   position: relative;
-  height: 80%;
+  height: 100%;
   width: 100%;
-  padding-left: 15%;
-  padding-right: 15%;
+  padding-left: 15vw;
+  padding-right: 15vw;
   box-sizing: border-box;
   z-index: 0;
 }
@@ -11,7 +11,7 @@
 .cuadro{
   position: relative;
   background-color: #efefef;
-  height: 300px;
+  height: 18vw;
   width: calc(70% - 2%);
   padding: 20px;
   box-sizing: border-box;
@@ -23,6 +23,13 @@
 
 }
 
+@media (max-width: 600px) {
+  .cuadro {
+        height: 50vw;
+        width: calc(100% - 2%);
+    }
+}
+
 .titulo{
   position: absolute;
   top: 29%;
@@ -30,19 +37,32 @@
   transform: translate(-50%, -50%);
   color: #333 ;
   font-weight: 600;
-  font-size: 2em;
+  font-size: 2vw;
   letter-spacing: 0;
+}
+
+@media (max-width: 600px) {
+  .titulo {
+    top: 20%;
+          font-size: 5vw;
+    }
 }
 
 .text{
   width: 60%;
   position: absolute;
-  font-size: 1.1em;
+  font-size: 1.1vw;
   font-weight: 400;
   color: #333;
   top: 53%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  letter-spacing: 1;
+  letter-spacing: 0.1vw;
+}
+
+@media (max-width: 600px) {
+  .text {
+        font-size: 3vw;
+    }
 }

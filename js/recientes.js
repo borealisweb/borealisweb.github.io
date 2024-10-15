@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", function() {
     const recientesHTML = `
     <div class="contenedorrecientes">
-      <div class="contenedor-seccionbc">
-        <div class="seccionesbc">
-          <hr class="linea-seccionesbc">
-          <h2 class="seccionbc">RECIENTES</h2>
+      <div class="contenedor-seccion">
+        <div class="secciones">
+          <hr class="linea-secciones">
+          <h2 class="seccion">RECIENTES</h2>
         </div>
       </div>
         <div class="contenedorrecientestexto">

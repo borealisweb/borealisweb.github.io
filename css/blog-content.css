@@ -1,9 +1,23 @@
+html{
+  background-color: #fafafa;
+   scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease-in-out;
+    position: relative;
+      font-weight: 400;
+}
+
 .portada{
   width: 100%;
   position: relative;
-  height: 600px;
+  height: 42vw;
   object-fit: cover;
-  clip-path: circle(220% at 50% -390%);
+  clip-path: circle(170% at 50% -250%);
   display: flex;
   text-align: center;
   align-items: center;
@@ -20,7 +34,7 @@ img.portada{
 .image-overlay{
   position: absolute;
   width: 100%;
-  height: 600px;
+  height: 37vw;
   background-color: #000;
   opacity: 80%;
   z-index: 1;
@@ -36,7 +50,7 @@ h1.tituloportada{
   letter-spacing: 2;
   line-height: 1.1;
   top: 26%;
-  font-size: 2.5em
+  font-size: 2.5vw
 }
 
 p.subtituloportada{
@@ -46,14 +60,20 @@ p.subtituloportada{
   font-weight: 500;
   letter-spacing: 2;
   line-height: 1;
-  font-size: 0.8em;
+  font-size: 0.8vw;
   opacity: 50%;
+}
+
+@media (max-width: 600px) {
+    p.subtituloportada {
+      font-size: 1.2vw;
+    }
 }
 
 .linea-fina-blog {
   position: absolute;
   border: none;
-  height: 0.5px;
+  height: 0.009vw;
   background-color: #6B6B6B;
   left: 50%;
   transform: translateX(-50%);
@@ -62,8 +82,8 @@ p.subtituloportada{
 
 .contenedorpadding{
 
-  padding-left: 15%;
-  padding-right: 15%;
+  padding-left: 15vw;
+  padding-right: 15vw;
 }
 
 .contenedorambos{
@@ -82,9 +102,9 @@ p.subtituloportada{
   background-color: white;
   color: #555;
   height: auto;
-  width: 1000px;
-  margin-bottom: 5%;
-  margin-right: 10%;
+  width: 1000vw;
+  margin-bottom: 5vw;
+  margin-right: 7vw;
 
 }
 
@@ -92,10 +112,20 @@ p.subtituloportada{
   text-align-last: left;
   position: relative;
   height: auto;
-  width: 320px;
+  width: 19vw;
 }
 
-.seccionesbc {
+.contenedor-seccion {
+  width: 19vw;
+  display: flex;
+  box-sizing: border-box;
+  z-index: 4;
+  position: absolute;
+  margin-left: auto;
+  margin-top: -2vw;
+}
+
+.secciones {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -103,29 +133,39 @@ p.subtituloportada{
   text-align: left;
 }
 
-.linea-seccionesbc {
+.linea-secciones {
   border: none;
-  height: 5px;
+  height: 0.3vw;
   background-color: #d6418c;
-  width: 25px;
-  margin-right: 13px;
-  margin-top: 31px;
+  width: 1.7vw;
+  margin-right: 1vw;
+  margin-top: 1.7vw;
+  margin-left: 0vw;
 }
 
-h2.seccionbc{
+@media (max-width: 600px) {
+    .linea-secciones {
+      height: 0.4vw;
+      width: 2.5vw;
+      margin-right: 1vw;
+      margin-top: 1.1vw;
+    }
+}
+
+
+h2.seccion {
   font-weight: 500;
-  font-size: 1.4em;
+  font-size: 1.3vw;
 }
 
-.contenedor-seccionbc {
-  width: 300px;
-  display: flex;
-  box-sizing: border-box;
-  z-index: 4;
-  position: absolute;
-  margin-left: auto;
-  margin-top: -34px;
+
+@media (max-width: 600px) {
+    h2.seccion {
+        font-size: 2.5vw;
+        margin-top: -0.1vw;
+    }
 }
+
 .contenedorrecientestexto {
   display: flex;
   flex-direction: column;
@@ -133,7 +173,7 @@ h2.seccionbc{
   position: relative;
   margin-top: 30px;
   width: 100%;
-  padding: 20px 0;
+  padding: 1.2vw 0;
 }
 
 .recientestexto {
@@ -150,7 +190,7 @@ h2.seccionbc{
 
 .linea-fina-recientes {
   border: none;
-  height: 0.5px;
+  height: 0.009vw;
   background-color: #6B6B6B;
   width: 100%;
   margin-top: 20px;
@@ -162,8 +202,14 @@ p.recientes {
   letter-spacing: 1;
   line-height: 1.5;
   color: #6B6B6B;
-  font-size: 0.7em;
+  font-size: 0.7vw;
   font-weight: 500;
   position: relative;
   margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+    p.recientes {
+      font-size: 2vw;
+    }
 }

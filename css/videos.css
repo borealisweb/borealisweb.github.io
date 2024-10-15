@@ -14,109 +14,145 @@ body {
 .topvideo{
   width: 100%;
   position: relative;
-  height: 700px;
+  height: 42vw;
   object-fit: cover;
   clip-path: circle(170% at 50% -250%);
 }
 
 video.topvideo{
   position: fixed;
-  height: 450px;
+  height: 30vw;
   width: 100%;
   z-index: 0;
 }
 
 .topvideo-content {
     position: absolute;
-    bottom: 35%;
+    bottom: 16vw;
     left: 0;
     width: 100%;
     text-align: center;
     color: #fff;
     z-index: 1;
-    padding-bottom: 2%;
+    padding-bottom: 2vw;
     background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.9));
 }
 
 .topvideo-content p {
-    font-size: 1.2em;
-    max-width: 550px;
+    font-size: 1.2vw;
+    max-width: 35vw;
     margin: 0 auto;
     text-align: center;
     letter-spacing: 0.5;
 }
 
+
+@media (max-width: 600px) {
+  .topvideo-content p  {
+        font-size: 2vw;
+      max-width: 45vw;
+    }
+}
+
 .total{
-  padding-left: 5%;
-  padding-right: 5%;
-margin-top: -15.5%;
+  padding-left: 5vw;
+  padding-right: 5vw;
+margin-top: -15.5vw;
 
 }
+
 
 .contenedor-seccion {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  margin-top: 0;
+  margin-top: ;
   box-sizing: border-box;
-  margin: auto;
   width: 100%;
 }
 
 .secciones {
-  padding-left: 0.5%;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
   color: #6B6B6B;
   text-align: left;
-  margin: 0;
+  margin-left: -2.4vw;
 }
 
 .linea-secciones {
   border: none;
-  height: 5px;
+  height: 0.3vw;
   background-color: #d6418c;
-  width: 25px;
-  margin-right: 13px;
-  margin-top: 27px;
+  width: 1.7vw;
+  margin-right: 1vw;
+  margin-top: 1.7vw;
+  margin-left: 2.9vw;
+}
+
+@media (max-width: 600px) {
+    .linea-secciones {
+      height: 0.4vw;
+      width: 2.5vw;
+      margin-right: 1vw;
+      margin-top: 3.4vw;
+    }
 }
 
 h2.seccion{
   font-weight: 500;
-  font-size: 1.3em;
+  font-size: 1.3vw;
 }
 
+
+@media (max-width: 600px) {
+    h2.seccion {
+        font-size: 2.5vw;
+    }
+}
 
 .image-row {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   margin: 0 0;
-  margin-bottom: 20px;
+  margin-bottom: 1.2vw;
 }
 
 .image-container {
-  flex: 1 1 calc(33.33% - 20px);
+  flex: 1 1 calc(25vw - 1.2vw);
   margin: 0.6%;
   margin-top: 0px;
   margin-bottom: 0%;
   position: relative;
   overflow: hidden;
-  border-radius: 15px;
+  border-radius: 1vw;
+}
+
+
+@media (max-width: 600px) {
+  .image-container{
+      flex: 1 1 calc(40vw - 1.2vw);
+    }
 }
 
 .image-container:last-child {
-    margin-right: 10px;
+    margin-right: 0.5vw;
 }
 
 .image-mask {
     position: relative;
     width: 100%;
-    padding-top: 50%;
+    padding-top: 15vw;
     overflow: hidden;
-    border-radius: 15px;
-    margin-bottom: 3.6%;
+    border-radius: 1vw;
+    margin-bottom: 1.1vw;
+}
+
+@media (max-width: 600px) {
+  .image-mask {
+      padding-top: 22vw;
+    }
 }
 
 .image-mask img {
@@ -125,7 +161,7 @@ h2.seccion{
     left: 0;
     width: 100%;
     height: auto;
-    border-radius: 15px;
+    border-radius: 1vw;
     transition: transform 0.3s ease;
 }
 
@@ -134,23 +170,29 @@ h2.seccion{
     height: 100%;
     padding-top: calc(1920 / 1080 * 100%);
     overflow: hidden;
-    border-radius: 15px;
-    margin-bottom: 3.6%;
+    border-radius: 1vw;
+    margin-bottom: 1.1vw;
 }
 
 
 .image-container2 {
-  flex: 1 1 calc(20.33% - 20px);
-  margin: 0.6%;
+  flex: 1 1 calc(15vw - 1.2vw);
+  margin: 0.6vw;
   margin-top: 0px;
-  margin-bottom: 0%;
+  margin-bottom: 0.6vw;
   position: relative;
   overflow: hidden;
-  border-radius: 15px;
+  border-radius: 1vw;
+}
+
+@media (max-width: 600px) {
+  .image-container2 {
+        flex: 1 1  calc(40vw - 1.2vw);
+    }
 }
 
 .image-container2:last-child {
-    margin-right: 10px;
+    margin-right: 0.5vw;
 }
 
 .image-mask2 img {
@@ -159,7 +201,7 @@ h2.seccion{
     left: 0;
     width: 100%;
    height: auto;
-    border-radius: 15px;
+    border-radius: 1vw;
     transition: transform 0.3s ease;
 }
 
@@ -178,20 +220,34 @@ h2.seccion{
     text-align: center;
     color: white;
     transition: opacity 0.3s ease;
-    border-radius: 0px;
+    border-radius: 0;
 }
 
 .image-overlay .overlay-title {
-    font-size: 1em;
+    font-size: 1vw;
     font-weight: bold;
     margin-bottom: 0%;
     margin-top: 0%;
     letter-spacing: 1;
 }
 
+
+@media (max-width: 600px) {
+.image-overlay .overlay-title{
+        font-size: 1.5vw;
+        letter-spacing: 0;
+    }
+}
+
 .image-overlay .overlay-text {
-    font-size: 0.9em;
+    font-size: 0.9vw;
     letter-spacing: 0;
+}
+
+@media (max-width: 600px) {
+.image-overlay .overlay-text {
+        font-size: 1.2vw;
+    }
 }
 
 
@@ -223,27 +279,42 @@ h2.seccion{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 20px;
+    padding: 1.2vw;
     border: 1px solid #888;
-    width: 80%;
-    max-width: 1200px;
+    width: 80vw;
+    max-width: 120vw;
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2);
     animation: modalopen 0.5s;
-    border-radius: 20px;
+    border-radius: 1.2vw;
 }
 
+@media (max-width: 600px) {
+.modal-content2 {
+        width: 80vw;
+          max-width: 90vw;
+          left: 48%;
+    }
+}
+
+
 .modal-content2 video{
-    border-radius: 20px;
+    border-radius: 1.2vw;
 }
 
 .close-modal2 {
     color: #aaa;
     float: right;
-    margin-top: -1.5%;
-    margin-right: -0.5%;
+    margin-top: -1vw;
+    margin-right: -0.5vw;
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
+}
+
+@media (max-width: 600px) {
+.close-modal2{
+      margin-right: 0vw;
+    }
 }
 
 .close-modal2:hover .close-modal2:focus {
@@ -275,28 +346,43 @@ h2.seccion{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 20px;
+    padding: 1.2vw;
     border: 1px solid #888;
-    width: 80%;
-    max-width: 28%;
+    width: 80vw;
+    max-width: 26vw;
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2);
     animation: modalopen 0.5s;
-    border-radius: 20px;
+    border-radius: 1.2vw;
+}
+
+
+@media (max-width: 600px) {
+.modal-content3 {
+        width: 80vw;
+          max-width: 60vw;
+          left: 48%;
+    }
 }
 
 .modal-content3 video{
-    border-radius: 20px;
+    border-radius: 1.2vw;
 }
 
 
 .close-modal3 {
     color: #aaa;
     float: right;
-    margin-top: -2.2%;
-    margin-right: -0.5%;
+    margin-top: -1vw;
+    margin-right: -0.5vw;
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
+}
+
+@media (max-width: 600px) {
+.close-modal3{
+      margin-right: 0vw;
+    }
 }
 
 .close-modal3:hover .close-modal2:focus {
