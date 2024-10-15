@@ -678,7 +678,7 @@ h2.seccion{
 
 @media (max-width: 600px) {
     .modal2 {
-        left: 0%;
+        left: -3vw;
     }
 }
 
