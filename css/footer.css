@@ -92,7 +92,7 @@ margin-left: 2.5vw;
 .linea-fina {
   position: absolute;
   border: none;
-  height: 0.009vw;
+  height: 0.1vw;
   background-color: #6B6B6B;
   left: 50vw;
   transform: translateX(-50%);
