@@ -25,12 +25,13 @@ body {
 }
 
 img.imagenes {
+  border: 0.1vh solid #6B6B6B;
   width: 100%;
   height: auto;
   object-fit: cover;
   display: block;
   margin: 0;
-border-bottom: 5px solid #f0f0f0;
+border-bottom: 0px solid #f0f0f0;
 }
 
 .topimg{
