@@ -19,7 +19,7 @@ body {
   width: 100%;
   padding: 0;
   margin: 0;
-  margin-top: -16vw;
+  margin-top: -16.7vw;
   display: flex;
   flex-direction: column;
 }
@@ -84,4 +84,18 @@ img.topimg{
   z-index: 1;
   align-self: center;
   border-radius: 0px;
+}
+
+p.alerta{
+margin-left: 0vw;
+margin-right: 0vw;
+text-align-last: center;
+font-size: 1vw;
+background-color: #ffd200;
+}
+
+@media (max-width: 600px) {
+    p.alerta{
+      font-size: 1.5vw;
+    }
 }
