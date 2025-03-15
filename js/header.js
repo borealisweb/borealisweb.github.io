@@ -63,16 +63,51 @@ window.addEventListener('scroll', function() {
     }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    // Aseguramos que la alerta esté oculta al cargar la página
+    const alerta = document.querySelector('p.alerta');
+    alerta.style.opacity = "0";
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Aseguramos que la alerta esté oculta al cargar la página
+    const alerta = document.querySelector('p.alerta');
+    alerta.style.opacity = "0";  // Al cargar la página, la alerta está oculta.
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Aseguramos que la alerta esté oculta al cargar la página
+    const alerta = document.querySelector('p.alerta');
+    alerta.style.opacity = "0";  // Al cargar la página, la alerta está oculta.
+});
+
 window.addEventListener('scroll', () => {
   const header = document.querySelector('header');
-  const footer = document.querySelector('footer'); // Asegúrate de que tienes un pie de página
-  const footerPosition = footer.getBoundingClientRect().top; // Posición del footer
-  const threshold = window.innerHeight; // O usa un valor fijo en píxeles
+  const alerta = document.querySelector('p.alerta');
+  const footer = document.querySelector('footer');
 
-  // Comprueba si el scroll ha llegado a la posición deseada
-  if (footerPosition <= threshold) {
-      header.classList.add('static-header'); // Cambiar a clase estática
+  const scrollTop = window.scrollY;
+  const footerPosition = footer.getBoundingClientRect().top;
+  const threshold = window.innerHeight; // Altura de la ventana (puedes ajustar el umbral)
+
+  // Cambiar el estilo del header al hacer scroll
+  if (scrollTop > 50) { // Cuando el scroll haya bajado más de 50px
+    if (!header.classList.contains('header-scrolled')) {
+      header.classList.add('header-scrolled');
+    }
+    alerta.style.opacity = "1"; // Hacer visible la alerta
   } else {
-      header.classList.remove('static-header'); // Mantener como fijo
+    if (header.classList.contains('header-scrolled')) {
+      header.classList.remove('header-scrolled');
+    }
+    alerta.style.opacity = "0"; // Hacer desaparecer la alerta
+  }
+
+  // Desaparecer el header cuando se llegue al footer
+  if (footerPosition <= threshold) {
+    header.classList.add('static-header'); // Cambia a la clase estática para desaparecer
+    alerta.style.opacity = "0"; // Desaparece la alerta cuando el pie de página se muestra
+  } else {
+    header.classList.remove('static-header'); // El header vuelve a su posición fija
   }
 });
