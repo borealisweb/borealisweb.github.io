@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <li><a href="../html/blog.html">BLOG</a></li>
               </ul>
             </div>
-            <a href="https://www.instagram.com/borealis_crea/">
+            <a href="https://www.instagram.com/borealis.oficial/">
               <img class="logoinstagram2" src="../img/png/insta.png" alt="Instagram">
             </a>
             <hr class="linea-fina" width="92.8%">

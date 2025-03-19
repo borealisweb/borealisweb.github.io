@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
         </div>
 
-    <a href="https://www.instagram.com/borealis_crea/">
+    <a href="https://www.instagram.com/borealis.oficial/">
       <img class="logoinstagram" src="../img/png/insta.png" alt="">
     </a>
     </header>
