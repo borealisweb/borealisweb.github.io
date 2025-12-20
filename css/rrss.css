@@ -1,0 +1,231 @@
+.portfolio-section {
+width: 90%;
+margin: 100px auto;
+}
+
+.portfolio-grid {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 20px;
+}
+
+.section-title {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  font-size: clamp(12pt, 1vw, 30pt);
+  z-index: 10;
+  margin-bottom: 15px;
+}
+
+.section-title .dash {
+  color: #d4007f;
+  margin-right: 10px;
+  margin-top: -3px;
+  font-size: clamp(18pt, 2vw, 36pt);
+  font-family: 'montserrat black', sans-serif;
+}
+
+.section-title .title-text {
+    font-family: 'montserrat regular', sans-serif;
+  color: #30302f;
+}
+
+.portfolio-item {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.portfolio-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.1);
+  opacity: 1;
+  transition: all 0.3s ease;
+  border-radius: 15px;
+  pointer-events: none;
+}
+
+.portfolio-item:hover::after {
+  transition: all 0.3s ease;
+  background: rgba(0, 0, 0, 0);
+}
+
+.portfolio-item:hover {
+transition: all 0.3s ease;
+transform: scale(1.05);
+}
+
+.portfolio-item.is-carousel .carousel-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  font-size: 14px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.portfolio-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.carousel-data {
+  display: none;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+
+.modal.active .modal-content {
+  transform: scale(1);
+}
+
+.modal-content img#modalImg {
+  width: auto;
+  height: auto;
+  max-width: 90vw;
+  max-height: 80vh; /
+  object-fit: contain;
+  border-radius: 15px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #d4007f;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 50;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  transform: scale(1.5);
+}
+
+.modal-carousel {
+  display: none;
+  position: relative;
+  width: 100%;
+  max-width: 90vw;
+  max-height: 80vh;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-carousel img#carouselImg {
+  width: auto;
+  height: auto;
+  max-width: 90vw;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 15px;
+}
+
+.modal-carousel .nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.0);
+  color: #d4007f;
+  border: none;
+  font-size: 30pt;
+  padding: 15px 15px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-carousel .nav.prev { left: 10px; }
+.modal-carousel .nav.next { right: 10px; }
+
+.modal-carousel .nav:hover {
+  background: rgba(0,0,0,0.0);
+  color: #fff;
+  transform: translateY(-50%) scale(1.05);
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: scale(0.95); }
+to { opacity: 1; transform: scale(1); }
+}
+
+@media screen and (max-width: 890px) {
+  .portfolio-section {
+  width: 90%;
+  margin: 100px auto;
+  }
+
+  .portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  }
+  
+  .section-title {
+    font-size: 4vw;
+  }
+
+  .section-title .dash {
+    font-size: 4vw;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  }
+}
