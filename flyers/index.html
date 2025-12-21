@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borealis - Flyers</title>
+    <link rel="icon" href="../img/ico/favicon.ico?v=2" type="image/x-icon">
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/header.css" />
+    <link rel="stylesheet" href="../css/footer.css" />
+    <link rel="stylesheet" href="../css/flyers.css" />
+  </head>
+  <body>
+    <header></header>
+
+    <section class="portfolio-section">
+      <div class="section-title">
+<span class="dash">—</span>
+<span class="title-text">FLYERS</span>
+</div>
+    <div class="portfolio-grid">
+    <div class="portfolio-item"><img src="../img/flyers/1.webp"></div>
+    <div class="portfolio-item"><img src="../img/flyers/2.webp"></div>
+    <div class="portfolio-item"><img src="../img/flyers/3.webp"></div>
+    <div class="portfolio-item"><img src="../img/flyers/4.webp"></div>
+    <div class="portfolio-item"><img src="../img/flyers/5.webp"></div>
+    <div class="portfolio-item"><img src="../img/flyers/6.webp"></div>
+    </div>
+    </section>
+
+    <div class="modal" id="modal">
+    <div class="modal-content">
+    <span class="close-btn" id="closeModal">×</span>
+    <img id="modalImg" src="" alt="Imagen ampliada">
+    </div>
+    </div>
+
+    <footer></footer>
+
+    <script src="../js/header.js" defer></script>
+    <script src="../js/footer.js" defer></script>
+    <script src="../js/whatsapp.js" defer></script>
+    <script src="../js/reveal.js"></script>
+    <script>
+    const modal = document.getElementById('modal');
+const modalImg = document.getElementById('modalImg');
+const closeModal = document.getElementById('closeModal');
+
+document.querySelectorAll('.portfolio-item img').forEach(img => {
+  img.addEventListener('click', () => {
+    modalImg.src = img.src;
+    modal.classList.add('active');
+  });
+});
+
+function close() {
+  modal.classList.remove('active');
+}
+
+closeModal.addEventListener('click', close);
+
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) close();
+});
+
+    </script>
+  </body>
+</html>

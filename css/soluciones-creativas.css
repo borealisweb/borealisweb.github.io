@@ -1,0 +1,150 @@
+.portfolio-section {
+  width: 90%;
+  margin: 100px auto;
+  position: relative;
+}
+
+.portfolio-grid {
+  column-count: 4;
+  column-gap: 15px;
+}
+
+.portfolio-item {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.portfolio-item .overlay-wrapper {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+
+.portfolio-item .overlay-wrapper img {
+  width: 100%;
+  display: block;
+  height: auto;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.portfolio-item .overlay-wrapper .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.1);
+  border-radius: 15px;
+  pointer-events: none;
+  transition: background 0.3s ease;
+}
+
+.portfolio-item .overlay-wrapper:hover .overlay {
+  background: rgba(0,0,0,0);
+}
+
+.portfolio-item:hover {
+  transform: scale(1.05);
+}
+
+.section-title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: clamp(12pt, 1vw, 30pt);
+  margin-bottom: 15px;
+  z-index: 10;
+}
+
+.section-title .dash {
+  color: #d4007f;
+  margin-right: 10px;
+  font-size: clamp(18pt, 2vw, 36pt);
+  font-family: 'montserrat black', sans-serif;
+}
+
+.section-title .title-text {
+  font-family: 'montserrat regular', sans-serif;
+  color: #30302f;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  position: relative;
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+
+.modal.active .modal-content {
+  transform: scale(1);
+}
+
+.modal-content img {
+  width: 100%;
+  max-height: 700px;
+  object-fit: contain;
+  border-radius: 15px;
+}
+
+.close-btn {
+position: absolute;
+top: 10px;
+right: 20px;
+color: #d4007f;
+font-size: 30px;
+font-weight: bold;
+cursor: pointer;
+z-index: 10;
+transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  transition: all 0.3s ease;
+  transform: scale(1.50);
+}
+
+@media screen and (max-width: 890px) {
+  .portfolio-grid {
+    column-count: 2;
+  }
+  .portfolio-item:hover {
+    transform: scale(1);
+  }
+  
+  .section-title {
+    font-size: 4vw;
+  }
+
+  .section-title .dash {
+    font-size: 4vw;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .portfolio-grid {
+    column-count: 2;
+  }
+}
