@@ -48,12 +48,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeBtn = document.querySelector('.whatsapp-close');
   const whatsappContainer = document.querySelector('.whatsapp-float-container');
 
+
   if (closeBtn && whatsappContainer) {
     closeBtn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
 
-      localStorage.setItem('whatsappClosed', 'true');
+      sessionStorage.setItem('whatsappClosed', 'true');
 
       whatsappContainer.classList.add('closing');
       setTimeout(() => {
@@ -62,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  if (localStorage.getItem('whatsappClosed') === 'true') {
+  if (sessionStorage.getItem('whatsappClosed') === 'true') {
     const container = document.querySelector('.whatsapp-float-container');
     if (container) {
       container.style.display = 'none';
