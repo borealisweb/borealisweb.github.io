@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const path = window.location.pathname;
   let prefix = "";
 
-  if (path.includes("/blog/") || path.includes("/contacto")  || path.includes("/briefing")  || path.includes("/branding") || path.includes("/packaging") || path.includes("/soluciones-audiovisuales") || path.includes("/rrss") || path.includes("/flyers") || path.includes("/soluciones-creativas")) {
+  if (path.includes("/blog/") || path.includes("/contacto")  || path.includes("/briefing")  || path.includes("/branding") || path.includes("/packaging") || path.includes("/soluciones-audiovisuales") || path.includes("/rrss") || path.includes("/flyers") || path.includes("/soluciones-creativas")  || path.includes("/aviso-legal")  || path.includes("/politica-de-privacidad")  || path.includes("/terminos-y-condiciones")) {
     prefix = "../";
   }
 
