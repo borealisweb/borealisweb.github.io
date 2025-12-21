@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const path = window.location.pathname;
   let prefix = "";
 
-  if (path.includes("/blog/") || path.includes("/branding/") || path.includes("/packaging")) {
+  if (path.includes("/blog") || path.includes("/branding") || path.includes("/packaging")) {
     prefix = "../../";
   }
 
