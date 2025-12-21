@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borealis - Branding</title>
+    <link rel="icon" href="../../img/ico/favicon.ico?v=2" type="image/x-icon">
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/header.css" />
+    <link rel="stylesheet" href="../../css/footer.css" />
+    <link rel="stylesheet" href="../../css/branding.css" />
+  </head>
+  <body>
+    <header></header>
+    <div id="alerta-bar">
+    <p class="alerta">
+      <b>¡Atención!</b> Esta presentación fue creada para ser mostrada en directo.
+      <b>No</b> se encuentra adaptada al formato web.
+    </p>
+  </div>
+
+  <section class="hero">
+  <img src="../../img/rugido/rugido0.webp" alt="Imagen Hero">
+  <div class="hero-overlay"></div>
+
+  <div class="hero-text">
+    <h1 class="hero-title">Rugido | El Verdadero Quita Manchas</h1>
+    <p class="hero-subtitle">Marca de detergentes que se destacan en el mercado peruano por su excelente eficacia contra la suciedad y las manchas.</p>
+  </div>
+</section>
+
+     <section class="image-section">
+       <img src="../../img/rugido/rugido1.webp">
+       <img src="../../img/rugido/rugido2.webp">
+
+     </section>
+
+    <footer></footer>
+
+    <script src="../../js/header2.js" defer></script>
+    <script src="../../js/footer2.js" defer></script>
+    <script src="../../js/whatsapp.js" defer></script>
+    <script src="../../js/reveal.js"></script>
+    <script>
+    document.addEventListener("scroll", () => {
+      const bar = document.getElementById("alerta-bar");
+
+      if (window.scrollY > 20) {
+        bar.style.top = "var(--header-height)"; // aparece justo debajo del header
+      } else {
+        bar.style.top = "calc(var(--header-height) * -1)"; // se esconde arriba del header
+      }
+    });
+  </script>
+
+
+
+  </body>
+</html>

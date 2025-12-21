@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borealis - Branding</title>
+    <link rel="icon" href="../../img/ico/favicon.ico?v=2" type="image/x-icon">
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/header.css" />
+    <link rel="stylesheet" href="../../css/footer.css" />
+    <link rel="stylesheet" href="../../css/branding.css" />
+  </head>
+  <body>
+    <header></header>
+    <div id="alerta-bar">
+    <p class="alerta">
+      <b>¡Atención!</b> Esta presentación fue creada para ser mostrada en directo.
+      <b>No</b> se encuentra adaptada al formato web.
+    </p>
+  </div>
+
+  <section class="hero">
+  <img src="../../img/imo-distribuciones/imo16.webp" alt="Imagen Hero">
+  <div class="hero-overlay"></div>
+
+  <div class="hero-text">
+    <h1 class="hero-title">Imo Distribuciones</h1>
+    <p class="hero-subtitle">Empresa con gran alza durante la pandemia, está dedicada a la distribución de productos de bioseguridad.</p>
+  </div>
+</section>
+
+     <section class="image-section">
+       <img src="../../img/imo-distribuciones/imo1.webp">
+       <img src="../../img/imo-distribuciones/imo2.webp">
+       <img src="../../img/imo-distribuciones/imo3.webp">
+       <img src="../../img/imo-distribuciones/imo4.webp">
+       <img src="../../img/imo-distribuciones/imo5.webp">
+       <img src="../../img/imo-distribuciones/imo6.webp">
+       <img src="../../img/imo-distribuciones/imo7.webp">
+       <img src="../../img/imo-distribuciones/imo8.webp">
+       <img src="../../img/imo-distribuciones/imo9.webp">
+       <img src="../../img/imo-distribuciones/imo10.webp">
+       <img src="../../img/imo-distribuciones/imo11.webp">
+       <img src="../../img/imo-distribuciones/imo12.webp">
+       <img src="../../img/imo-distribuciones/imo13.webp">
+       <img src="../../img/imo-distribuciones/imo14.webp">
+       <img src="../../img/imo-distribuciones/imo15.webp">
+       <img src="../../img/imo-distribuciones/imo16.webp">
+
+     </section>
+
+    <footer></footer>
+
+    <script src="../../js/header2.js" defer></script>
+    <script src="../../js/footer2.js" defer></script>
+    <script src="../../js/whatsapp.js" defer></script>
+    <script src="../../js/reveal.js"></script>
+    <script>
+    document.addEventListener("scroll", () => {
+      const bar = document.getElementById("alerta-bar");
+
+      if (window.scrollY > 20) {
+        bar.style.top = "var(--header-height)"; // aparece justo debajo del header
+      } else {
+        bar.style.top = "calc(var(--header-height) * -1)"; // se esconde arriba del header
+      }
+    });
+  </script>
+
+
+
+  </body>
+</html>
