@@ -1,0 +1,231 @@
+.portfolio-section {
+  margin: 100px auto;
+  width: 95%;
+}
+
+.portfolio-grid {
+  display: grid;
+  gap: 7px;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.title-title {
+  display: flex;
+  font-size: 5vw;
+}
+
+.title-title .title-text {
+  color: #e1e1e1;
+}
+
+.portfolio-item {
+  border-radius: 7px;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.portfolio-item::after {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 7px;
+  content: "";
+  inset: 0;
+  opacity: 1;
+  pointer-events: none;
+  position: absolute;
+  transition: all 0.3s ease;
+}
+
+.portfolio-item:hover::after {
+  transition: all 0.3s ease;
+  background: rgba(0, 0, 0, 0);
+}
+
+.portfolio-item:hover {
+transition: all 0.3s ease;
+transform: scale(1.05);
+}
+
+.portfolio-item.is-carousel .carousel-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  font-size: 14px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.portfolio-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.carousel-data {
+  display: none;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+
+.modal.active .modal-content {
+  transform: scale(1);
+}
+
+.modal-content img#modalImg {
+  border-radius: 15px;
+  height: auto;
+  max-height: 80vh;
+  max-width: 90vw;
+  object-fit: contain;
+  width: auto;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #e6007d;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 50;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  transform: scale(1.5);
+}
+
+.modal-carousel {
+  display: none;
+  position: relative;
+  width: 100%;
+  max-width: 90vw;
+  max-height: 80vh;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-carousel img#carouselImg {
+  width: auto;
+  height: auto;
+  max-width: 90vw;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 15px;
+}
+
+.modal-carousel .nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.0);
+  color: #e6007d;
+  border: none;
+  font-size: 30pt;
+  padding: 15px 15px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-carousel .nav.prev { left: 10px; }
+.modal-carousel .nav.next { right: 10px; }
+
+.modal-carousel .nav:hover {
+  background: rgba(0,0,0,0.0);
+  color: #fff;
+  transform: translateY(-50%) scale(1.05);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 5;
+}
+
+body.gallery-hover::before {
+  opacity: 1;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: scale(0.95); }
+to { opacity: 1; transform: scale(1); }
+}
+
+@media screen and (max-width: 890px) {
+  .portfolio-section {
+  width: 90%;
+  margin: 100px auto;
+  }
+
+   .title-title {
+  display: flex;
+  font-size: 10vw;
+}
+
+  .portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  }
+
+}
+
+@media screen and (max-width: 500px) {
+  .portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  }
+}
