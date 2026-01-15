@@ -45,7 +45,7 @@
 
 .portfolio-item .overlay-wrapper .overlay {
   background: rgba(0,0,0,0.1);
-  border-radius: 15px;
+  border-radius: 7px;
   inset: 0;
   pointer-events: none;
   position: absolute;
@@ -91,7 +91,7 @@
 }
 
 .modal-content img {
-  border-radius: 15px;
+  border-radius: 7px;
   display: block;
   height: auto;
   max-height: 80vh;
