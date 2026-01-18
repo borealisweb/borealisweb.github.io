@@ -4,37 +4,26 @@ document.addEventListener('DOMContentLoaded', function() {
   
   if (!home) return;
 
-  let ticking = false;
-  let currentScrollY = 0;
-
-  function updateScroll() {
-    if (currentScrollY <= window.innerHeight) {
-      home.style.transform = `translateY(${-currentScrollY}px)`;
+  function handleScroll() {
+    const scrollY = window.scrollY;
+    const maxScroll = window.innerHeight;
+    
+    if (scrollY <= maxScroll) {
+      home.style.transform = `translateY(${-scrollY}px)`;
     }
     
     if (indicator) {
-      if (currentScrollY > 100) {
+      if (scrollY > 100) {
         indicator.classList.add('hidden');
       } else {
         indicator.classList.remove('hidden');
       }
     }
     
-    if (currentScrollY >= window.innerHeight - 1) {
+    if (scrollY >= maxScroll - 1) {
       home.style.pointerEvents = 'none';
     } else {
       home.style.pointerEvents = 'auto';
-    }
-    
-    ticking = false;
-  }
-
-  function handleScroll() {
-    currentScrollY = window.scrollY;
-    
-    if (!ticking) {
-      requestAnimationFrame(updateScroll);
-      ticking = true;
     }
   }
 
