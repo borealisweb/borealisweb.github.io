@@ -17,7 +17,7 @@
 
 .scroll-indicator {
   align-items: center;
-  bottom: 3.2vh;
+  bottom: 8vh;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -244,8 +244,8 @@ h1 span {
 
   h1 {
     font-size: 4vw;
-    margin-top: 50px;
-    margin-bottom: 0px;
+    margin-top: 20px;
+    margin-bottom: -20px;
   }
 
 
