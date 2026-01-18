@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const maxScroll = window.innerHeight;
     
     if (scrollY <= maxScroll) {
-      home.style.transform = `translateY(${-scrollY}px)`;
+      home.style.transform = `translate3d(0, ${-scrollY}px, 0)`;
     }
     
     if (indicator) {
