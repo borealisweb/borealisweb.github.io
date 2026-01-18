@@ -10,10 +10,9 @@ document.addEventListener('DOMContentLoaded', function() {
   function syncHomeWithScroll() {
     const y = Math.min(window.scrollY, window.innerHeight);
     
- 
+    // Use transform3d for better hardware acceleration on mobile
     if (isTouchDevice) {
       home.style.transform = `translate3d(0, ${-y}px, 0)`;
-      home.style.willChange = 'transform';
     } else {
       home.style.transform = `translateY(${-y}px)`;
     }
@@ -47,9 +46,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
- 
+  // Throttled scroll handler with requestAnimationFrame
   function scrollHandler() {
-   
+    // Prevent excessive calls on mobile
     if (isTouchDevice && Math.abs(window.scrollY - lastScrollY) < 1) {
       return;
     }
@@ -58,22 +57,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
   syncHomeWithScroll();
   
-  
+  // Use passive listeners for better performance
   window.addEventListener('scroll', scrollHandler, { passive: true });
   window.addEventListener('resize', syncHomeWithScroll);
   
- 
+  // Add touch-specific optimizations
   if (isTouchDevice) {
-
+    // Prevent elastic scrolling on iOS
     document.body.style.touchAction = 'pan-y';
-    
-   
-    let scrollTimeout;
-    window.addEventListener('scroll', function() {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        home.style.willChange = 'auto';
-      }, 150);
-    }, { passive: true });
   }
 });
