@@ -9,6 +9,7 @@
   overflow: hidden;
   padding: 4vw 0;
   position: fixed;
+  transition: transform 0.1s ease-out;
   z-index: 50;
   padding-left: 2.5%;
   padding-right: 2.5%;
