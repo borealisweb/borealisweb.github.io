@@ -70,14 +70,14 @@
   display: none;
 }
 
-.ig-icon {
+.social-media-icon {
   height: 35px;
   width: auto;
   cursor: pointer;
   transition: transform 0.3s;
 }
 
-.ig-icon:hover {
+.social-media-icon:hover {
   transform: scale(1.1);
 }
 
@@ -89,7 +89,7 @@
   width: 40px;
   height: 40px;
   cursor: pointer;
-  font-size: 30px;
+  font-size: 25px;
   transition: background-color 0.3s, transform 0.3s;
 }
 

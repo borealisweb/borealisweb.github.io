@@ -63,17 +63,7 @@
     <script src="../../js/footer2.js" defer></script>
     <script src="../../js/whatsapp.js" defer></script>
     <script src="../../js/reveal.js"></script>
-    <script>
-    document.addEventListener("scroll", () => {
-      const bar = document.getElementById("alerta-bar");
-
-      if (window.scrollY > 20) {
-        bar.style.top = "var(--header-height)"; // aparece justo debajo del header
-      } else {
-        bar.style.top = "calc(var(--header-height) * -1)"; // se esconde arriba del header
-      }
-    });
-  </script>
+    <script src="../../js/alert-bar.js" defer></script>
 
 
 

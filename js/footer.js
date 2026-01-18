@@ -20,8 +20,12 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
 
       <div class="footer-icons">
+      <a href="https://www.facebook.com/borealis.com.ve" target="_blank">
+          <img src="${prefix}img/fb.webp" alt="Facebook Borealis" class="social-media-icon">
+        </a>
+
         <a href="https://instagram.com/borealis.oficial" target="_blank">
-          <img src="${prefix}img/insta.webp" alt="Instagram" class="ig-icon">
+          <img src="${prefix}img/insta.webp" alt="Instagram Borealis" class="social-media-icon">
         </a>
         <button class="scroll-top">↑</button>
       </div>

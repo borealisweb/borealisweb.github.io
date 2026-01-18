@@ -177,7 +177,7 @@ header.scrolled .menu-toggle:hover {
   color: #e6007d;
 }
 
-.ig-icon {
+.social-media-icon {
   height: 35px;
   width: auto;
   cursor: pointer;
@@ -185,11 +185,11 @@ header.scrolled .menu-toggle:hover {
   filter: invert(0);
 }
 
-.ig-icon:hover {
+.social-media-icon:hover {
   transform: scale(1.1);
 }
 
-header.scrolled .ig-icon {
+header.scrolled .social-media-icon {
   filter: invert(1);
 }
 

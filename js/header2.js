@@ -23,18 +23,23 @@
       </div>
 
       <div class="col center">
-        <a href="${prefix}index.html" class="logo-link">
+        <a href="${prefix}" class="logo-link">
           <img src="${prefix}img/logo.webp" alt="Borealis" class="logo-normal">
           <img src="${prefix}img/logo2.webp" alt="Borealis" class="logo-scrolled">
         </a>
       </div>
 
-      <div class="col right">
-        <a href="${prefix}contacto/" class="btn-accent">Agendar Cita</a>
-        <a href="https://instagram.com/borealis.oficial" target="_blank">
-          <img src="${prefix}img/insta.webp" alt="Instagram Borealis" class="ig-icon">
-        </a>
-      </div>
+       <div class="col right">
+      <a href="${prefix}contacto/" class="btn-accent">Agendar Cita</a>
+
+      <a href="https://www.facebook.com/borealis.com.ve" target="_blank">
+        <img src="${prefix}img/fb.webp" alt="Facebook Borealis" class="social-media-icon">
+      </a>
+
+      <a href="https://instagram.com/borealis.oficial" target="_blank">
+        <img src="${prefix}img/insta.webp" alt="Instagram Borealis" class="social-media-icon">
+      </a>
+    </div>
     `;
 
     header.innerHTML = headerHTML;
