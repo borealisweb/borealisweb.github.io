@@ -1,0 +1,115 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const body = document.querySelector("body");
+  const footer = document.createElement("footer");
+  const path = window.location.pathname;
+  let prefix = "";
+
+  if (path.includes("/blog") || path.includes("/branding") || path.includes("/packaging")) {
+    prefix = "../../";
+  }
+
+  footer.id = "site-footer";
+
+  footer.innerHTML = `
+  <section class="footer-top">
+
+      <div class="footer-logo">
+        <a href="${prefix}">
+          <img src="${prefix}img/logo3.webp" alt="Borealis" class="footer-logo-img">
+        </a>
+      </div>
+
+        <div class="footer-icons">
+      <a href="https://www.facebook.com/borealis.com.ve" target="_blank">
+          <img src="${prefix}img/fb.webp" alt="Facebook Borealis" class="social-media-icon">
+        </a>
+
+        <a href="https://instagram.com/borealis.oficial" target="_blank">
+          <img src="${prefix}img/insta.webp" alt="Instagram Borealis" class="social-media-icon">
+        </a>
+        <button class="scroll-top">▲</button>
+      </div>
+
+    </section>
+
+    <section class="footer-name">
+      <div class="footer-column">
+        <nav class="footer-menu">
+          <a href="${prefix}inicio/">Inicio</a>
+          <a href="${prefix}inicio/#branding">Branding</a>
+          <a href="${prefix}soluciones-audiovisuales/">Videos</a>
+          <a href="${prefix}flyers/">Flyers</a>
+          <a href="${prefix}social-media/">Social Media</a>
+          <a href="${prefix}soluciones-creativas/">Soluciones Creativas</a>
+          <a href="${prefix}inicio/#packaging">Packaging</a>
+          <a href="${prefix}portafolio-web/">Diseño Web</a>
+        </nav>
+      </div>
+
+      <div class="footer-column">
+        <nav class="footer-menu">
+          <a href="${prefix}nosotros/">Nosotros</a>
+          <a href="${prefix}blog/">Blog</a>
+          <a href="${prefix}contacto/">Contacto</a>
+          <a href="${prefix}briefing/">Briefing</a>
+        </nav>
+      </div>
+      
+      <div class="footer-column">
+        <nav class="footer-menu">
+          <a href="${prefix}terminos-y-condiciones/">Términos y Condiciones</a>
+          <a href="${prefix}politica-de-privacidad/">Política de Privacidad</a>
+          <a href="${prefix}aviso-legal/">Aviso Legal</a>
+        </nav>
+      </div>
+    </section>
+
+    <div class="footer-bottom">
+      <div class="footer-line"></div>
+      <p class="footer-copy"><b>©${new Date().getFullYear()}</b> Diseñado por Ángel J. Gómez H.</p>
+    </div>
+  `;
+
+  body.appendChild(footer);
+
+  footer.querySelectorAll(".scroll-top").forEach(btn => {
+    btn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  });
+
+  const header = document.querySelector("header");
+
+  function smoothScroll(targetEl) {
+    const headerHeight = header ? header.offsetHeight : 0;
+    const targetPosition = targetEl.getBoundingClientRect().top + window.scrollY - headerHeight;
+    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+  }
+
+  document.querySelectorAll('footer a[href], header a[href]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      const urlParts = href.split("#");
+      const targetHash = urlParts[1];
+
+      if (targetHash) {
+        if (!urlParts[0] || urlParts[0] === window.location.pathname.split("/").pop()) {
+          e.preventDefault();
+          const targetEl = document.getElementById(targetHash);
+          if (targetEl) smoothScroll(targetEl);
+        } else {
+          localStorage.setItem("scrollToHash", targetHash);
+        }
+      }
+
+      if (header) header.classList.remove('menu-open');
+    });
+  });
+
+  const scrollToHash = localStorage.getItem("scrollToHash");
+  if (scrollToHash) {
+    const targetEl = document.getElementById(scrollToHash);
+    if (targetEl) smoothScroll(targetEl);
+    localStorage.removeItem("scrollToHash");
+  }
+});

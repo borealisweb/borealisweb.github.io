@@ -1,0 +1,353 @@
+.hero {
+  clip-path: circle(300% at 50% -632%);
+  height: 30vw;
+  margin-top: 80px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.hero video {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.hero-overlay {
+   background-color: rgba(0,0,0,0.8);
+  inset: 0;
+  position: absolute;
+}
+
+.hero-text {
+  color: #fff;
+  left: 50%;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  z-index: 2;
+}
+
+.gallery-section {
+  margin: 30px auto;
+  width: 95%;
+}
+
+.styles-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 50px auto;
+  font-size: 4vw;
+}
+
+.styles-title .styles-text {
+  color: #e1e1e1;
+  font-weight: 900 !important;
+}
+
+.reel-section {
+  margin: 0px auto;
+  padding-top: 50px;
+  padding-bottom: 120px;
+  width: 100%;
+  background-color: #000000;
+}
+
+.reel-container {
+  width: 95%;
+  margin: 0px auto;
+}
+
+.reels-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 50px auto;
+  margin-top: 0px;
+  font-size: 4vw;
+}
+
+.reels-title .reels-text {
+  color: #fff;
+  font-weight: 900 !important;
+}
+
+.gallery-grid {
+  display: grid;
+  gap: 7px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.gallery-item {
+  border-radius: 7px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+  z-index: 10;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 5;
+}
+
+body.gallery-hover::before {
+  opacity: 1;
+}
+
+.gallery-item img {
+  border-radius: 7px;
+  display: block;
+  height: auto;
+  width: 100%;
+  filter: brightness(0.9);
+}
+
+.gallery-overlay {
+  align-items: center;
+  background: rgba(0, 0, 0, 0.55);
+  bottom: 0;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 80px;
+  justify-content: center;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  text-align: center;
+  transition: opacity 0.3s ease-in-out;
+  width: 100%;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.overlay-title {
+  margin: 0 auto;
+  width: 90%;
+}
+
+.overlay-text {
+  line-height: 1;
+  margin: 0 auto;
+  width: 90%;
+}
+
+.second-row {
+  display: grid;
+  gap: 7px;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 0;
+}
+
+.motion-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 50px auto;
+  font-size: 4vw;
+}
+
+.motion-title .motion-text {
+  color: #009fe3;
+  position: relative;
+  display: inline-block;
+  font-weight: 900 !important;
+}
+
+.motion-title .motion-text::after {
+  content: 'MOTION GRAPHICS';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #e6007d;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  animation: glitch-anim 3s infinite linear alternate-reverse;
+}
+
+.motion-title .motion-text::before {
+  content: 'MOTION GRAPHICS';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #fbba00;
+  clip-path: polygon(0 80%, 100% 20%, 100% 100%, 0 100%);
+  animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%); }
+  20% { clip-path: polygon(0 25%, 100% 25%, 100% 50%, 0 50%); }
+  40% { clip-path: polygon(0 50%, 100% 50%, 100% 75%, 0 75%); }
+  60% { clip-path: polygon(0 75%, 100% 75%, 100% 100%, 0 100%); }
+  80% { clip-path: polygon(0 10%, 100% 10%, 100% 35%, 0 35%); }
+  100% { clip-path: polygon(0 85%, 100% 85%, 100% 100%, 0 100%); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%); }
+  25% { clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%); }
+  50% { clip-path: polygon(0 70%, 100% 70%, 100% 100%, 0 100%); }
+  75% { clip-path: polygon(0 20%, 100% 20%, 100% 60%, 0 60%); }
+  100% { clip-path: polygon(0 40%, 100% 40%, 100% 80%, 0 80%); }
+}
+
+.modal {
+  align-items: center;
+  background-color: rgba(0,0,0,0.8);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  transition: opacity 0.3s ease;
+  width: 100%;
+  z-index: 999;
+}
+
+.modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  animation: fadeIn 0.3s ease;
+  background: #000;
+  border-radius: 7px;
+  overflow: visible;
+  padding: 20px;
+  position: relative;
+  max-width: 90%;
+}
+
+.modal-content video {
+  display: block;
+  height: auto;
+  max-height: 700px;
+  display: block;
+  max-width: 100%;
+}
+
+.close-btn {
+  color: #e6007d;
+  cursor: pointer;
+  font-size: 30px;
+  font-weight: bold;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.close-btn:hover {
+  transform: scale(1.50);
+  transition: all 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media screen and (max-width: 890px) {
+  .hero {
+    clip-path: circle(200% at 50% -110vw);
+    height: 400px;
+  }
+
+  .hero-text {
+    margin-top: -30px;
+  }
+ 
+  .hero-text h1 {
+    font-size: 6.5vw;
+  }
+  
+ .styles-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px auto;
+  margin-top: -15px;
+  font-size: 6.5vw;
+  text-align: center;
+}
+
+ .reels-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px auto;
+  margin-top: -15px;
+  font-size: 6.5vw;
+  text-align: center;
+}
+
+ .motion-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px auto;
+  font-size: 6.5vw;
+  text-align: center;
+}
+}
+
+@media screen and (max-width: 500px) {
+  .hero {
+    clip-path: circle(200% at 50% -110vw);
+    height: 400px;
+  }
+
+  .gallery-section {
+    margin-top: 0px;
+  }
+
+  .gallery-overlay {
+    font-size: 4vw;
+    height: 100px;
+    opacity: 100;
+  }
+
+  .gallery-grid {
+    gap: 7px;
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .second-row {
+    gap: 7px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
