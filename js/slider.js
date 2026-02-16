@@ -9,13 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
     let videoPlayedOnce = false;
 
     const normalTime = 5000
-    const longTime = 5000;
+    const longTime = 10000;
 
     let slideInterval;
 
     function showSlide(index) {
         if (index >= totalSlides) index = 0;
-        if (index < 0) index = totalSlides - 1;
+        if (index < 0) index = totalSlides - 2;
 
         slides.forEach((slide, i) => {
             slide.classList.remove('active-slide');
@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
         dots.forEach(dot => dot.classList.remove('active-dot'));
         dots[index].classList.add('active-dot');
 
-        // Control video playback
         if (video) {
             if (index === 1 && !videoPlayedOnce) {
                 video.play();
