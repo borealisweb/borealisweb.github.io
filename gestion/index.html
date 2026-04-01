@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borealis - Gestión</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: #f8fafc; 
+            font-size: 0.9rem;
+            min-width: 1200px;
+            letter-spacing: normal !important;
+        }
+        
+        * { font-style: normal !important; letter-spacing: normal !important; }
+
+        .week-btn { 
+            background-color: white; 
+            color: #94a3b8; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 8px;
+            border: 2px solid transparent;
+        }
+
+        .tab-btn {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.tab-active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            right: 25%;
+            height: 4px;
+            background-color: #db2777;
+            border-radius: 2px 2px 0 0;
+        }
+        
+        @media print {
+            body * { visibility: hidden; }
+            #invoice-container, #invoice-container * { visibility: visible; }
+            #invoice-container { position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 0; box-shadow: none; }
+            .no-print { display: none !important; }
+        }
+
+        .invoice-paper {
+            width: 215.9mm;
+            min-height: 279.4mm;
+            padding: 15mm 20mm;
+            margin: auto;
+            background: white;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            position: relative;
+            color: #1f2937;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .no-spinners::-webkit-inner-spin-button, .no-spinners::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        .no-spinners { -moz-appearance: textfield; }
+
+        .chart-wrapper { height: 180px; width: 100%; }
+
+        .dropdown-open { opacity: 1 !important; visibility: visible !important; transform: scale(1) !important; }
+        .arrow-up { transform: rotate(180deg); }
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #e2e8f0; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background-color: #cbd5e1; }
+
+        .row-done { opacity: 0.6; background-color: #f8fafc; }
+        .row-done input { text-decoration: line-through; color: #94a3b8; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+
+        .unit-toggle {
+            display: flex;
+            background: #f1f5f9;
+            padding: 3px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+        .unit-toggle button {
+            padding: 4px 10px;
+            border-radius: 4px;
+            transition: all 0.2s;
+            line-height: 1.2;
+        }
+        .unit-active {
+            background: white;
+            color: #db2777;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="p-6 lg:p-10">
+
+    <!-- PANTALLA DE LOGIN -->
+    <div id="login-screen" class="fixed inset-0 bg-gray-50 z-[999] flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl p-10 w-full max-w-sm text-center animate-fade-in">
+            <div class="bg-gray-900 w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+            </div>
+            <h2 class="text-2xl font-black text-gray-900 mb-2 uppercase">Borealis</h2>
+            <p class="text-xs text-gray-500 font-bold mb-8 uppercase">Ingresa tu clave maestra para acceder</p>
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <input type="password" id="auth-password" placeholder="Contraseña..." class="w-full p-4 bg-gray-50 border border-gray-200 rounded-lg text-center text-sm font-black focus:ring-2 focus:ring-pink-500 focus:outline-none transition-all mb-4" required>
+                <p id="login-error" class="text-red-500 text-[10px] font-black mb-4 hidden uppercase">Clave incorrecta. Intenta de nuevo.</p>
+                <button type="submit" id="btn-login" class="w-full bg-pink-600 text-white py-4 rounded-lg font-black text-[10px] uppercase hover:bg-pink-700 transition-all shadow-md">Desbloquear Sistema</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- INTERFAZ PRINCIPAL (Oculta por defecto) -->
+    <div id="main-ui" class="max-w-[1600px] mx-auto" style="display: none;">
+        <!-- Header Principal -->
+        <header class="flex justify-between items-center mb-8 bg-white p-6 rounded-lg shadow-sm border border-gray-100 relative z-40">
+            <div class="flex items-center gap-5">
+                <div class="bg-gray-900 p-3 rounded-lg shadow-xl">
+                   <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+                   </svg>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-black text-gray-900 uppercase leading-none">Gestión</h1>
+                    <p class="text-gray-400 text-[12px] font-extrabold uppercase mt-1.5">De Tareas y Clientes</p>
+                </div>
+            </div>
+
+            <div id="active-client-badge" class="hidden flex items-center gap-3 bg-pink-50 px-5 py-2.5 rounded-lg border border-pink-100 animate-fade-in">
+                <span class="w-2.5 h-2.5 rounded-full bg-pink-500 animate-pulse"></span>
+                <span id="current-client-name" class="text-[10px] font-black uppercase text-pink-700">Sin Cliente</span>
+            </div>
+            
+            <div class="flex items-center gap-2">
+                <div id="cloud-status" class="hidden text-[10px] font-bold text-emerald-500 bg-emerald-50 px-3 py-1.5 rounded-lg flex items-center gap-1.5 animate-fade-in mr-2">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+                    Nube Activa
+                </div>
+                <div id="logo-container" class="max-w-[180px] mr-2">
+                    <img src="logotipo_entero.png" alt="Borealis Logo" class="h-10 w-auto object-contain" onerror="this.parentElement.innerHTML='<span class=\'text-gray-300 font-black uppercase text-[10px]\'>Logotipo</span>'">
+                </div>
+                <div class="w-px h-8 bg-gray-200 mx-2"></div>
+                <button onclick="logout()" class="text-[9px] font-black uppercase text-gray-400 bg-gray-50 hover:bg-red-50 hover:text-red-500 px-4 py-2.5 rounded-lg transition-colors flex items-center gap-2">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    Salir
+                </button>
+            </div>
+        </header>
+
+        <!-- Navegación por Pestañas -->
+        <div class="flex items-center border-b border-gray-200 mb-8 relative z-[60]">
+            <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn tab-active px-10 py-6 font-black text-xs uppercase text-gray-400 flex items-center gap-3 hover:text-gray-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                Producción Actual
+            </button>
+            <button onclick="switchTab('clients')" id="tab-clients" class="tab-btn px-10 py-6 font-black text-xs uppercase text-gray-400 flex items-center gap-3 hover:text-gray-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                Gestión de Clientes
+            </button>
+            
+            <div class="ml-auto flex items-center gap-4 pr-2 relative" id="client-dropdown-container">
+                <span class="text-[9px] font-black text-gray-400 uppercase">Cliente Activo:</span>
+                
+                <button type="button" onclick="toggleClientDropdown()" class="bg-white shadow-sm border border-gray-200 text-gray-700 font-black text-[10px] uppercase py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 min-w-[260px] flex justify-between items-center transition-all hover:border-pink-200 group">
+                    <span id="custom-client-selector-text" class="truncate">Seleccionar...</span>
+                    <svg id="client-dropdown-arrow" class="w-4 h-4 ml-3 transition-transform duration-300 text-gray-400 group-hover:text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+
+                <div id="client-dropdown-menu" class="absolute right-2 top-[110%] w-[340px] bg-white rounded-xl shadow-2xl border border-gray-100 opacity-0 invisible transition-all duration-300 transform scale-95 origin-top-right z-[100] overflow-hidden">
+                    <div class="p-3 max-h-[350px] overflow-y-auto custom-scrollbar" id="client-dropdown-list"></div>
+                    <div class="p-4 border-t border-gray-50 bg-gray-50 flex justify-center">
+                        <button onclick="switchTab('clients'); closeAllDropdowns();" class="text-[9px] font-black uppercase text-pink-500 hover:text-pink-700 transition-colors flex items-center gap-2">+ Administrar Directorio</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VISTA DASHBOARD -->
+        <div id="view-dashboard" class="animate-fade-in">
+            <nav class="grid grid-cols-4 gap-4 mb-8">
+                <button onclick="changeWeek(1)" id="btn-w1" class="week-btn py-5 font-black text-xs uppercase shadow-sm">Semana 1</button>
+                <button onclick="changeWeek(2)" id="btn-w2" class="week-btn py-5 font-black text-xs uppercase shadow-sm">Semana 2</button>
+                <button onclick="changeWeek(3)" id="btn-w3" class="week-btn py-5 font-black text-xs uppercase shadow-sm">Semana 3</button>
+                <button onclick="changeWeek(4)" id="btn-w4" class="week-btn py-5 font-black text-xs uppercase shadow-sm">Semana 4</button>
+            </nav>
+
+            <div class="grid grid-cols-4 gap-6 mb-8 relative z-20">
+                <div class="bg-white p-7 rounded-lg shadow-sm border border-gray-100 relative overflow-hidden flex flex-col justify-between group hover:shadow-md transition-shadow">
+                    <div class="absolute top-0 left-0 w-full h-1.5 stat-color-bar transition-colors duration-500"></div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-[9px] font-bold text-gray-400 uppercase mb-2">Inversión Temporal</p>
+                            <div class="flex items-baseline gap-1.5"><h3 class="text-4xl font-black text-gray-900" id="stat-hours">0.00</h3><span class="text-[10px] font-black text-gray-300">HRS</span></div>
+                        </div>
+                        <div class="p-3 rounded-lg bg-gray-50 text-gray-400 stat-icon transition-colors duration-500"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-7 rounded-lg shadow-sm border border-gray-100 relative overflow-hidden flex flex-col justify-between group hover:shadow-md transition-shadow">
+                    <div class="absolute top-0 left-0 w-full h-1.5 stat-color-bar transition-colors duration-500"></div>
+                    <div class="flex gap-8 w-full justify-center">
+                        <div><p class="text-[9px] font-bold text-gray-400 uppercase mb-2">Entradas</p><h3 class="text-4xl font-black text-gray-900" id="stat-tasks">0</h3></div>
+                        <div class="w-px bg-gray-100 h-12 self-center"></div>
+                        <div><p class="text-[9px] font-bold text-emerald-400 uppercase mb-2">Terminadas</p><div class="flex items-baseline gap-2 text-emerald-500"><h3 class="text-4xl font-black" id="stat-tasks-done">0</h3><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg></div></div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-7 rounded-lg shadow-sm border border-gray-100 relative overflow-visible flex flex-col justify-between group hover:shadow-md transition-shadow" id="rate-dropdown-container">
+                    <div class="absolute top-0 left-0 w-full h-1.5 stat-color-bar transition-colors duration-500"></div>
+                    <div class="w-full relative">
+                        <p class="text-[9px] font-bold text-gray-400 uppercase mb-2">Tarifa Horaria</p>
+                        <button type="button" onclick="toggleRateDropdown()" class="w-full flex items-baseline gap-1.5 text-left focus:outline-none group">
+                            <span class="text-xl font-black text-gray-300 group-hover:text-pink-400 transition-colors">$</span>
+                            <span id="rate-display-value" class="font-black text-4xl text-gray-900 cursor-pointer group-hover:text-pink-600 transition-colors">2.50</span>
+                            <svg id="rate-dropdown-arrow" class="w-5 h-5 text-gray-200 ml-auto transition-transform duration-300 group-hover:text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="rate-dropdown-menu" class="absolute left-0 right-0 top-[110%] bg-white rounded-xl shadow-2xl border border-gray-100 opacity-0 invisible transition-all duration-300 transform scale-95 origin-top z-[100] p-5">
+                            <p class="text-[8px] font-black text-gray-400 uppercase mb-4 text-center">Presets de Cobro</p>
+                            <div class="grid grid-cols-3 gap-2 mb-5">
+                                <button onclick="setCustomRate(2.50)" class="py-3 bg-gray-50 hover:bg-pink-50 hover:text-pink-600 rounded-lg text-[10px] font-black transition-colors text-gray-800">2.50</button>
+                                <button onclick="setCustomRate(3.12)" class="py-3 bg-gray-50 hover:bg-pink-50 hover:text-pink-600 rounded-lg text-[10px] font-black transition-colors text-gray-800">3.12</button>
+                                <button onclick="setCustomRate(5.00)" class="py-3 bg-gray-50 hover:bg-pink-50 hover:text-pink-600 rounded-lg text-[10px] font-black transition-colors text-gray-800">5.00</button>
+                            </div>
+                            <div class="flex items-center gap-2 bg-gray-50 p-2 rounded-lg">
+                                <input type="number" id="custom-rate-input" step="0.01" class="w-full bg-transparent px-3 py-2 text-xs font-black text-center focus:outline-none no-spinners" placeholder="Manual">
+                                <button onclick="submitCustomRate()" class="bg-gray-900 text-white p-2.5 rounded-lg hover:bg-pink-600 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="card-total" class="p-7 rounded-lg shadow-md relative overflow-hidden flex flex-col justify-between transition-all duration-500 text-white transform hover:-translate-y-1">
+                    <div class="absolute -right-8 -top-8 w-28 h-28 bg-white opacity-10 rounded-full blur-2xl"></div>
+                    <div class="flex justify-between items-start relative z-10">
+                        <div><p class="text-[9px] font-bold uppercase mb-2 opacity-70">Total Estimado</p><h3 class="text-4xl font-black" id="stat-total">$0.00</h3></div>
+                        <div class="p-3 rounded-lg bg-white/20 backdrop-blur-sm text-white"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabla Principal -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-100 mb-8 relative z-10">
+                <div id="table-header" class="p-4 flex justify-between items-center transition-colors duration-500 rounded-t-lg">
+                    <div class="flex items-center gap-6">
+                        <h2 class="font-black text-[10px] uppercase text-white" id="table-title">REGISTRO SEMANAL</h2>
+                        <button id="btn-invoice" onclick="openInvoiceManager()" class="bg-white/10 hover:bg-white/20 px-5 py-2 rounded-lg text-[9px] font-black uppercase border border-white/20 text-white transition-all">📄 Ver Factura</button>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <button onclick="askResetCurrentWeek()" class="bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-2 rounded-lg text-[9px] font-black uppercase transition-all flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            Procesar y Limpiar
+                        </button>
+                        <button onclick="addRow()" class="bg-white text-gray-900 px-6 py-2 rounded-lg text-[9px] font-black uppercase hover:scale-105 transition-all shadow-md">+ Nueva Tarea</button>
+                    </div>
+                </div>
+                
+                <div class="overflow-visible pb-12">
+                    <table class="w-full text-left table-fixed">
+                        <thead class="bg-gray-50/50 text-[10px] uppercase text-gray-400 font-extrabold border-b">
+                            <tr>
+                                <th class="px-2 py-1.5 w-12 text-center"></th>
+                                <th class="px-6 py-1.5 w-40">Cliente</th>
+                                <th class="px-6 py-1.5 w-auto">Descripción</th>
+                                <th class="px-6 py-1.5 w-44">Categoría</th>
+                                <th class="px-4 py-1.5 w-40 text-center">Cantidad</th>
+                                <th class="px-4 py-1.5 w-52 text-center">T. Unit</th>
+                                <th class="px-2 py-1.5 w-20 text-center">Hrs</th>
+                                <th class="px-2 py-1.5 w-28 text-center">Total</th>
+                                <th class="px-2 py-1.5 w-12 text-right pr-6"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="task-body" class="divide-y divide-gray-50 text-sm"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Gráficos -->
+            <div class="grid grid-cols-2 gap-8 mb-16">
+                <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+                    <h4 class="font-black text-[10px] uppercase text-gray-400 mb-6 text-center">Distribución de Tareas</h4>
+                    <div class="chart-wrapper"><canvas id="categoryChart"></canvas></div>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+                    <h4 class="font-black text-[10px] uppercase text-gray-400 mb-6 text-center">Inversión Temporal (Hrs)</h4>
+                    <div class="chart-wrapper"><canvas id="timeChart"></canvas></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VISTA GESTIÓN DE CLIENTES -->
+        <div id="view-clients" class="hidden animate-fade-in">
+            <div class="flex items-start gap-10">
+                <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100 w-[420px] shrink-0 sticky top-10 max-h-[90vh] overflow-y-auto custom-scrollbar">
+                    <h3 id="client-form-title" class="font-black text-xs uppercase text-pink-600 mb-8">Nuevo Cliente</h3>
+                    <div class="space-y-4">
+                        <input id="c-company" placeholder="NOMBRE DE EMPRESA" class="w-full p-4 bg-gray-50 border border-gray-100 rounded-lg text-xs font-bold uppercase focus:ring-2 focus:ring-pink-500 focus:outline-none transition-all">
+                        <input id="c-person" placeholder="RESPONSABLE" class="w-full p-4 bg-gray-50 border border-gray-100 rounded-lg text-xs font-bold focus:ring-2 focus:ring-pink-500 focus:outline-none transition-all">
+                        <input id="c-rif" placeholder="DOCUMENTO FISCAL (RIF / CIF / NIF)" class="w-full p-4 bg-gray-50 border border-gray-100 rounded-lg text-xs focus:ring-2 focus:ring-pink-500 focus:outline-none transition-all uppercase">
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <input id="c-inv-num" type="number" placeholder="NRO FACTURA (000)" class="w-full p-4 bg-gray-50 border border-pink-100 rounded-lg text-xs font-black text-pink-600 focus:ring-2 focus:ring-pink-500 no-spinners">
+                            <input id="c-inv-suffix" type="text" placeholder="SERIE (AA)" class="w-full p-4 bg-gray-50 border border-pink-100 rounded-lg text-xs font-black text-pink-600 uppercase focus:ring-2 focus:ring-pink-500">
+                        </div>
+
+                        <input id="c-email" placeholder="EMAIL" class="w-full p-4 bg-gray-50 border border-gray-100 rounded-lg text-xs focus:ring-2 focus:ring-pink-500 focus:outline-none">
+                        <input id="c-phone" placeholder="TELÉFONO" class="w-full p-4 bg-gray-50 border border-gray-100 rounded-lg text-xs focus:ring-2 focus:ring-pink-500 focus:outline-none">
+                        <textarea id="c-address" placeholder="DIRECCIÓN COMPLETA" class="w-full p-4 bg-gray-50 border border-gray-100 rounded-lg text-xs h-20 focus:ring-2 focus:ring-pink-500 focus:outline-none"></textarea>
+                        <input id="c-web" placeholder="SITIO WEB" class="w-full p-4 bg-gray-50 border border-gray-100 rounded-lg text-xs focus:ring-2 focus:ring-pink-500 focus:outline-none">
+                        
+                        <div class="flex gap-3 pt-4">
+                            <button id="btn-save-client" onclick="saveNewClient()" class="flex-1 bg-gray-900 text-white py-5 rounded-lg font-black text-[10px] uppercase hover:bg-pink-600 transition-all shadow-xl">Guardar Cliente</button>
+                            <button id="btn-cancel-edit" onclick="cancelEdit()" class="hidden bg-gray-200 text-gray-600 py-5 px-6 rounded-lg font-black text-[10px] uppercase hover:bg-gray-300 transition-all">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <h2 class="font-black text-xs uppercase text-gray-400 mb-8 px-2">Gestión de Clientes</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="clients-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALS -->
+    <div id="history-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-[150] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-lg overflow-hidden flex flex-col max-h-[85vh]">
+            <div class="p-8 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+                <div><h3 class="font-black text-[10px] uppercase text-gray-400 mb-1">Registro de Facturación</h3><p id="history-client-name" class="font-black text-xl text-gray-900 truncate max-w-[320px]"></p></div>
+                <button onclick="closeHistory()" class="bg-white p-3 rounded-lg shadow-sm text-gray-400 hover:text-red-500 transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            </div>
+            <div id="history-list" class="p-8 overflow-y-auto custom-scrollbar flex flex-col gap-4"></div>
+        </div>
+    </div>
+
+    <div id="confirm-reset-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-xl z-[250] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-sm p-10 text-center">
+            <div class="w-20 h-20 bg-emerald-50 text-emerald-500 rounded-lg flex items-center justify-center mx-auto mb-8 rotate-3"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg></div>
+            <h3 class="text-2xl font-black text-gray-900 mb-3 uppercase">¿Procesar Semana?</h3>
+            <p class="text-xs text-gray-500 mb-10 font-bold leading-relaxed">Se marcarán como finalizados y se limpiará la <span class="text-emerald-500 uppercase underline">Semana <span id="reset-week-num"></span></span>.</p>
+            <div class="flex gap-4">
+                <button onclick="closeConfirmReset()" class="flex-1 py-5 rounded-lg bg-gray-100 text-gray-500 font-black text-[10px] uppercase hover:bg-gray-200 transition-colors">No, Regresar</button>
+                <button onclick="executeResetWeek()" class="flex-1 py-5 rounded-lg bg-emerald-500 text-white font-black text-[10px] uppercase hover:bg-emerald-600 transition-all">Sí, Procesar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirm-delete-task-modal" class="fixed inset-0 bg-slate-900/90 backdrop-blur-sm z-[300] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-sm p-10 text-center">
+            <div class="w-20 h-20 bg-red-50 text-red-500 rounded-lg flex items-center justify-center mx-auto mb-8"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></div>
+            <h3 class="text-2xl font-black text-gray-900 mb-3 uppercase">¿Eliminar Tarea?</h3>
+            <p class="text-xs text-gray-500 mb-10 leading-relaxed font-bold">Esta entrada se borrará permanentemente del registro.</p>
+            <div class="flex gap-4">
+                <button onclick="closeConfirmDeleteTask()" class="flex-1 py-5 rounded-lg bg-gray-100 text-gray-500 font-black text-[10px] uppercase hover:bg-gray-200 transition-colors">Cancelar</button>
+                <button onclick="executeDeleteTask()" class="flex-1 py-5 rounded-lg bg-red-600 text-white font-black text-[10px] uppercase hover:bg-red-700 transition-all shadow-lg">Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirm-delete-client-modal" class="fixed inset-0 bg-slate-900/90 backdrop-blur-xl z-[300] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-sm p-10 text-center">
+            <div class="w-20 h-20 bg-red-50 text-red-500 rounded-lg flex items-center justify-center mx-auto mb-8"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></div>
+            <h3 class="text-2xl font-black text-gray-900 mb-3 uppercase">¿Eliminar Cliente?</h3>
+            <p class="text-xs text-gray-500 mb-10 leading-relaxed font-bold">Vas a borrar a <span id="delete-client-name-modal" class="text-red-500"></span> y su historial. Esta acción es irreversible.</p>
+            <div class="flex gap-4">
+                <button onclick="closeConfirmDelete()" class="flex-1 py-5 rounded-lg bg-gray-100 text-gray-500 font-black text-[10px] uppercase hover:bg-gray-200 transition-colors">Cancelar</button>
+                <button onclick="executeDeleteClient()" class="flex-1 py-5 rounded-lg bg-red-600 text-white font-black text-[10px] uppercase hover:bg-red-700 transition-all shadow-xl">Sí, Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirm-invoice-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-xl z-[250] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-sm p-8 text-center">
+            <h3 class="text-xl font-black text-gray-900 mb-6 uppercase">Generar Factura</h3>
+            
+            <div class="space-y-4 text-left mb-8">
+                <div>
+                    <label class="text-[10px] font-black text-gray-400 uppercase block mb-2">Descuento ($)</label>
+                    <input type="number" id="inv-discount-input" class="w-full p-4 bg-gray-50 border border-gray-100 rounded-lg text-xs font-black text-gray-900 focus:ring-2 focus:ring-pink-500 outline-none no-spinners" placeholder="0.00" min="0" step="0.01">
+                </div>
+                <div>
+                    <label class="text-[10px] font-black text-gray-400 uppercase block mb-2">Cantidad Pagada ($)</label>
+                    <input type="number" id="inv-paid-input" class="w-full p-4 bg-gray-50 border border-gray-100 rounded-lg text-xs font-black text-gray-900 focus:ring-2 focus:ring-pink-500 outline-none no-spinners" placeholder="0.00" min="0" step="0.01">
+                </div>
+            </div>
+
+            <div class="flex gap-4">
+                <button onclick="closeConfirmInvoice()" class="flex-1 py-4 rounded-lg bg-gray-100 text-gray-500 font-black text-[10px] uppercase hover:bg-gray-200 transition-colors">Cancelar</button>
+                <button onclick="executeGenerateInvoice()" class="flex-1 py-4 rounded-lg bg-pink-600 text-white font-black text-[10px] uppercase hover:bg-pink-700 transition-all shadow-md">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- INVOICE PREVIEW -->
+    <div id="invoice-preview" class="fixed inset-0 bg-slate-900/95 z-[160] hidden overflow-y-auto py-12 no-print backdrop-blur-xl">
+        <div class="max-w-5xl mx-auto flex flex-col gap-8 mb-20">
+            <div class="flex justify-between items-center text-white px-6">
+                <button onclick="closeInvoicePreview()" class="text-[10px] font-black uppercase flex items-center gap-3 hover:text-pink-400 group"><span class="bg-white/10 p-2 rounded-lg group-hover:bg-pink-500/20 transition-colors">←</span>Volver</button>
+                <button onclick="window.print()" class="bg-pink-600 px-12 py-4 rounded-lg font-black text-[10px] uppercase shadow-2xl flex items-center gap-3"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>Imprimir PDF</button>
+            </div>
+            <div id="invoice-container" class="invoice-paper flex">
+                
+                <!-- Contenedor Izquierdo (Todo el contenido) -->
+                <div class="flex-1 flex flex-col pr-28">
+                    <div class="flex justify-between items-start mb-6">
+                        <h1 class="text-5xl font-black text-black leading-none">¡Hola!</h1>
+                        <div class="text-right flex flex-col items-end leading-[1.1]">
+                            <div class="text-[8pt] text-black"><span class="font-bold mr-1">Fecha:</span> <span id="inv-date" class="font-normal"></span></div>
+                            <div class="text-[8pt] text-black"><span class="font-bold mr-1">Nro. de Factura:</span> <span id="inv-number" class="font-normal"></span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between items-start mb-10">
+                        <div class="w-1/2">
+                            <p class="text-[8pt] font-bold text-black">De<br>Borealis - Creadores de Ideas</p>
+                            <p class="text-[8pt] text-black leading-relaxed mt-1">Angel J. Gómez H.<br>Rif: V-27.258.133-5<br>angeljgomezh@gmail.com<br>Código Postal: 3221</p>
+                        </div>
+                        <div id="inv-to" class="w-1/2 text-right flex flex-col items-end"></div>
+                    </div>
+                    
+                    <table class="w-full mb-8 border-separate" style="border-spacing: 0;">
+                        <thead>
+                            <tr class="text-white text-[8pt] font-black">
+                                <th class="bg-pink-600 py-2.5 pl-5 pr-0 text-left uppercase rounded-tl-[6px]">Descripción</th>
+                                <th class="bg-pink-600 py-2.5 pr-5 text-right uppercase rounded-tr-[6px]">Tarifa</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inv-rows" class="text-[8pt]"></tbody>
+                    </table>
+                    
+                    <div class="flex justify-between items-start mb-8 gap-6">
+                        <div class="w-[60%] flex items-start gap-4">
+                            <div class="text-[8pt] text-black leading-relaxed flex-1">
+                                <p><b>Instrucciones de Pago:</b></p>
+                                <p>Opciones de Binance Pay:</p>
+                                <p>Correo: Angeljgomezh@gmail.com</p>
+                                <p>User: AngelJGomezH</p>
+                                <p>ID: 407 915 290</p>
+                                <p><b>QR:</b></p>
+                            </div>
+                            <img src="qr.png" class="w-24 h-24 rounded-lg border border-gray-200 shadow-sm shrink-0">
+                        </div>
+                        <div class="w-[40%] space-y-1.5">
+                            <div class="flex justify-between text-[8pt] text-black"><span>Total Parcial:</span><span id="inv-subtotal" class="font-bold"></span></div>
+                            <div class="flex justify-between text-[8pt] text-black"><span>Descuento:</span><span id="inv-discount" class="font-bold"></span></div>
+                            <div class="flex justify-between text-[8pt] text-black"><span>Incremento por cambios:</span><span id="inv-ajustes" class="font-bold"></span></div>
+                            <div class="h-px bg-gray-200 my-2"></div>
+                            <div class="flex justify-between text-[8pt] font-black text-black"><span>Total:</span><span id="inv-total"></span></div>
+                            <div class="flex justify-between text-[8pt] text-black mt-2"><span>Cantidad pagada:</span><span id="inv-paid" class="font-bold"></span></div>
+                            <div class="bg-pink-50 p-3 rounded-lg flex justify-between items-center mt-3 border border-pink-100">
+                                <span class="text-[8pt] font-black text-pink-700 uppercase">Saldo Adeudado:</span>
+                                <span id="inv-balance" class="text-[8pt] font-black text-pink-700"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <footer class="mt-auto flex justify-between items-end">
+                        <div class="text-[6pt] text-black space-y-1 leading-tight">
+                            <div class="flex items-center gap-2">
+                                <div class="w-0.5 h-2 bg-[#00AEEF]"></div>
+                                <p><span class="font-bold">Teléfono:</span> +58 414 - 3571705</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-0.5 h-2 bg-[#E2007A]"></div>
+                                <p><span class="font-bold">Web:</span> http://borealis.com.ve</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-0.5 h-2 bg-[#FFF200]"></div>
+                                <p><span class="font-bold">Correo:</span> contacto@borealis.com.ve</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-0.5 h-2 bg-[#000000]"></div>
+                                <p><span class="font-bold">Dirección:</span> Independencia - Estado Yaracuy - Venezuela</p>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+
+                <!-- Columna Derecha -->
+                <div class="absolute top-0 bottom-0 right-10 w-28 bg-white flex flex-col pr-9 pl-0">
+                    <img src="logo_carta.png" class="h-full w-full object-cover object-left mix-blend-multiply" onerror="this.style.display='none'">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Integración de Base de Datos API (Cloudflare Workers + KV) y Seguridad -->
+    <script>
+        // --- CONFIGURACIÓN DE CLOUDFLARE ---
+        const CLOUDFLARE_WORKER_URL = "https://borealis-api.borealiscreadoresdeideas.workers.dev";
+        
+        // Variables Globales de la App
+        let SECRET_KEY = localStorage.getItem('borealis_auth_key') || "";
+        let currentWeek = 1;
+        let selectedClientId = null;
+        let clientToDeleteId = null;
+        let taskToDeleteId = null; 
+        let dataByClient = {};
+        let clients = [];
+        let categoryChart = null, timeChart = null;
+        let editingClientId = null, activeCategoryDropdown = null;
+
+        const weekColors = { 1: { accent: '#E2007A', text: '#fff' }, 2: { accent: '#FACC15', text: '#000' }, 3: { accent: '#06B6D4', text: '#fff' }, 4: { accent: '#111827', text: '#fff' } };
+        const taskTypes = ["VSL", "Ads", "Reels", "Long Form", "Diseño", "Ajustes"];
+        const categoryColors = ['#E2007A', '#FACC15', '#06B6D4', '#111827', '#6366F1', '#F97316'];
+
+        // Sistema de Carga y Autenticación con Respaldo Local Garantizado
+        async function load() {
+            if (!SECRET_KEY) {
+                showLoginScreen();
+                return;
+            }
+
+            // Intentar cargar desde Cloudflare
+            try {
+                const response = await fetch(`${CLOUDFLARE_WORKER_URL}/get-data`, {
+                    method: 'GET',
+                    headers: { 'Authorization': SECRET_KEY }
+                });
+
+                if (response.ok) {
+                    const parsed = await response.json();
+                    if (Object.keys(parsed).length > 0) {
+                        dataByClient = parsed.dataByClient || {};
+                        clients = parsed.clients || [];
+                        selectedClientId = parsed.selectedClientId || null;
+                        
+                        // Actualizar respaldo local con lo más nuevo de la nube
+                        localStorage.setItem('borealis_workstation_data_v2', JSON.stringify(parsed));
+                    }
+                    document.getElementById('cloud-status').classList.remove('hidden');
+                    unlockApp();
+                } else if (response.status === 401) {
+                    showLoginError("Clave incorrecta. Intenta de nuevo.");
+                    logout(false);
+                    return;
+                } else {
+                    throw new Error("Cloudflare Error");
+                }
+            } catch(e) { 
+                console.warn("Fallo conectando a la nube, usando respaldo local:", e); 
+                // PARACAÍDAS: Si hay un error de red pero ya teníamos sesión, entramos con datos locales
+                if (SECRET_KEY) {
+                    loadLocalFallback();
+                    document.getElementById('cloud-status').classList.add('hidden'); // Ocultar indicador nube
+                    unlockApp();
+                } else {
+                    showLoginError("Sin conexión y sin datos previos.");
+                    showLoginScreen();
+                    return;
+                }
+            }
+        }
+
+        function loadLocalFallback() {
+            try {
+                let saved = localStorage.getItem('borealis_workstation_data_v2');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    dataByClient = parsed.dataByClient || {};
+                    clients = parsed.clients || [];
+                    selectedClientId = parsed.selectedClientId || null;
+                }
+            } catch (err) {
+                console.error("Error crítico leyendo localStorage:", err);
+            }
+        }
+
+        async function saveData() {
+            const payloadObj = { dataByClient, clients, selectedClientId };
+            
+            // 1. SIEMPRE guardar copia local primero (Seguridad inmediata)
+            try { 
+                localStorage.setItem('borealis_workstation_data_v2', JSON.stringify(payloadObj)); 
+            } catch (e) { console.error("Fallo guardado local:", e); }
+            
+            // 2. Enviar a Cloudflare si hay sesión activa
+            if (SECRET_KEY) {
+                try {
+                    fetch(`${CLOUDFLARE_WORKER_URL}/save-data`, {
+                        method: 'POST',
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'Authorization': SECRET_KEY
+                        },
+                        body: JSON.stringify(payloadObj)
+                    }).catch(err => console.warn("Error de sincronización nube (se reintentará luego):", err));
+                } catch (e) {}
+            }
+        }
+
+        // --- Funciones de Pantalla Login ---
+        function handleLogin(e) {
+            e.preventDefault();
+            const pass = document.getElementById('auth-password').value;
+            if(!pass) return;
+            
+            const btn = document.getElementById('btn-login');
+            const originalText = btn.innerText;
+            btn.innerText = "Verificando...";
+            btn.disabled = true;
+
+            SECRET_KEY = pass;
+            localStorage.setItem('borealis_auth_key', pass);
+            
+            load().finally(() => {
+                btn.innerText = originalText;
+                btn.disabled = false;
+            });
+        }
+
+        function showLoginScreen() {
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('main-ui').style.display = 'none';
+        }
+
+        function unlockApp() {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('login-error').classList.add('hidden');
+            document.getElementById('main-ui').style.display = 'block';
+            initUI();
+        }
+
+        function showLoginError(msg) {
+            const errorEl = document.getElementById('login-error');
+            errorEl.innerText = msg;
+            errorEl.classList.remove('hidden');
+            showLoginScreen();
+        }
+
+        function logout(reload = true) {
+            SECRET_KEY = "";
+            localStorage.removeItem('borealis_auth_key');
+            if (reload) location.reload();
+        }
+
+        // --- Inicialización y Resto de Funciones UI ---
+        function initUI() {
+            updateClientSelector();
+            renderClientsGrid();
+            if (selectedClientId) selectClient(selectedClientId);
+            else { updateUIColors(); renderTable(); }
+            setTimeout(initCharts, 300);
+            setupClickOutsides();
+        }
+
+        function switchTab(tab) {
+            document.getElementById('view-dashboard').classList.toggle('hidden', tab !== 'dashboard');
+            document.getElementById('view-clients').classList.toggle('hidden', tab !== 'clients');
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('tab-active'));
+            document.getElementById(`tab-${tab}`).classList.add('tab-active');
+            if(tab === 'clients') cancelEdit();
+        }
+
+        function changeWeek(w) {
+            currentWeek = w;
+            updateUIColors();
+            renderTable();
+            updateCharts();
+        }
+
+        function updateUIColors() {
+            const c = weekColors[currentWeek];
+            document.querySelectorAll('.week-btn').forEach((btn, i) => {
+                const w = i + 1;
+                if (w === currentWeek) {
+                    btn.style.backgroundColor = weekColors[w].accent;
+                    btn.style.color = weekColors[w].text;
+                    btn.style.borderColor = weekColors[w].accent;
+                    btn.classList.add('shadow-lg');
+                } else {
+                    btn.style.backgroundColor = '#fff';
+                    btn.style.color = '#94a3b8';
+                    btn.style.borderColor = 'transparent';
+                    btn.classList.remove('shadow-lg');
+                }
+            });
+            document.querySelectorAll('.stat-color-bar').forEach(el => el.style.backgroundColor = c.accent);
+            document.querySelectorAll('.stat-icon').forEach(el => el.style.color = c.accent);
+            const tableHeader = document.getElementById('table-header');
+            if (tableHeader) tableHeader.style.backgroundColor = c.accent;
+            const cardTotal = document.getElementById('card-total');
+            if (cardTotal) cardTotal.style.backgroundColor = c.accent;
+            document.getElementById('table-title').innerText = `REGISTRO SEMANA ${currentWeek}`;
+            if (selectedClientId && dataByClient[selectedClientId]) {
+                const rate = dataByClient[selectedClientId].rates[currentWeek] || 0;
+                document.getElementById('rate-display-value').innerText = rate.toFixed(2);
+            } else {
+                document.getElementById('rate-display-value').innerText = "0.00";
+            }
+            updateInvoiceButtonState();
+        }
+
+        function toggleClientDropdown() {
+            const menu = document.getElementById('client-dropdown-menu');
+            const arrow = document.getElementById('client-dropdown-arrow');
+            menu.classList.toggle('dropdown-open'); arrow.classList.toggle('arrow-up');
+        }
+
+        function updateClientSelector() {
+            const list = document.getElementById('client-dropdown-list');
+            const triggerText = document.getElementById('custom-client-selector-text');
+            let html = `<button onclick="handleClientSelect(null)" class="w-full text-left px-5 py-4 rounded-lg text-[9px] font-black text-gray-400 hover:bg-gray-50 transition-colors uppercase italic">Desactivar Cliente</button>`;
+            clients.forEach(c => {
+                const isSelected = c.id == selectedClientId;
+                const displayName = c.company || c.person;
+                if(isSelected) triggerText.innerText = displayName;
+                html += `<button onclick="handleClientSelect(${c.id})" class="w-full text-left px-5 py-4 rounded-lg text-[10px] font-black uppercase transition-all flex justify-between items-center ${isSelected ? 'bg-pink-50 text-pink-600 shadow-sm' : 'text-gray-700 hover:bg-gray-50'} mb-2 group"><span class="truncate pr-4">${displayName}</span>${isSelected ? '<svg class="w-4 h-4 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>' : ''}</button>`;
+            });
+            if (!selectedClientId) triggerText.innerText = 'Seleccionar...';
+            list.innerHTML = html;
+        }
+
+        function handleClientSelect(id) { selectClient(id); toggleClientDropdown(); }
+
+        function selectClient(id) {
+            selectedClientId = id;
+            const badge = document.getElementById('active-client-badge');
+            const nameSpan = document.getElementById('current-client-name');
+            if (!id) { badge.classList.add('hidden'); updateStats(true); renderTable(); saveData(); updateClientSelector(); renderClientsGrid(); return; }
+            const client = clients.find(c => c.id == id); badge.classList.remove('hidden'); nameSpan.innerText = client.company || client.person;
+            if (!dataByClient[id]) dataByClient[id] = { weeks: { 1: [], 2: [], 3: [], 4: [] }, rates: { 1: 2.50, 2: 2.50, 3: 2.50, 4: 2.50 }, invoices: { 1: null, 2: null, 3: null, 4: null }, history: [] };
+            updateUIColors(); renderTable(); saveData(); updateClientSelector(); renderClientsGrid();
+        }
+
+        function saveNewClient() {
+            const company = document.getElementById('c-company').value.trim();
+            const person = document.getElementById('c-person').value.trim();
+            if (!company && !person) return;
+            const clientData = {
+                id: editingClientId || Date.now(),
+                company: company.toUpperCase(),
+                person: person,
+                rif: document.getElementById('c-rif').value.toUpperCase(),
+                invNum: parseInt(document.getElementById('c-inv-num').value) || 0,
+                invSuffix: document.getElementById('c-inv-suffix').value.toUpperCase(),
+                email: document.getElementById('c-email').value,
+                phone: document.getElementById('c-phone').value,
+                address: document.getElementById('c-address').value,
+                web: document.getElementById('c-web').value
+            };
+            if (editingClientId) { const idx = clients.findIndex(c => c.id === editingClientId); clients[idx] = clientData; }
+            else clients.push(clientData);
+            saveData(); updateClientSelector(); renderClientsGrid(); cancelEdit();
+        }
+
+        function editClient(id) {
+            const c = clients.find(x => x.id === id); if(!c) return;
+            document.getElementById('c-company').value = c.company || "";
+            document.getElementById('c-person').value = c.person || "";
+            document.getElementById('c-rif').value = c.rif || "";
+            document.getElementById('c-inv-num').value = c.invNum || 0;
+            document.getElementById('c-inv-suffix').value = c.invSuffix || "";
+            document.getElementById('c-email').value = c.email || "";
+            document.getElementById('c-phone').value = c.phone || "";
+            document.getElementById('c-address').value = c.address || "";
+            document.getElementById('c-web').value = c.web || "";
+            editingClientId = id; document.getElementById('client-form-title').innerText = "Editar Cliente";
+            document.getElementById('btn-save-client').innerText = "Actualizar";
+            document.getElementById('btn-cancel-edit').classList.remove('hidden');
+        }
+
+        function cancelEdit() { 
+            editingClientId = null; 
+            ['c-company', 'c-person', 'c-rif', 'c-inv-num', 'c-inv-suffix', 'c-email', 'c-phone', 'c-address', 'c-web'].forEach(id => document.getElementById(id).value = ""); 
+            document.getElementById('client-form-title').innerText = "Nuevo Cliente"; 
+            document.getElementById('btn-save-client').innerText = "Guardar Cliente"; 
+            document.getElementById('btn-cancel-edit').classList.add('hidden'); 
+        }
+
+        function renderClientsGrid() {
+            const grid = document.getElementById('clients-grid');
+            grid.innerHTML = clients.map(c => {
+                const displayName = c.company || c.person;
+                const formattedInvoice = String(c.invNum).padStart(3, '0') + (c.invSuffix || '');
+                const isActive = c.id == selectedClientId;
+                
+                return `<div class="bg-white border ${isActive ? 'border-emerald-200 bg-emerald-50/10' : 'border-gray-100'} rounded-lg p-5 shadow-sm relative hover:border-pink-300 transition-all group animate-fade-in text-[10px]">
+                    <div class="absolute top-4 right-4 flex gap-1 opacity-0 group-hover:opacity-100 transition-all">
+                        <button onclick="editClient(${c.id})" class="bg-white shadow-sm border border-gray-100 text-gray-400 hover:text-blue-500 p-1 rounded text-[10px]">✏️</button>
+                        <button onclick="openHistory(${c.id})" class="bg-white shadow-sm border border-gray-100 text-gray-400 hover:text-emerald-500 p-1 rounded text-[10px]">🕒</button>
+                        <button onclick="askDeleteClient(${c.id})" class="bg-white shadow-sm border border-gray-100 text-gray-400 hover:text-red-500 p-1 rounded text-[10px]">✕</button>
+                    </div>
+                    <h4 class="font-black text-sm uppercase text-gray-900 pr-12 leading-tight truncate">${displayName}</h4>
+                    <p class="font-bold text-[9px] text-gray-400 uppercase mb-3 mt-0.5 truncate">${c.person || 'Sin Responsable'}</p>
+                    <div class="space-y-1.5 mb-4">
+                        <div class="flex justify-between items-center bg-gray-50/50 p-1.5 rounded-lg text-[8px]"><span class="font-black uppercase text-gray-400">RIF:</span><span class="text-gray-700 font-bold">${c.rif || 'N/A'}</span></div>
+                        <div class="flex justify-between items-center bg-pink-50/30 p-1.5 rounded-lg text-[8px]"><span class="font-black uppercase text-pink-400">FACTURA:</span><span class="text-pink-600 font-black">${formattedInvoice}</span></div>
+                        <div class="px-2 space-y-1 mt-2 border-t border-gray-50 pt-2">
+                            <div class="flex items-center gap-2 overflow-hidden"><svg class="w-3 h-3 text-gray-300 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg><span class="truncate text-gray-500">${c.email || 'Sin correo'}</span></div>
+                            <div class="flex items-center gap-2"><svg class="w-3 h-3 text-gray-300 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg><span class="text-gray-500">${c.phone || 'Sin teléfono'}</span></div>
+                            <div class="flex items-center gap-2 overflow-hidden"><svg class="w-3 h-3 text-gray-300 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg><span class="truncate text-gray-500">${c.address || 'Sin dirección'}</span></div>
+                            <div class="flex items-center gap-2 text-blue-400 font-bold overflow-hidden"><svg class="w-3 h-3 text-blue-200 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.083 9h1.946c.089-1.546.383-2.97.837-4.118A6.004 6.004 0 004.083 9zM10 2a8 8 0 100 16 8 8 0 000-16zm0 2c-.076 0-.232.032-.465.262-.238.234-.497.623-.737 1.182-.389.907-.673 2.125-.766 3.556h3.936c-.093-1.431-.377-2.649-.766-3.556-.24-.559-.499-.948-.737-1.182C10.232 4.032 10.076 4 10 4zm3.134 5c-.089-1.546-.383-2.97-.837-4.118A6.004 6.004 0 0115.917 9h-1.946zm-8.268 2c.093 1.431.377 2.649.766 3.556.24.559.499.948.737 1.182.233.23.389.262.465.262.076 0 .232-.032.465-.262.238-.234.497-.623.737-1.182.389-.907.673-2.125.766-3.556H8.032zm3.102 4.118c-.454-1.147-.748-2.572-.837-4.118H8.351a6.004 6.004 0 004.118 4.118zm2.517-4.118c-.089 1.546-.383 2.97-.837 4.118A6.004 6.004 0 0015.917 11h-1.946z" clip-rule="evenodd"/></svg><span class="truncate">${c.web || 'N/A'}</span></div>
+                        </div>
+                    </div>
+                    <button onclick="selectClient(${c.id}); switchTab('dashboard');" 
+                        class="w-full py-2.5 ${isActive ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-gray-900 hover:bg-pink-600'} text-white rounded-lg font-black uppercase transition-all shadow-md">
+                        ${isActive ? 'Cliente Activo' : 'Activar Cliente'}
+                    </button>
+                </div>`;
+            }).join('');
+        }
+
+        function renderTable() {
+            const body = document.getElementById('task-body'); body.innerHTML = "";
+            if (!selectedClientId) { body.innerHTML = '<tr><td colspan="9" class="py-32 text-center uppercase font-black text-gray-200 text-xs">Activa un cliente para empezar</td></tr>'; updateStats(true); return; }
+            const tasks = dataByClient[selectedClientId].weeks[currentWeek];
+            if(tasks.length === 0) body.innerHTML = '<tr><td colspan="9" class="py-24 text-center uppercase font-black text-gray-300 text-[10px]">Semana vacía ↓</td></tr>';
+            
+            tasks.forEach(t => {
+                const tr = document.createElement('tr'); 
+                tr.className = `hover:bg-gray-50/50 transition-all group border-b border-gray-50 ${t.done ? 'row-done' : ''}`;
+                tr.setAttribute('data-id', t.id);
+                
+                tr.innerHTML = `
+                    <td class="px-2 py-1.5 text-center">
+                        <input type="checkbox" ${t.done ? 'checked' : ''} onchange="updateTask(${t.id}, 'done', this.checked)" class="w-4 h-4 rounded-lg border-gray-300 text-pink-600 cursor-pointer">
+                    </td>
+                    <td class="px-6 py-1.5"><input type="text" value="${t.client || ''}" oninput="updateTask(${t.id},'client',this.value)" class="w-full bg-transparent font-bold focus:outline-none text-xs" placeholder="..."></td>
+                    <td class="px-6 py-1.5"><input type="text" value="${t.desc}" oninput="updateTask(${t.id},'desc',this.value)" class="w-full bg-transparent font-bold focus:outline-none text-xs" placeholder="..."></td>
+                    <td class="px-6 py-1.5 relative">
+                        <div class="relative w-full category-dropdown-wrapper">
+                            <button onclick="toggleCategoryDropdown(event, ${t.id})" class="w-full flex items-center justify-between bg-gray-100 hover:bg-gray-200 text-gray-700 text-[10px] font-black uppercase px-4 py-1 rounded-lg transition-all outline-none">
+                                <span>${t.type}</span>
+                                <svg class="w-3 h-3 text-gray-400 shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div id="cat-menu-${t.id}" class="absolute left-0 top-full mt-1 w-full bg-white rounded-lg shadow-2xl border border-gray-100 opacity-0 invisible transition-all duration-200 transform scale-95 origin-top z-[200] overflow-hidden">
+                                <div class="max-h-48 overflow-y-auto p-2 flex flex-col gap-1">
+                                    ${taskTypes.map(type => `<button onclick="selectCategory(event, ${t.id}, '${type}')" class="w-full text-left px-4 py-2 text-[9px] font-black uppercase rounded-lg transition-colors ${t.type===type?'bg-pink-50 text-pink-600':'text-gray-500 hover:bg-gray-50'}">${type}</button>`).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-4 py-1.5">
+                        <div class="flex items-center justify-center bg-gray-50 rounded-lg p-1 border border-gray-100 w-full max-w-[120px] mx-auto">
+                            <button onclick="stepValue(${t.id}, 'cant', -1)" class="w-7 h-7 flex items-center justify-center text-gray-400 hover:text-pink-600 hover:bg-white rounded transition-all text-sm font-black">-</button>
+                            <input type="number" value="${t.cant}" oninput="updateTask(${t.id},'cant',this.value)" class="w-12 text-center bg-transparent no-spinners text-[11px] font-black outline-none">
+                            <button onclick="stepValue(${t.id}, 'cant', 1)" class="w-7 h-7 flex items-center justify-center text-gray-400 hover:text-pink-600 hover:bg-white rounded transition-all text-sm font-black">+</button>
+                        </div>
+                    </td>
+                    <td class="px-4 py-1.5">
+                        <div class="flex items-center gap-2 justify-center">
+                            <div class="flex items-center bg-gray-50 rounded-lg p-1 border border-gray-100 max-w-[110px]">
+                                <button onclick="stepValue(${t.id}, 'time', -0.25)" class="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-pink-600 hover:bg-white rounded transition-all text-sm font-black">-</button>
+                                <input type="number" value="${t.time}" step="0.25" oninput="updateTask(${t.id},'time',this.value)" class="w-10 text-center bg-transparent no-spinners text-[11px] font-black outline-none">
+                                <button onclick="stepValue(${t.id}, 'time', 0.25)" class="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-pink-600 hover:bg-white rounded transition-all text-sm font-black">+</button>
+                            </div>
+                            <div class="unit-toggle shrink-0">
+                                <button onclick="setUnit(${t.id}, 'h')" class="${(t.unit || 'h') === 'h' ? 'unit-active' : ''}">H</button>
+                                <button onclick="setUnit(${t.id}, 'm')" class="${(t.unit || 'h') === 'm' ? 'unit-active' : ''}">M</button>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-2 py-1.5 text-center font-black text-gray-400 text-xs">${t.totalHrs.toFixed(2)}</td>
+                    <td class="px-2 py-1.5 text-center font-black text-gray-900 text-xs">$${t.price.toFixed(2)}</td>
+                    <td class="px-2 py-1.5 text-right pr-6">
+                        <button onclick="removeTask(${t.id})" class="text-gray-300 hover:text-red-500 opacity-50 hover:opacity-100 transition-all p-1">✕</button>
+                    </td>`;
+                body.appendChild(tr);
+            });
+            updateStats();
+        }
+
+        function addRow() { 
+            if(!selectedClientId) { switchTab('clients'); return; } 
+            dataByClient[selectedClientId].weeks[currentWeek].push({ 
+                id: Date.now(), client: "", desc: "", type: "Ads", cant: 1, time: 0, unit: 'h', totalHrs: 0, price: 0, done: false 
+            }); 
+            renderTable(); 
+        }
+
+        function updateTask(id, field, val) {
+            const t = dataByClient[selectedClientId].weeks[currentWeek].find(x => x.id === id); if (!t) return;
+            if (field === 'done') { t.done = val; renderTable(); saveData(); return; }
+            t[field] = (field === 'cant' || field === 'time') ? parseFloat(val) || 0 : val;
+            const unitValue = t.unit === 'm' ? (t.time / 60) : t.time;
+            t.totalHrs = t.cant * unitValue; 
+            t.price = t.totalHrs * dataByClient[selectedClientId].rates[currentWeek];
+            saveData(); updateStats();
+            const row = document.querySelector(`tr[data-id="${id}"]`); 
+            if(row) { 
+                row.children[6].innerText = t.totalHrs.toFixed(2); 
+                row.children[7].innerText = "$" + t.price.toFixed(2); 
+            }
+            updateCharts();
+        }
+
+        function removeTask(id) { 
+            taskToDeleteId = id;
+            document.getElementById('confirm-delete-task-modal').classList.remove('hidden');
+        }
+        function closeConfirmDeleteTask() { 
+            taskToDeleteId = null;
+            document.getElementById('confirm-delete-task-modal').classList.add('hidden');
+        }
+        function executeDeleteTask() {
+            if (taskToDeleteId && selectedClientId) {
+                dataByClient[selectedClientId].weeks[currentWeek] = dataByClient[selectedClientId].weeks[currentWeek].filter(x => x.id !== taskToDeleteId); 
+                saveData(); 
+                renderTable(); 
+                updateCharts();
+            }
+            closeConfirmDeleteTask();
+        }
+
+        function stepValue(id, field, delta) {
+            const t = dataByClient[selectedClientId].weeks[currentWeek].find(x => x.id === id);
+            if (!t) return;
+            const currentVal = parseFloat(t[field]) || 0;
+            const newVal = Math.max(0, currentVal + delta);
+            t[field] = newVal;
+            updateTask(id, field, newVal);
+            renderTable();
+        }
+
+        function setUnit(id, unit) {
+            const t = dataByClient[selectedClientId].weeks[currentWeek].find(x => x.id === id);
+            if (!t) return;
+            t.unit = unit;
+            updateTask(id, 'unit', unit);
+            renderTable();
+        }
+
+        function updateStats(reset = false) {
+            const hEl = document.getElementById('stat-hours'), tEl = document.getElementById('stat-tasks'), dEl = document.getElementById('stat-tasks-done'), totEl = document.getElementById('stat-total');
+            if (reset) { hEl.innerText="0.00"; tEl.innerText="0"; dEl.innerText="0"; totEl.innerText="$0.00"; return; }
+            const d = dataByClient[selectedClientId].weeks[currentWeek], h = d.reduce((a,b)=>a+b.totalHrs, 0), p = d.reduce((a,b)=>a+b.price, 0), doneCount = d.filter(t => t.done).length;
+            hEl.innerText = h.toFixed(2); tEl.innerText = d.length; dEl.innerText = doneCount; totEl.innerText = "USD " + p.toLocaleString('es-ES', {minimumFractionDigits: 2});
+        }
+
+        function initCharts() {
+            try {
+                const ctx1 = document.getElementById('categoryChart').getContext('2d');
+                categoryChart = new Chart(ctx1, { type: 'doughnut', data: { labels: taskTypes, datasets: [{ data: Array(taskTypes.length).fill(0), backgroundColor: categoryColors, borderWidth: 4, borderColor: '#fff' }] }, options: { cutout: '80%', maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { font: { size: 9, weight: '900', family: 'Montserrat' }, boxWidth: 8, padding: 15 } } } } });
+                const ctx2 = document.getElementById('timeChart').getContext('2d');
+                timeChart = new Chart(ctx2, { type: 'bar', data: { labels: taskTypes, datasets: [{ label: 'Horas', data: Array(taskTypes.length).fill(0), backgroundColor: categoryColors, borderRadius: 4 }] }, options: { maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, border: { display: false }, ticks: { font: { size: 9, weight: '700' } } }, x: { grid: { display: false }, ticks: { font: { size: 8, weight: '800' } } } } } });
+                updateCharts();
+            } catch (e) {}
+        }
+
+        function updateCharts() { if(!categoryChart || !selectedClientId) return; const d = dataByClient[selectedClientId].weeks[currentWeek]; categoryChart.data.datasets[0].data = taskTypes.map(type => d.filter(t => t.type === type).length); categoryChart.update(); timeChart.data.datasets[0].data = taskTypes.map(type => d.filter(t => t.type === type).reduce((a,b)=>a+b.totalHrs, 0)); timeChart.update(); }
+
+        function openInvoiceManager() {
+            if(!selectedClientId) return; const client = clients.find(c => c.id == selectedClientId), data = dataByClient[selectedClientId], tasks = data.weeks[currentWeek];
+            if(tasks.length === 0) return;
+            let inv = data.invoices[currentWeek];
+            if (!inv) {
+                document.getElementById('inv-discount-input').value = "";
+                document.getElementById('inv-paid-input').value = "";
+                document.getElementById('confirm-invoice-modal').classList.remove('hidden');
+            } else {
+                renderInvoiceFromData(selectedClientId, data.history.indexOf(inv));
+            }
+        }
+
+        function closeConfirmInvoice() {
+            document.getElementById('confirm-invoice-modal').classList.add('hidden');
+        }
+
+        function executeGenerateInvoice() {
+            const client = clients.find(c => c.id == selectedClientId);
+            const data = dataByClient[selectedClientId];
+            const tasks = data.weeks[currentWeek];
+            const discount = parseFloat(document.getElementById('inv-discount-input').value) || 0;
+            const paid = parseFloat(document.getElementById('inv-paid-input').value) || 0;
+
+            let inv = { 
+                number: String(client.invNum).padStart(3, '0') + (client.invSuffix || ''), 
+                date: new Date().toLocaleDateString('es-ES', { day: 'numeric', month: '2-digit', year: 'numeric' }), 
+                tasks: JSON.parse(JSON.stringify(tasks)), 
+                week: currentWeek,
+                discount: discount,
+                paid: paid
+            };
+            
+            data.history.unshift(inv); 
+            data.invoices[currentWeek] = inv; 
+            client.invNum++; 
+            saveData(); 
+            renderClientsGrid(); 
+            updateInvoiceButtonState();
+            closeConfirmInvoice();
+            renderInvoiceFromData(selectedClientId, 0);
+        }
+
+        function renderInvoiceFromData(clientId, historyIndex) {
+            const client = clients.find(c => c.id == clientId), inv = dataByClient[clientId].history[historyIndex];
+            if (!inv) return; 
+            document.getElementById('inv-date').innerText = inv.date; 
+            document.getElementById('inv-number').innerText = inv.number;
+            
+            let details = [];
+            if (client.rif) details.push(client.rif);
+            if (client.email) details.push(client.email);
+            if (client.phone) details.push(client.phone);
+            if (client.address) details.push(client.address);
+            if (client.web) details.push(client.web);
+
+            let cobroA = `<p class="font-bold text-[8pt] mb-1 text-black">Cobro a</p>`;
+            if (client.company) cobroA += `<p class="text-[8pt] font-regular text-regular mb-2 leading-tight">${client.company}</p>`;
+            if (client.person) cobroA += `<p class="text-[8pt] font-normal text-regular leading-tight">${client.person}</p>`;
+            if (details.length > 0) cobroA += `<p class="text-[8pt] text-regular leading-tight mt-0.5">${details.join('<br>')}</p>`;
+
+            document.getElementById('inv-to').innerHTML = cobroA;
+
+            const formatNum = (n) => n.toLocaleString('es-ES', {minimumIntegerDigits: 2, minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+            context.font = "900 8pt Montserrat, sans-serif";
+            let maxClientWidth = 0;
+            let maxTypeWidth = 0;
+            inv.tasks.forEach(t => {
+                const text = (t.client ? t.client.trim() : 'General').toUpperCase();
+                const width = context.measureText(text).width;
+                if (width > maxClientWidth) maxClientWidth = width;
+                
+                const typeText = (t.type ? t.type.trim() : '').toUpperCase();
+                const typeWidth = context.measureText(typeText).width;
+                if (typeWidth > maxTypeWidth) typeWidth = typeWidth;
+            });
+            const clientColWidth = (Math.ceil(maxClientWidth) + 4) + 'px';
+            const typeColWidth = (Math.ceil(maxTypeWidth) + 4) + 'px';
+
+            document.getElementById('inv-rows').innerHTML = inv.tasks.map((t, idx) => `<tr class="${idx % 2 !== 0 ? 'bg-gray-50' : 'bg-white'}"><td class="py-1 pl-5 pr-0 text-left border-b border-gray-100"><div class="grid gap-2 items-center font-regular uppercase text-[8pt] text-regular" style="grid-template-columns: ${clientColWidth} 10px ${typeColWidth} 10px 40px;"><span class="whitespace-nowrap">${t.client ? t.client : 'General'}</span><span class="text-gray-300 font-normal text-center">|</span><span class="whitespace-nowrap">${t.type}</span><span class="text-gray-300 font-normal text-center">|</span><span class="text-center">${t.cant}</span></div><p class="text-[8pt] text-regular font-bold italic opacity-70 mt-0.5">${t.desc || 'Sin descripción'}</p></td><td class="py-1 pr-5 text-right font-regular border-b border-gray-100 text-regular text-[8pt]">USD ${formatNum(t.price)}</td></tr>`).join('');
+            
+            const tasks = inv.tasks;
+            const ajustes = tasks.filter(t => t.type === 'Ajustes').reduce((a,b) => a + b.price, 0);
+            const subtotal = tasks.filter(t => t.type !== 'Ajustes').reduce((a,b) => a + b.price, 0);
+            const discount = inv.discount || 0;
+            const paid = inv.paid || 0;
+            const total = (subtotal + ajustes) - discount;
+            const saldo = total - paid;
+
+            const fmt = (n) => "USD " + formatNum(Math.max(0, n));
+            
+            document.getElementById('inv-subtotal').innerText = fmt(subtotal);
+            document.getElementById('inv-discount').innerText = "- " + fmt(discount);
+            document.getElementById('inv-ajustes').innerText = "+ " + fmt(ajustes);
+            document.getElementById('inv-total').innerText = fmt(total);
+            document.getElementById('inv-paid').innerText = fmt(paid);
+            document.getElementById('inv-balance').innerText = fmt(saldo);
+            
+            document.getElementById('invoice-preview').classList.remove('hidden');
+        }
+
+        function updateInvoiceButtonState() {
+            const btn = document.getElementById('btn-invoice'); if (!btn) return;
+            if (selectedClientId && dataByClient[selectedClientId]?.invoices?.[currentWeek]) { btn.innerHTML = '📄 Ver Factura'; btn.className = 'bg-white/20 hover:bg-white/30 px-6 py-2.5 rounded-lg text-[9px] font-black uppercase border border-white/30 text-white transition-all shadow-md'; }
+            else { btn.innerHTML = '📄 Generar Factura'; btn.className = 'bg-black/10 hover:bg-black/20 px-6 py-2.5 rounded-lg text-[9px] font-black uppercase border border-white/10 text-white transition-all'; }
+        }
+
+        function toggleCategoryDropdown(event, id) { event.stopPropagation(); const menu = document.getElementById(`cat-menu-${id}`), arrow = menu.previousElementSibling.querySelector('svg'); if (activeCategoryDropdown && activeCategoryDropdown !== id) closeAllCategoryDropdowns(); if (menu.classList.contains('dropdown-open')) { menu.classList.remove('dropdown-open'); arrow.classList.remove('arrow-up'); activeCategoryDropdown = null; } else { menu.classList.add('dropdown-open'); arrow.classList.add('arrow-up'); activeCategoryDropdown = id; } }
+        function selectCategory(event, id, type) { event.stopPropagation(); updateTask(id, 'type', type); closeAllCategoryDropdowns(); renderTable(); }
+        function closeAllCategoryDropdowns() { document.querySelectorAll('[id^="cat-menu-"]').forEach(menu => { menu.classList.remove('dropdown-open'); const btn = menu.previousElementSibling; if(btn) { const arrow = btn.querySelector('svg'); if(arrow) arrow.classList.remove('arrow-up'); } }); activeCategoryDropdown = null; }
+
+        function toggleRateDropdown() { const menu = document.getElementById('rate-dropdown-menu'), arrow = document.getElementById('rate-dropdown-arrow'); menu.classList.toggle('dropdown-open'); arrow.classList.toggle('arrow-up'); }
+        function setCustomRate(val) { if (!selectedClientId) return; const r = parseFloat(val) || 0; document.getElementById('rate-display-value').innerText = r.toFixed(2); dataByClient[selectedClientId].rates[currentWeek] = r; dataByClient[selectedClientId].weeks[currentWeek].forEach(t => { const unitVal = t.unit === 'm' ? (t.time/60) : t.time; t.price = t.cant * unitVal * r; }); saveData(); renderTable(); document.getElementById('rate-dropdown-menu').classList.remove('dropdown-open'); }
+        function submitCustomRate() { setCustomRate(document.getElementById('custom-rate-input').value); }
+
+        function openHistory(clientId) {
+            const client = clients.find(c => c.id === clientId); document.getElementById('history-client-name').innerText = client.company || client.person;
+            const container = document.getElementById('history-list'); container.innerHTML = ""; const data = dataByClient[clientId];
+            if (!data || !data.history || data.history.length === 0) container.innerHTML = `<div class="py-12 text-center text-gray-300 text-[10px] font-black uppercase">Sin facturas</div>`;
+            else data.history.forEach((inv, index) => { const row = document.createElement('div'); row.className = "flex items-center justify-between p-6 bg-gray-50 rounded-lg border border-gray-100 hover:border-pink-200 transition-all group animate-fade-in"; row.innerHTML = `<div class="flex items-center gap-5"><div class="bg-white p-3.5 rounded-lg shadow-sm text-pink-500"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></div><div><p class="text-[8px] font-black text-gray-400 uppercase">#${inv.number}</p><p class="font-black text-gray-900 text-sm">${inv.date}</p></div></div><button onclick="renderInvoiceFromData(${clientId}, ${index})" class="bg-gray-900 text-white px-6 py-3 rounded-lg text-[9px] font-black uppercase hover:bg-pink-600 transition-all shadow-md">Ver PDF</button>`; container.appendChild(row); });
+            document.getElementById('history-modal').classList.remove('hidden');
+        }
+
+        function askDeleteClient(id) { const client = clients.find(c => c.id === id); if (!client) return; clientToDeleteId = id; document.getElementById('delete-client-name-modal').innerText = client.company || client.person; document.getElementById('confirm-delete-client-modal').classList.remove('hidden'); }
+        function closeConfirmDelete() { clientToDeleteId = null; document.getElementById('confirm-delete-client-modal').classList.add('hidden'); }
+        function executeDeleteClient() { if (!clientToDeleteId) return; clients = clients.filter(c => c.id !== clientToDeleteId); delete dataByClient[clientToDeleteId]; if (selectedClientId === clientToDeleteId) selectedClientId = null; saveData(); updateClientSelector(); renderClientsGrid(); renderTable(); closeConfirmDelete(); }
+
+        function closeHistory() { document.getElementById('history-modal').classList.add('hidden'); }
+        function closeInvoicePreview() { document.getElementById('invoice-preview').classList.add('hidden'); }
+        function closeAllDropdowns() {
+            document.getElementById('client-dropdown-menu')?.classList.remove('dropdown-open');
+            document.getElementById('client-dropdown-arrow')?.classList.remove('arrow-up');
+        }
+        function setupClickOutsides() { document.addEventListener('click', (e) => { if (!e.target.closest('#client-dropdown-container')) { document.getElementById('client-dropdown-menu')?.classList.remove('dropdown-open'); document.getElementById('client-dropdown-arrow')?.classList.remove('arrow-up'); } if (!e.target.closest('#rate-dropdown-container')) { document.getElementById('rate-dropdown-menu')?.classList.remove('dropdown-open'); document.getElementById('rate-dropdown-arrow')?.classList.remove('arrow-up'); } if (!e.target.closest('.category-dropdown-wrapper')) closeAllCategoryDropdowns(); }); }
+
+        function askResetCurrentWeek() { if (!selectedClientId) return; document.getElementById('reset-week-num').innerText = currentWeek; document.getElementById('confirm-reset-modal').classList.remove('hidden'); }
+        function closeConfirmReset() { document.getElementById('confirm-reset-modal').classList.add('hidden'); }
+        function executeResetWeek() { if (dataByClient[selectedClientId]) { dataByClient[selectedClientId].weeks[currentWeek].forEach(t => t.done = true); dataByClient[selectedClientId].weeks[currentWeek] = []; dataByClient[selectedClientId].invoices[currentWeek] = null; saveData(); renderTable(); updateCharts(); updateInvoiceButtonState(); } closeConfirmReset(); }
+
+        // Iniciar
+        load();
+    </script>
+</body>
+</html>
