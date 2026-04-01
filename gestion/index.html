@@ -427,8 +427,8 @@
                     
                     <div class="flex justify-between items-start mb-10">
                         <div class="w-1/2">
-                            <p class="text-[8pt] font-bold text-black">De<br>BOREALIS - CREADORES DE IDEAS</p>
-                            <p class="text-[8pt] text-black leading-relaxed mt-1">Angel J. Gómez H.<br>RIF: V-27.258.133-5<br>contacto@borealis.com.ve<br>Código Postal: 3221</p>
+                            <p class="text-[8pt] font-bold text-black">De<br>Borealis - Creadores de Ideas</p>
+                            <p class="text-[8pt] text-black leading-relaxed mt-1">Angel J. Gómez H.<br>NIF/CIF/RIF: V-27.258.133-5<br>contacto@borealis.com.ve<br>Código Postal: 3221</p>
                         </div>
                         <div id="inv-to" class="w-1/2 text-right flex flex-col items-end"></div>
                     </div>
@@ -522,14 +522,19 @@
 
         async function load() {
             if (!SECRET_KEY) { showLoginScreen(); return; }
+            
+            document.getElementById('btn-login').innerText = "Conectando...";
+            document.getElementById('btn-login').disabled = true;
+
             try {
                 const response = await fetch(`${CLOUDFLARE_WORKER_URL}/get-data`, {
                     method: 'GET',
                     headers: { 'Authorization': SECRET_KEY }
                 });
+                
                 if (response.ok) {
                     const parsed = await response.json();
-                    if (Object.keys(parsed).length > 0) {
+                    if (parsed && typeof parsed === 'object') {
                         dataByClient = parsed.dataByClient || {};
                         clients = parsed.clients || [];
                         selectedClientId = parsed.selectedClientId || null;
@@ -540,18 +545,23 @@
                 } else if (response.status === 401) {
                     showLoginError("Clave incorrecta.");
                     logout(false);
-                    return;
-                } else { throw new Error("Cloudflare Error"); }
+                } else { 
+                    throw new Error("Cloudflare Error"); 
+                }
             } catch(e) { 
-                console.warn("Respaldo local:", e); 
+                console.warn("Manejando respaldo local por error de red/servidor:", e); 
+                // Si hay una clave pero falló la red, intentamos usar lo que hay en local storage
                 if (SECRET_KEY) {
                     loadLocalFallback();
                     document.getElementById('cloud-status').classList.add('hidden');
                     unlockApp();
                 } else {
-                    showLoginError("Sin conexión.");
+                    showLoginError("Sin conexión con el servidor.");
                     showLoginScreen();
                 }
+            } finally {
+                document.getElementById('btn-login').innerText = "Desbloquear Sistema";
+                document.getElementById('btn-login').disabled = false;
             }
         }
 
@@ -584,8 +594,10 @@
         function handleLogin(e) {
             e.preventDefault();
             const pass = document.getElementById('auth-password').value;
+            if(!pass) return;
             SECRET_KEY = pass;
             localStorage.setItem('borealis_auth_key', pass);
+            document.getElementById('login-error').classList.add('hidden');
             load();
         }
 
@@ -716,15 +728,42 @@
                     </div>
                     <h4 class="font-black text-sm uppercase text-gray-900 truncate pr-12">${displayName}</h4>
                     <p class="font-bold text-[9px] text-gray-400 uppercase mb-3 truncate">${c.person || 'Sin Responsable'}</p>
+                    
                     <div class="space-y-1.5 mb-4">
-                        <div class="flex justify-between items-center bg-gray-50/50 p-1.5 rounded-lg text-[8px]"><span class="font-black uppercase text-gray-400">RIF:</span><span class="text-gray-700 font-bold">${c.rif || 'N/A'}</span></div>
-                        <div class="flex justify-between items-center bg-pink-50/30 p-1.5 rounded-lg text-[8px]"><span class="font-black uppercase text-pink-400">FACTURA:</span><span class="text-pink-600 font-black">${formattedInvoice}</span></div>
-                        <div class="px-2 space-y-1 mt-2 border-t border-gray-50 pt-2 text-gray-500">
-                            <div class="flex items-center gap-2 overflow-hidden"><svg class="w-3 h-3 text-gray-300 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg><span class="truncate">${c.email || 'Sin correo'}</span></div>
-                            <div class="flex items-center gap-2"><svg class="w-3 h-3 text-gray-300 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg><span>${c.phone || 'N/A'}</span></div>
+                        <div class="flex justify-between items-center bg-gray-50/50 p-2 rounded-lg text-[8.5px]">
+                            <span class="font-black uppercase text-gray-400">NIF/CIF/RIF:</span>
+                            <span class="text-gray-700 font-bold">${c.rif || 'N/A'}</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-pink-50/30 p-2 rounded-lg text-[8.5px]">
+                            <span class="font-black uppercase text-pink-400">PRÓX. FACTURA:</span>
+                            <span class="text-pink-600 font-black">${formattedInvoice}</span>
+                        </div>
+                        
+                        <div class="px-2 space-y-2 mt-2 border-t border-gray-50 pt-3 text-gray-600">
+                            <div class="flex items-start gap-2 overflow-hidden">
+                                <svg class="w-3.5 h-3.5 text-gray-300 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+                                <span class="truncate text-[9px]">${c.email || 'Sin correo registrado'}</span>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <svg class="w-3.5 h-3.5 text-gray-300 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
+                                <span class="text-[9px]">Número: ${c.phone || 'N/A'}</span>
+                            </div>
+                            ${c.web ? `
+                            <div class="flex items-start gap-2 overflow-hidden">
+                                <svg class="w-3.5 h-3.5 text-gray-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9-9c1.657 0 3 4.03 3 9s-1.343 9-3 9m0-18c-1.657 0-3 4.03-3 9s1.343 9 3 9"></path></svg>
+                                <span class="truncate text-[9px] lowercase text-pink-500 font-bold">${c.web}</span>
+                            </div>` : ''}
+                            ${c.address ? `
+                            <div class="flex items-start gap-2 bg-gray-50/80 p-2 rounded mt-1">
+                                <svg class="w-3.5 h-3.5 text-gray-300 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+                                <span class="text-[8.5px] leading-tight italic">${c.address}</span>
+                            </div>` : ''}
                         </div>
                     </div>
-                    <button onclick="selectClient(${c.id}); switchTab('dashboard');" class="w-full py-2.5 ${isActive ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-gray-900 hover:bg-pink-600'} text-white rounded-lg font-black uppercase transition-all shadow-md">${isActive ? 'Cliente Activo' : 'Activar Cliente'}</button>
+                    
+                    <button onclick="selectClient(${c.id}); switchTab('dashboard');" class="w-full py-2.5 ${isActive ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-gray-900 hover:bg-pink-600'} text-white rounded-lg font-black uppercase transition-all shadow-md mt-2">
+                        ${isActive ? 'Cliente Activo' : 'Activar Cliente'}
+                    </button>
                 </div>`;
             }).join('');
         }
@@ -778,7 +817,6 @@
             t.totalHrs = t.cant * (t.unit === 'm' ? (t.time / 60) : t.time);
             t.price = t.totalHrs * dataByClient[selectedClientId].rates[currentWeek];
             saveData(); updateStats(); updateCharts();
-            // Actualización visual parcial para rendimiento
             const row = document.querySelector(`tr:nth-child(${dataByClient[selectedClientId].weeks[currentWeek].indexOf(t)+1})`);
             if(row && (field === 'cant' || field === 'time')) {
                 row.children[6].innerText = t.totalHrs.toFixed(2);
@@ -803,7 +841,6 @@
             hEl.innerText = h.toFixed(2); tEl.innerText = d.length; dEl.innerText = doneCount; totEl.innerText = "USD " + p.toLocaleString('es-ES', {minimumFractionDigits: 2});
         }
 
-        // --- TARIFA HORARIA (CORREGIDO) ---
         function toggleRateDropdown() {
             const menu = document.getElementById('rate-dropdown-menu');
             const arrow = document.getElementById('rate-dropdown-arrow');
@@ -816,7 +853,6 @@
             const r = parseFloat(val) || 0;
             document.getElementById('rate-display-value').innerText = r.toFixed(2);
             dataByClient[selectedClientId].rates[currentWeek] = r;
-            // Recalcular precios de la semana
             dataByClient[selectedClientId].weeks[currentWeek].forEach(t => {
                 const unitVal = t.unit === 'm' ? (t.time/60) : t.time;
                 t.price = t.cant * unitVal * r;
@@ -831,7 +867,6 @@
             setCustomRate(val);
         }
 
-        // --- GRÁFICOS ---
         function initCharts() {
             try {
                 const ctx1 = document.getElementById('categoryChart').getContext('2d');
@@ -843,7 +878,6 @@
         }
         function updateCharts() { if(!categoryChart || !selectedClientId) return; const d = dataByClient[selectedClientId].weeks[currentWeek]; categoryChart.data.datasets[0].data = taskTypes.map(type => d.filter(t => t.type === type).length); categoryChart.update(); timeChart.data.datasets[0].data = taskTypes.map(type => d.filter(t => t.type === type).reduce((a,b)=>a+b.totalHrs, 0)); timeChart.update(); }
 
-        // --- FACTURACIÓN ---
         function openInvoiceManager() {
             if(!selectedClientId || !dataByClient[selectedClientId]) return;
             const data = dataByClient[selectedClientId], inv = data.invoices[currentWeek];
@@ -870,7 +904,7 @@
             if (client.email) clientDetails.push(client.email); 
             if (client.phone) clientDetails.push("Número: " + client.phone); 
             if (client.address) clientDetails.push(client.address);
-            document.getElementById('inv-to').innerHTML = `<p class="font-bold text-[8pt] mb-1 text-black">Cobro a</p>` + (client.company ? `<p class="text-[8pt] font-regular mb-1">${client.company}</p>` : '') + (client.person ? `<p class="text-[8pt] font-normal">${client.person}</p>` : '') + `<p class="text-[8pt] leading-tight mt-0.5">${clientDetails.join('<br>')}</p>`;
+            document.getElementById('inv-to').innerHTML = `<p class="font-bold text-[8pt] mb-1 text-black">Cobro a</p>` + (client.company ? `<p class="text-[8pt] font-regular mb-1">${client.company}</p>` : '') + (client.person ? `<p class="text-[8pt] font-normal mb-1">${client.person}</p>` : '') + `<p class="text-[8pt] leading-tight mt-0.5">${clientDetails.join('<br>')}</p>`;
             const formatNum = (n) => n.toLocaleString('es-ES', {minimumFractionDigits: 2});
             document.getElementById('inv-rows').innerHTML = inv.tasks.map((t, idx) => `<tr class="${idx % 2 !== 0 ? 'bg-gray-50' : 'bg-white'}"><td class="py-1 pl-5 text-left border-b border-gray-100 text-[8pt] uppercase"><b>${t.client || 'General'}</b> | ${t.type} | ${t.cant}<p class="italic opacity-70">${t.desc || '...'}</p></td><td class="py-1 pr-5 text-right border-b border-gray-100 text-[8pt]">USD ${formatNum(t.price)}</td></tr>`).join('');
             const ajustes = inv.tasks.filter(t => t.type === 'Ajustes').reduce((a,b) => a + b.price, 0), subtotal = inv.tasks.filter(t => t.type !== 'Ajustes').reduce((a,b) => a + b.price, 0), total = (subtotal + ajustes) - (inv.discount || 0);
@@ -879,7 +913,6 @@
         }
         function updateInvoiceButtonState() { const btn = document.getElementById('btn-invoice'); if (!selectedClientId || !dataByClient[selectedClientId]) { btn.innerText = "📄 Bloqueado"; return; } const hasInv = dataByClient[selectedClientId].invoices?.[currentWeek]; btn.innerText = hasInv ? "📄 Ver Factura" : "📄 Generar Factura"; btn.className = `px-6 py-2.5 rounded-lg text-[9px] font-black uppercase border transition-all shadow-md ${hasInv ? 'bg-white/20 hover:bg-white/30 text-white' : 'bg-black/10 hover:bg-black/20 text-white'}`; }
 
-        // --- MISC ---
         function toggleCategoryDropdown(e, id) { e.stopPropagation(); document.querySelectorAll('[id^="cat-menu-"]').forEach(m => { if(m.id !== `cat-menu-${id}`) m.classList.add('hidden'); }); document.getElementById(`cat-menu-${id}`).classList.toggle('hidden'); }
         function selectCategory(e, id, type) { e.stopPropagation(); updateTask(id, 'type', type); document.getElementById(`cat-menu-${id}`).classList.add('hidden'); renderTable(); }
         function openHistory(id) { const client = clients.find(c => c.id == id), data = dataByClient[id]; document.getElementById('history-client-name').innerText = client.company || client.person; const list = document.getElementById('history-list'); list.innerHTML = ""; if(!data.history.length) list.innerHTML = "<p class='text-center py-8 text-gray-400 font-bold uppercase text-[10px]'>Sin facturas registradas</p>"; else data.history.forEach(inv => { const d = document.createElement('div'); d.className="flex items-center justify-between p-4 bg-gray-50 mb-2 rounded border border-gray-100 group hover:border-pink-200 transition-all"; d.innerHTML=`<div><p class="text-[8px] font-black uppercase text-gray-400">#${inv.number}</p><p class="font-black text-sm text-gray-900">${inv.date}</p></div><button onclick='renderInvoice(${JSON.stringify(inv)})' class='bg-gray-900 text-white px-4 py-2 rounded text-[9px] uppercase font-black hover:bg-pink-600 transition-colors'>Ver PDF</button>`; list.appendChild(d); }); document.getElementById('history-modal').classList.remove('hidden'); }
