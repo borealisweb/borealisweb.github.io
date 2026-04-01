@@ -52,6 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <a href="${prefix}blog/">Blog</a>
           <a href="${prefix}contacto/">Contacto</a>
           <a href="${prefix}briefing/">Briefing</a>
+          <a href="${prefix}gestion/">Gestión</a>
         </nav>
       </div>
       
