@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Borealis - Gestión</title>
-    <link rel="icon" href="../favicon.ico" sizes="256x256" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -125,7 +124,7 @@
         </div>
     </div>
 
-    <!-- INTERFAZ PRINCIPAL (Oculta por defecto) -->
+    <!-- INTERFAZ PRINCIPAL -->
     <div id="main-ui" class="max-w-[1600px] mx-auto" style="display: none;">
         <!-- Header Principal -->
         <header class="flex justify-between items-center mb-8 bg-white p-6 rounded-lg shadow-sm border border-gray-100 relative z-40">
@@ -137,7 +136,7 @@
                 </div>
                 <div>
                     <h1 class="text-3xl font-black text-gray-900 uppercase leading-none">Gestión</h1>
-                    <p class="text-gray-400 text-[12px] font-extrabold uppercase mt-1.5">De Tareas y Clientes</p>
+                    <p class="text-gray-400 text-[9px] font-extrabold uppercase mt-1.5">De Tareas y Clientes</p>
                 </div>
             </div>
 
@@ -152,7 +151,7 @@
                     Nube Activa
                 </div>
                 <div id="logo-container" class="max-w-[180px] mr-2">
-                    <img src="logotipo_entero.png" alt="Borealis Logo" class="h-10 w-auto object-contain" onerror="this.parentElement.innerHTML='<span class=\'text-gray-300 font-black uppercase text-[10px]\'>Logotipo</span>'">
+                    <img src="logotipo.png" alt="Borealis Logo" class="h-10 w-auto object-contain" onerror="this.parentElement.innerHTML='<span class=\'text-gray-300 font-black uppercase text-[10px]\'>Logotipo</span>'">
                 </div>
                 <div class="w-px h-8 bg-gray-200 mx-2"></div>
                 <button onclick="logout()" class="text-[9px] font-black uppercase text-gray-400 bg-gray-50 hover:bg-red-50 hover:text-red-500 px-4 py-2.5 rounded-lg transition-colors flex items-center gap-2">
@@ -258,7 +257,7 @@
                 <div id="table-header" class="p-4 flex justify-between items-center transition-colors duration-500 rounded-t-lg">
                     <div class="flex items-center gap-6">
                         <h2 class="font-black text-[10px] uppercase text-white" id="table-title">REGISTRO SEMANAL</h2>
-                        <button id="btn-invoice" onclick="openInvoiceManager()" class="bg-white/10 hover:bg-white/20 px-5 py-2 rounded-lg text-[9px] font-black uppercase border border-white/20 text-white transition-all">📄 Ver Factura</button>
+                        <button id="btn-invoice" onclick="openInvoiceManager()" class="bg-white/10 hover:bg-white/20 px-5 py-2 rounded-lg text-[9px] font-black uppercase border border-white/20 text-white transition-all shadow-md">📄 Cargar...</button>
                     </div>
                     <div class="flex items-center gap-4">
                         <button onclick="askResetCurrentWeek()" class="bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-2 rounded-lg text-[9px] font-black uppercase transition-all flex items-center gap-2">
@@ -413,8 +412,7 @@
                 <button onclick="window.print()" class="bg-pink-600 px-12 py-4 rounded-lg font-black text-[10px] uppercase shadow-2xl flex items-center gap-3"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>Imprimir PDF</button>
             </div>
             <div id="invoice-container" class="invoice-paper flex">
-                
-                <!-- Contenedor Izquierdo (Todo el contenido) -->
+                <!-- Contenedor Izquierdo -->
                 <div class="flex-1 flex flex-col pr-28">
                     <div class="flex justify-between items-start mb-6">
                         <h1 class="text-5xl font-black text-black leading-none">¡Hola!</h1>
@@ -427,7 +425,7 @@
                     <div class="flex justify-between items-start mb-10">
                         <div class="w-1/2">
                             <p class="text-[8pt] font-bold text-black">De<br>Borealis - Creadores de Ideas</p>
-                            <p class="text-[8pt] text-black leading-relaxed mt-1">Angel J. Gómez H.<br>Rif: V-27.258.133-5<br>angeljgomezh@gmail.com<br>Código Postal: 3221</p>
+                            <p class="text-[8pt] text-black leading-relaxed mt-1">Angel J. Gómez H.<br>Rif: V-27.258.133-5<br>contacto@borealis.com.ve<br>Código Postal: 3221</p>
                         </div>
                         <div id="inv-to" class="w-1/2 text-right flex flex-col items-end"></div>
                     </div>
@@ -470,41 +468,26 @@
 
                     <footer class="mt-auto flex justify-between items-end">
                         <div class="text-[6pt] text-black space-y-1 leading-tight">
-                            <div class="flex items-center gap-2">
-                                <div class="w-0.5 h-2 bg-[#00AEEF]"></div>
-                                <p><span class="font-bold">Teléfono:</span> +58 414 - 3571705</p>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <div class="w-0.5 h-2 bg-[#E2007A]"></div>
-                                <p><span class="font-bold">Web:</span> http://borealis.com.ve</p>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <div class="w-0.5 h-2 bg-[#FFF200]"></div>
-                                <p><span class="font-bold">Correo:</span> contacto@borealis.com.ve</p>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <div class="w-0.5 h-2 bg-[#000000]"></div>
-                                <p><span class="font-bold">Dirección:</span> Independencia - Estado Yaracuy - Venezuela</p>
-                            </div>
+                            <div class="flex items-center gap-2"><div class="w-0.5 h-2 bg-[#00AEEF]"></div><p><span class="font-bold">Teléfono:</span> +58 414 - 3571705</p></div>
+                            <div class="flex items-center gap-2"><div class="w-0.5 h-2 bg-[#E2007A]"></div><p><span class="font-bold">Web:</span> http://borealis.com.ve</p></div>
+                            <div class="flex items-center gap-2"><div class="w-0.5 h-2 bg-[#FFF200]"></div><p><span class="font-bold">Correo:</span> contacto@borealis.com.ve</p></div>
+                            <div class="flex items-center gap-2"><div class="w-0.5 h-2 bg-[#000000]"></div><p><span class="font-bold">Dirección:</span> Independencia - Estado Yaracuy - Venezuela</p></div>
                         </div>
                     </footer>
                 </div>
-
-                <!-- Columna Derecha -->
+                <!-- Barra Lateral Derecha -->
                 <div class="absolute top-0 bottom-0 right-10 w-28 bg-white flex flex-col pr-9 pl-0">
                     <img src="logo_carta.png" class="h-full w-full object-cover object-left mix-blend-multiply" onerror="this.style.display='none'">
                 </div>
-
             </div>
         </div>
     </div>
 
-    <!-- Integración de Base de Datos API (Cloudflare Workers + KV) y Seguridad -->
     <script>
         // --- CONFIGURACIÓN DE CLOUDFLARE ---
         const CLOUDFLARE_WORKER_URL = "https://borealis-api.borealiscreadoresdeideas.workers.dev";
         
-        // Variables Globales de la App
+        // Variables Globales
         let SECRET_KEY = localStorage.getItem('borealis_auth_key') || "";
         let currentWeek = 1;
         let selectedClientId = null;
@@ -519,51 +502,32 @@
         const taskTypes = ["VSL", "Ads", "Reels", "Long Form", "Diseño", "Ajustes"];
         const categoryColors = ['#E2007A', '#FACC15', '#06B6D4', '#111827', '#6366F1', '#F97316'];
 
-        // Sistema de Carga y Autenticación con Respaldo Local Garantizado
         async function load() {
-            if (!SECRET_KEY) {
-                showLoginScreen();
-                return;
-            }
-
-            // Intentar cargar desde Cloudflare
+            if (!SECRET_KEY) { showLoginScreen(); return; }
             try {
                 const response = await fetch(`${CLOUDFLARE_WORKER_URL}/get-data`, {
                     method: 'GET',
                     headers: { 'Authorization': SECRET_KEY }
                 });
-
                 if (response.ok) {
                     const parsed = await response.json();
                     if (Object.keys(parsed).length > 0) {
                         dataByClient = parsed.dataByClient || {};
                         clients = parsed.clients || [];
                         selectedClientId = parsed.selectedClientId || null;
-                        
-                        // Actualizar respaldo local con lo más nuevo de la nube
                         localStorage.setItem('borealis_workstation_data_v2', JSON.stringify(parsed));
                     }
                     document.getElementById('cloud-status').classList.remove('hidden');
                     unlockApp();
                 } else if (response.status === 401) {
-                    showLoginError("Clave incorrecta. Intenta de nuevo.");
+                    showLoginError("Clave incorrecta.");
                     logout(false);
                     return;
-                } else {
-                    throw new Error("Cloudflare Error");
-                }
+                } else { throw new Error("Cloudflare Error"); }
             } catch(e) { 
-                console.warn("Fallo conectando a la nube, usando respaldo local:", e); 
-                // PARACAÍDAS: Si hay un error de red pero ya teníamos sesión, entramos con datos locales
-                if (SECRET_KEY) {
-                    loadLocalFallback();
-                    document.getElementById('cloud-status').classList.add('hidden'); // Ocultar indicador nube
-                    unlockApp();
-                } else {
-                    showLoginError("Sin conexión y sin datos previos.");
-                    showLoginScreen();
-                    return;
-                }
+                console.warn("Usando respaldo local:", e); 
+                if (SECRET_KEY) { loadLocalFallback(); document.getElementById('cloud-status').classList.add('hidden'); unlockApp(); } 
+                else { showLoginError("Sin conexión."); showLoginScreen(); }
             }
         }
 
@@ -576,88 +540,37 @@
                     clients = parsed.clients || [];
                     selectedClientId = parsed.selectedClientId || null;
                 }
-            } catch (err) {
-                console.error("Error crítico leyendo localStorage:", err);
-            }
+            } catch (err) { console.error("Error localStorage:", err); }
         }
 
         async function saveData() {
             const payloadObj = { dataByClient, clients, selectedClientId };
-            
-            // 1. SIEMPRE guardar copia local primero (Seguridad inmediata)
-            try { 
-                localStorage.setItem('borealis_workstation_data_v2', JSON.stringify(payloadObj)); 
-            } catch (e) { console.error("Fallo guardado local:", e); }
-            
-            // 2. Enviar a Cloudflare si hay sesión activa
+            try { localStorage.setItem('borealis_workstation_data_v2', JSON.stringify(payloadObj)); } catch (e) {}
             if (SECRET_KEY) {
                 try {
                     fetch(`${CLOUDFLARE_WORKER_URL}/save-data`, {
                         method: 'POST',
-                        headers: { 
-                            'Content-Type': 'application/json',
-                            'Authorization': SECRET_KEY
-                        },
+                        headers: { 'Content-Type': 'application/json', 'Authorization': SECRET_KEY },
                         body: JSON.stringify(payloadObj)
-                    }).catch(err => console.warn("Error de sincronización nube (se reintentará luego):", err));
+                    });
                 } catch (e) {}
             }
         }
 
-        // --- Funciones de Pantalla Login ---
         function handleLogin(e) {
             e.preventDefault();
             const pass = document.getElementById('auth-password').value;
-            if(!pass) return;
-            
-            const btn = document.getElementById('btn-login');
-            const originalText = btn.innerText;
-            btn.innerText = "Verificando...";
-            btn.disabled = true;
-
             SECRET_KEY = pass;
             localStorage.setItem('borealis_auth_key', pass);
-            
-            load().finally(() => {
-                btn.innerText = originalText;
-                btn.disabled = false;
-            });
+            load();
         }
 
-        function showLoginScreen() {
-            document.getElementById('login-screen').classList.remove('hidden');
-            document.getElementById('main-ui').style.display = 'none';
-        }
+        function showLoginScreen() { document.getElementById('login-screen').classList.remove('hidden'); document.getElementById('main-ui').style.display = 'none'; }
+        function unlockApp() { document.getElementById('login-screen').classList.add('hidden'); document.getElementById('main-ui').style.display = 'block'; initUI(); }
+        function showLoginError(msg) { const err = document.getElementById('login-error'); err.innerText = msg; err.classList.remove('hidden'); }
+        function logout(reload = true) { localStorage.removeItem('borealis_auth_key'); if (reload) location.reload(); }
 
-        function unlockApp() {
-            document.getElementById('login-screen').classList.add('hidden');
-            document.getElementById('login-error').classList.add('hidden');
-            document.getElementById('main-ui').style.display = 'block';
-            initUI();
-        }
-
-        function showLoginError(msg) {
-            const errorEl = document.getElementById('login-error');
-            errorEl.innerText = msg;
-            errorEl.classList.remove('hidden');
-            showLoginScreen();
-        }
-
-        function logout(reload = true) {
-            SECRET_KEY = "";
-            localStorage.removeItem('borealis_auth_key');
-            if (reload) location.reload();
-        }
-
-        // --- Inicialización y Resto de Funciones UI ---
-        function initUI() {
-            updateClientSelector();
-            renderClientsGrid();
-            if (selectedClientId) selectClient(selectedClientId);
-            else { updateUIColors(); renderTable(); }
-            setTimeout(initCharts, 300);
-            setupClickOutsides();
-        }
+        function initUI() { updateClientSelector(); renderClientsGrid(); if (selectedClientId) selectClient(selectedClientId); else { updateUIColors(); renderTable(); } setTimeout(initCharts, 300); setupClickOutsides(); }
 
         function switchTab(tab) {
             document.getElementById('view-dashboard').classList.toggle('hidden', tab !== 'dashboard');
@@ -667,41 +580,23 @@
             if(tab === 'clients') cancelEdit();
         }
 
-        function changeWeek(w) {
-            currentWeek = w;
-            updateUIColors();
-            renderTable();
-            updateCharts();
-        }
+        function changeWeek(w) { currentWeek = w; updateUIColors(); renderTable(); updateCharts(); }
 
         function updateUIColors() {
             const c = weekColors[currentWeek];
             document.querySelectorAll('.week-btn').forEach((btn, i) => {
                 const w = i + 1;
-                if (w === currentWeek) {
-                    btn.style.backgroundColor = weekColors[w].accent;
-                    btn.style.color = weekColors[w].text;
-                    btn.style.borderColor = weekColors[w].accent;
-                    btn.classList.add('shadow-lg');
-                } else {
-                    btn.style.backgroundColor = '#fff';
-                    btn.style.color = '#94a3b8';
-                    btn.style.borderColor = 'transparent';
-                    btn.classList.remove('shadow-lg');
-                }
+                btn.style.backgroundColor = w === currentWeek ? weekColors[w].accent : '#fff';
+                btn.style.color = w === currentWeek ? weekColors[w].text : '#94a3b8';
+                btn.style.borderColor = w === currentWeek ? weekColors[w].accent : 'transparent';
             });
             document.querySelectorAll('.stat-color-bar').forEach(el => el.style.backgroundColor = c.accent);
             document.querySelectorAll('.stat-icon').forEach(el => el.style.color = c.accent);
-            const tableHeader = document.getElementById('table-header');
-            if (tableHeader) tableHeader.style.backgroundColor = c.accent;
-            const cardTotal = document.getElementById('card-total');
-            if (cardTotal) cardTotal.style.backgroundColor = c.accent;
+            document.getElementById('table-header').style.backgroundColor = c.accent;
+            document.getElementById('card-total').style.backgroundColor = c.accent;
             document.getElementById('table-title').innerText = `REGISTRO SEMANA ${currentWeek}`;
             if (selectedClientId && dataByClient[selectedClientId]) {
-                const rate = dataByClient[selectedClientId].rates[currentWeek] || 0;
-                document.getElementById('rate-display-value').innerText = rate.toFixed(2);
-            } else {
-                document.getElementById('rate-display-value').innerText = "0.00";
+                document.getElementById('rate-display-value').innerText = (dataByClient[selectedClientId].rates[currentWeek] || 0).toFixed(2);
             }
             updateInvoiceButtonState();
         }
@@ -718,9 +613,8 @@
             let html = `<button onclick="handleClientSelect(null)" class="w-full text-left px-5 py-4 rounded-lg text-[9px] font-black text-gray-400 hover:bg-gray-50 transition-colors uppercase italic">Desactivar Cliente</button>`;
             clients.forEach(c => {
                 const isSelected = c.id == selectedClientId;
-                const displayName = c.company || c.person;
-                if(isSelected) triggerText.innerText = displayName;
-                html += `<button onclick="handleClientSelect(${c.id})" class="w-full text-left px-5 py-4 rounded-lg text-[10px] font-black uppercase transition-all flex justify-between items-center ${isSelected ? 'bg-pink-50 text-pink-600 shadow-sm' : 'text-gray-700 hover:bg-gray-50'} mb-2 group"><span class="truncate pr-4">${displayName}</span>${isSelected ? '<svg class="w-4 h-4 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>' : ''}</button>`;
+                if(isSelected) triggerText.innerText = c.company || c.person;
+                html += `<button onclick="handleClientSelect(${c.id})" class="w-full text-left px-5 py-4 rounded-lg text-[10px] font-black uppercase transition-all flex justify-between items-center ${isSelected ? 'bg-pink-50 text-pink-600 shadow-sm' : 'text-gray-700 hover:bg-gray-50'} mb-2"><span>${c.company || c.person}</span></button>`;
             });
             if (!selectedClientId) triggerText.innerText = 'Seleccionar...';
             list.innerHTML = html;
@@ -731,21 +625,18 @@
         function selectClient(id) {
             selectedClientId = id;
             const badge = document.getElementById('active-client-badge');
-            const nameSpan = document.getElementById('current-client-name');
-            if (!id) { badge.classList.add('hidden'); updateStats(true); renderTable(); saveData(); updateClientSelector(); renderClientsGrid(); return; }
-            const client = clients.find(c => c.id == id); badge.classList.remove('hidden'); nameSpan.innerText = client.company || client.person;
+            if (!id) { badge.classList.add('hidden'); updateStats(true); renderTable(); saveData(); updateClientSelector(); return; }
+            const client = clients.find(c => c.id == id); badge.classList.remove('hidden'); document.getElementById('current-client-name').innerText = client.company || client.person;
             if (!dataByClient[id]) dataByClient[id] = { weeks: { 1: [], 2: [], 3: [], 4: [] }, rates: { 1: 2.50, 2: 2.50, 3: 2.50, 4: 2.50 }, invoices: { 1: null, 2: null, 3: null, 4: null }, history: [] };
             updateUIColors(); renderTable(); saveData(); updateClientSelector(); renderClientsGrid();
         }
 
         function saveNewClient() {
             const company = document.getElementById('c-company').value.trim();
-            const person = document.getElementById('c-person').value.trim();
-            if (!company && !person) return;
             const clientData = {
                 id: editingClientId || Date.now(),
                 company: company.toUpperCase(),
-                person: person,
+                person: document.getElementById('c-person').value,
                 rif: document.getElementById('c-rif').value.toUpperCase(),
                 invNum: parseInt(document.getElementById('c-inv-num').value) || 0,
                 invSuffix: document.getElementById('c-inv-suffix').value.toUpperCase(),
@@ -756,11 +647,11 @@
             };
             if (editingClientId) { const idx = clients.findIndex(c => c.id === editingClientId); clients[idx] = clientData; }
             else clients.push(clientData);
-            saveData(); updateClientSelector(); renderClientsGrid(); cancelEdit();
+            saveData(); renderClientsGrid(); cancelEdit(); updateClientSelector();
         }
 
         function editClient(id) {
-            const c = clients.find(x => x.id === id); if(!c) return;
+            const c = clients.find(x => x.id === id);
             document.getElementById('c-company').value = c.company || "";
             document.getElementById('c-person').value = c.person || "";
             document.getElementById('c-rif').value = c.rif || "";
@@ -786,91 +677,40 @@
         function renderClientsGrid() {
             const grid = document.getElementById('clients-grid');
             grid.innerHTML = clients.map(c => {
-                const displayName = c.company || c.person;
-                const formattedInvoice = String(c.invNum).padStart(3, '0') + (c.invSuffix || '');
                 const isActive = c.id == selectedClientId;
-                
-                return `<div class="bg-white border ${isActive ? 'border-emerald-200 bg-emerald-50/10' : 'border-gray-100'} rounded-lg p-5 shadow-sm relative hover:border-pink-300 transition-all group animate-fade-in text-[10px]">
+                return `<div class="bg-white border ${isActive ? 'border-emerald-200 bg-emerald-50/10' : 'border-gray-100'} rounded-lg p-5 shadow-sm relative group animate-fade-in text-[10px]">
                     <div class="absolute top-4 right-4 flex gap-1 opacity-0 group-hover:opacity-100 transition-all">
-                        <button onclick="editClient(${c.id})" class="bg-white shadow-sm border border-gray-100 text-gray-400 hover:text-blue-500 p-1 rounded text-[10px]">✏️</button>
-                        <button onclick="openHistory(${c.id})" class="bg-white shadow-sm border border-gray-100 text-gray-400 hover:text-emerald-500 p-1 rounded text-[10px]">🕒</button>
-                        <button onclick="askDeleteClient(${c.id})" class="bg-white shadow-sm border border-gray-100 text-gray-400 hover:text-red-500 p-1 rounded text-[10px]">✕</button>
+                        <button onclick="editClient(${c.id})" class="bg-white border p-1 rounded">✏️</button>
+                        <button onclick="openHistory(${c.id})" class="bg-white border p-1 rounded">🕒</button>
+                        <button onclick="askDeleteClient(${c.id})" class="bg-white border p-1 rounded">✕</button>
                     </div>
-                    <h4 class="font-black text-sm uppercase text-gray-900 pr-12 leading-tight truncate">${displayName}</h4>
-                    <p class="font-bold text-[9px] text-gray-400 uppercase mb-3 mt-0.5 truncate">${c.person || 'Sin Responsable'}</p>
-                    <div class="space-y-1.5 mb-4">
-                        <div class="flex justify-between items-center bg-gray-50/50 p-1.5 rounded-lg text-[8px]"><span class="font-black uppercase text-gray-400">RIF:</span><span class="text-gray-700 font-bold">${c.rif || 'N/A'}</span></div>
-                        <div class="flex justify-between items-center bg-pink-50/30 p-1.5 rounded-lg text-[8px]"><span class="font-black uppercase text-pink-400">FACTURA:</span><span class="text-pink-600 font-black">${formattedInvoice}</span></div>
-                        <div class="px-2 space-y-1 mt-2 border-t border-gray-50 pt-2">
-                            <div class="flex items-center gap-2 overflow-hidden"><svg class="w-3 h-3 text-gray-300 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg><span class="truncate text-gray-500">${c.email || 'Sin correo'}</span></div>
-                            <div class="flex items-center gap-2"><svg class="w-3 h-3 text-gray-300 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg><span class="text-gray-500">${c.phone || 'Sin teléfono'}</span></div>
-                            <div class="flex items-center gap-2 overflow-hidden"><svg class="w-3 h-3 text-gray-300 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg><span class="truncate text-gray-500">${c.address || 'Sin dirección'}</span></div>
-                            <div class="flex items-center gap-2 text-blue-400 font-bold overflow-hidden"><svg class="w-3 h-3 text-blue-200 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.083 9h1.946c.089-1.546.383-2.97.837-4.118A6.004 6.004 0 004.083 9zM10 2a8 8 0 100 16 8 8 0 000-16zm0 2c-.076 0-.232.032-.465.262-.238.234-.497.623-.737 1.182-.389.907-.673 2.125-.766 3.556h3.936c-.093-1.431-.377-2.649-.766-3.556-.24-.559-.499-.948-.737-1.182C10.232 4.032 10.076 4 10 4zm3.134 5c-.089-1.546-.383-2.97-.837-4.118A6.004 6.004 0 0115.917 9h-1.946zm-8.268 2c.093 1.431.377 2.649.766 3.556.24.559.499.948.737 1.182.233.23.389.262.465.262.076 0 .232-.032.465-.262.238-.234.497-.623.737-1.182.389-.907.673-2.125.766-3.556H8.032zm3.102 4.118c-.454-1.147-.748-2.572-.837-4.118H8.351a6.004 6.004 0 004.118 4.118zm2.517-4.118c-.089 1.546-.383 2.97-.837 4.118A6.004 6.004 0 0015.917 11h-1.946z" clip-rule="evenodd"/></svg><span class="truncate">${c.web || 'N/A'}</span></div>
-                        </div>
-                    </div>
-                    <button onclick="selectClient(${c.id}); switchTab('dashboard');" 
-                        class="w-full py-2.5 ${isActive ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-gray-900 hover:bg-pink-600'} text-white rounded-lg font-black uppercase transition-all shadow-md">
-                        ${isActive ? 'Cliente Activo' : 'Activar Cliente'}
-                    </button>
+                    <h4 class="font-black text-sm uppercase truncate">${c.company || c.person}</h4>
+                    <p class="font-bold text-gray-400 uppercase mb-3">${c.person || 'N/A'}</p>
+                    <button onclick="selectClient(${c.id}); switchTab('dashboard');" class="w-full py-2 ${isActive ? 'bg-emerald-500' : 'bg-gray-900'} text-white rounded font-black uppercase">${isActive ? 'Activo' : 'Activar'}</button>
                 </div>`;
             }).join('');
         }
 
         function renderTable() {
             const body = document.getElementById('task-body'); body.innerHTML = "";
-            if (!selectedClientId) { body.innerHTML = '<tr><td colspan="9" class="py-32 text-center uppercase font-black text-gray-200 text-xs">Activa un cliente para empezar</td></tr>'; updateStats(true); return; }
+            if (!selectedClientId) { body.innerHTML = '<tr><td colspan="9" class="py-32 text-center font-black text-gray-200 uppercase">Activa un cliente</td></tr>'; updateStats(true); return; }
             const tasks = dataByClient[selectedClientId].weeks[currentWeek];
-            if(tasks.length === 0) body.innerHTML = '<tr><td colspan="9" class="py-24 text-center uppercase font-black text-gray-300 text-[10px]">Semana vacía ↓</td></tr>';
-            
+            if(tasks.length === 0) body.innerHTML = '<tr><td colspan="9" class="py-24 text-center font-black text-gray-300 uppercase">Semana vacía</td></tr>';
             tasks.forEach(t => {
-                const tr = document.createElement('tr'); 
-                tr.className = `hover:bg-gray-50/50 transition-all group border-b border-gray-50 ${t.done ? 'row-done' : ''}`;
-                tr.setAttribute('data-id', t.id);
-                
-                tr.innerHTML = `
-                    <td class="px-2 py-1.5 text-center">
-                        <input type="checkbox" ${t.done ? 'checked' : ''} onchange="updateTask(${t.id}, 'done', this.checked)" class="w-4 h-4 rounded-lg border-gray-300 text-pink-600 cursor-pointer">
+                const tr = document.createElement('tr');
+                tr.className = `hover:bg-gray-50/50 border-b border-gray-50 ${t.done ? 'row-done' : ''}`;
+                tr.innerHTML = `<td class="px-2 py-1.5 text-center"><input type="checkbox" ${t.done ? 'checked' : ''} onchange="updateTask(${t.id}, 'done', this.checked)" class="w-4 h-4 rounded"></td>
+                    <td class="px-6 py-1.5"><input type="text" value="${t.client || ''}" oninput="updateTask(${t.id},'client',this.value)" class="w-full bg-transparent font-bold focus:outline-none text-xs"></td>
+                    <td class="px-6 py-1.5"><input type="text" value="${t.desc}" oninput="updateTask(${t.id},'desc',this.value)" class="w-full bg-transparent font-bold focus:outline-none text-xs"></td>
+                    <td class="px-6 py-1.5">
+                        <button onclick="toggleCategoryDropdown(event, ${t.id})" class="w-full bg-gray-100 px-4 py-1 rounded text-[10px] uppercase font-black">${t.type}</button>
+                        <div id="cat-menu-${t.id}" class="absolute hidden bg-white shadow-xl z-[200] p-2 rounded border">${taskTypes.map(type => `<button onclick="selectCategory(event, ${t.id}, '${type}')" class="block w-full text-left px-2 py-1 uppercase text-[9px] font-black hover:bg-pink-50">${type}</button>`).join('')}</div>
                     </td>
-                    <td class="px-6 py-1.5"><input type="text" value="${t.client || ''}" oninput="updateTask(${t.id},'client',this.value)" class="w-full bg-transparent font-bold focus:outline-none text-xs" placeholder="..."></td>
-                    <td class="px-6 py-1.5"><input type="text" value="${t.desc}" oninput="updateTask(${t.id},'desc',this.value)" class="w-full bg-transparent font-bold focus:outline-none text-xs" placeholder="..."></td>
-                    <td class="px-6 py-1.5 relative">
-                        <div class="relative w-full category-dropdown-wrapper">
-                            <button onclick="toggleCategoryDropdown(event, ${t.id})" class="w-full flex items-center justify-between bg-gray-100 hover:bg-gray-200 text-gray-700 text-[10px] font-black uppercase px-4 py-1 rounded-lg transition-all outline-none">
-                                <span>${t.type}</span>
-                                <svg class="w-3 h-3 text-gray-400 shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg>
-                            </button>
-                            <div id="cat-menu-${t.id}" class="absolute left-0 top-full mt-1 w-full bg-white rounded-lg shadow-2xl border border-gray-100 opacity-0 invisible transition-all duration-200 transform scale-95 origin-top z-[200] overflow-hidden">
-                                <div class="max-h-48 overflow-y-auto p-2 flex flex-col gap-1">
-                                    ${taskTypes.map(type => `<button onclick="selectCategory(event, ${t.id}, '${type}')" class="w-full text-left px-4 py-2 text-[9px] font-black uppercase rounded-lg transition-colors ${t.type===type?'bg-pink-50 text-pink-600':'text-gray-500 hover:bg-gray-50'}">${type}</button>`).join('')}
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="px-4 py-1.5">
-                        <div class="flex items-center justify-center bg-gray-50 rounded-lg p-1 border border-gray-100 w-full max-w-[120px] mx-auto">
-                            <button onclick="stepValue(${t.id}, 'cant', -1)" class="w-7 h-7 flex items-center justify-center text-gray-400 hover:text-pink-600 hover:bg-white rounded transition-all text-sm font-black">-</button>
-                            <input type="number" value="${t.cant}" oninput="updateTask(${t.id},'cant',this.value)" class="w-12 text-center bg-transparent no-spinners text-[11px] font-black outline-none">
-                            <button onclick="stepValue(${t.id}, 'cant', 1)" class="w-7 h-7 flex items-center justify-center text-gray-400 hover:text-pink-600 hover:bg-white rounded transition-all text-sm font-black">+</button>
-                        </div>
-                    </td>
-                    <td class="px-4 py-1.5">
-                        <div class="flex items-center gap-2 justify-center">
-                            <div class="flex items-center bg-gray-50 rounded-lg p-1 border border-gray-100 max-w-[110px]">
-                                <button onclick="stepValue(${t.id}, 'time', -0.25)" class="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-pink-600 hover:bg-white rounded transition-all text-sm font-black">-</button>
-                                <input type="number" value="${t.time}" step="0.25" oninput="updateTask(${t.id},'time',this.value)" class="w-10 text-center bg-transparent no-spinners text-[11px] font-black outline-none">
-                                <button onclick="stepValue(${t.id}, 'time', 0.25)" class="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-pink-600 hover:bg-white rounded transition-all text-sm font-black">+</button>
-                            </div>
-                            <div class="unit-toggle shrink-0">
-                                <button onclick="setUnit(${t.id}, 'h')" class="${(t.unit || 'h') === 'h' ? 'unit-active' : ''}">H</button>
-                                <button onclick="setUnit(${t.id}, 'm')" class="${(t.unit || 'h') === 'm' ? 'unit-active' : ''}">M</button>
-                            </div>
-                        </div>
-                    </td>
+                    <td class="px-4 py-1.5 text-center font-black">${t.cant}</td>
+                    <td class="px-4 py-1.5 text-center font-black">${t.time} ${t.unit}</td>
                     <td class="px-2 py-1.5 text-center font-black text-gray-400 text-xs">${t.totalHrs.toFixed(2)}</td>
                     <td class="px-2 py-1.5 text-center font-black text-gray-900 text-xs">$${t.price.toFixed(2)}</td>
-                    <td class="px-2 py-1.5 text-right pr-6">
-                        <button onclick="removeTask(${t.id})" class="text-gray-300 hover:text-red-500 opacity-50 hover:opacity-100 transition-all p-1">✕</button>
-                    </td>`;
+                    <td class="px-2 py-1.5 text-right"><button onclick="removeTask(${t.id})" class="text-gray-300 hover:text-red-500 p-1">✕</button></td>`;
                 body.appendChild(tr);
             });
             updateStats();
@@ -878,9 +718,7 @@
 
         function addRow() { 
             if(!selectedClientId) { switchTab('clients'); return; } 
-            dataByClient[selectedClientId].weeks[currentWeek].push({ 
-                id: Date.now(), client: "", desc: "", type: "Ads", cant: 1, time: 0, unit: 'h', totalHrs: 0, price: 0, done: false 
-            }); 
+            dataByClient[selectedClientId].weeks[currentWeek].push({ id: Date.now(), client: "", desc: "", type: "Ads", cant: 1, time: 1, unit: 'h', totalHrs: 1, price: dataByClient[selectedClientId].rates[currentWeek], done: false }); 
             renderTable(); 
         }
 
@@ -888,52 +726,14 @@
             const t = dataByClient[selectedClientId].weeks[currentWeek].find(x => x.id === id); if (!t) return;
             if (field === 'done') { t.done = val; renderTable(); saveData(); return; }
             t[field] = (field === 'cant' || field === 'time') ? parseFloat(val) || 0 : val;
-            const unitValue = t.unit === 'm' ? (t.time / 60) : t.time;
-            t.totalHrs = t.cant * unitValue; 
+            t.totalHrs = t.cant * (t.unit === 'm' ? (t.time / 60) : t.time);
             t.price = t.totalHrs * dataByClient[selectedClientId].rates[currentWeek];
-            saveData(); updateStats();
-            const row = document.querySelector(`tr[data-id="${id}"]`); 
-            if(row) { 
-                row.children[6].innerText = t.totalHrs.toFixed(2); 
-                row.children[7].innerText = "$" + t.price.toFixed(2); 
-            }
-            updateCharts();
+            saveData(); updateStats(); renderTable(); updateCharts();
         }
 
         function removeTask(id) { 
-            taskToDeleteId = id;
-            document.getElementById('confirm-delete-task-modal').classList.remove('hidden');
-        }
-        function closeConfirmDeleteTask() { 
-            taskToDeleteId = null;
-            document.getElementById('confirm-delete-task-modal').classList.add('hidden');
-        }
-        function executeDeleteTask() {
-            if (taskToDeleteId && selectedClientId) {
-                dataByClient[selectedClientId].weeks[currentWeek] = dataByClient[selectedClientId].weeks[currentWeek].filter(x => x.id !== taskToDeleteId); 
-                saveData(); 
-                renderTable(); 
-                updateCharts();
-            }
-            closeConfirmDeleteTask();
-        }
-
-        function stepValue(id, field, delta) {
-            const t = dataByClient[selectedClientId].weeks[currentWeek].find(x => x.id === id);
-            if (!t) return;
-            const currentVal = parseFloat(t[field]) || 0;
-            const newVal = Math.max(0, currentVal + delta);
-            t[field] = newVal;
-            updateTask(id, field, newVal);
-            renderTable();
-        }
-
-        function setUnit(id, unit) {
-            const t = dataByClient[selectedClientId].weeks[currentWeek].find(x => x.id === id);
-            if (!t) return;
-            t.unit = unit;
-            updateTask(id, 'unit', unit);
-            renderTable();
+            dataByClient[selectedClientId].weeks[currentWeek] = dataByClient[selectedClientId].weeks[currentWeek].filter(x => x.id !== id); 
+            saveData(); renderTable(); updateCharts();
         }
 
         function updateStats(reset = false) {
@@ -946,158 +746,110 @@
         function initCharts() {
             try {
                 const ctx1 = document.getElementById('categoryChart').getContext('2d');
-                categoryChart = new Chart(ctx1, { type: 'doughnut', data: { labels: taskTypes, datasets: [{ data: Array(taskTypes.length).fill(0), backgroundColor: categoryColors, borderWidth: 4, borderColor: '#fff' }] }, options: { cutout: '80%', maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { font: { size: 9, weight: '900', family: 'Montserrat' }, boxWidth: 8, padding: 15 } } } } });
+                categoryChart = new Chart(ctx1, { type: 'doughnut', data: { labels: taskTypes, datasets: [{ data: Array(taskTypes.length).fill(0), backgroundColor: categoryColors, borderWidth: 4, borderColor: '#fff' }] }, options: { cutout: '80%', maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { font: { size: 9, weight: '900' } } } } } });
                 const ctx2 = document.getElementById('timeChart').getContext('2d');
-                timeChart = new Chart(ctx2, { type: 'bar', data: { labels: taskTypes, datasets: [{ label: 'Horas', data: Array(taskTypes.length).fill(0), backgroundColor: categoryColors, borderRadius: 4 }] }, options: { maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, border: { display: false }, ticks: { font: { size: 9, weight: '700' } } }, x: { grid: { display: false }, ticks: { font: { size: 8, weight: '800' } } } } } });
+                timeChart = new Chart(ctx2, { type: 'bar', data: { labels: taskTypes, datasets: [{ data: Array(taskTypes.length).fill(0), backgroundColor: categoryColors }] }, options: { maintainAspectRatio: false, plugins: { legend: { display: false } } } });
                 updateCharts();
             } catch (e) {}
         }
 
         function updateCharts() { if(!categoryChart || !selectedClientId) return; const d = dataByClient[selectedClientId].weeks[currentWeek]; categoryChart.data.datasets[0].data = taskTypes.map(type => d.filter(t => t.type === type).length); categoryChart.update(); timeChart.data.datasets[0].data = taskTypes.map(type => d.filter(t => t.type === type).reduce((a,b)=>a+b.totalHrs, 0)); timeChart.update(); }
 
+        // --- GESTIÓN DE FACTURAS (CORREGIDO) ---
         function openInvoiceManager() {
-            if(!selectedClientId) return; const client = clients.find(c => c.id == selectedClientId), data = dataByClient[selectedClientId], tasks = data.weeks[currentWeek];
-            if(tasks.length === 0) return;
-            let inv = data.invoices[currentWeek];
-            if (!inv) {
+            if(!selectedClientId || !dataByClient[selectedClientId]) return;
+            const data = dataByClient[selectedClientId];
+            const inv = data.invoices[currentWeek];
+
+            if (inv) {
+                // Si ya existe factura, la mostramos directamente pasando el objeto
+                renderInvoice(inv);
+            } else {
+                // Si no existe, verificamos si hay tareas para generar una
+                const tasks = data.weeks[currentWeek];
+                if(tasks.length === 0) return;
+                
                 document.getElementById('inv-discount-input').value = "";
                 document.getElementById('inv-paid-input').value = "";
                 document.getElementById('confirm-invoice-modal').classList.remove('hidden');
-            } else {
-                renderInvoiceFromData(selectedClientId, data.history.indexOf(inv));
             }
-        }
-
-        function closeConfirmInvoice() {
-            document.getElementById('confirm-invoice-modal').classList.add('hidden');
         }
 
         function executeGenerateInvoice() {
             const client = clients.find(c => c.id == selectedClientId);
             const data = dataByClient[selectedClientId];
-            const tasks = data.weeks[currentWeek];
             const discount = parseFloat(document.getElementById('inv-discount-input').value) || 0;
             const paid = parseFloat(document.getElementById('inv-paid-input').value) || 0;
 
             let inv = { 
                 number: String(client.invNum).padStart(3, '0') + (client.invSuffix || ''), 
                 date: new Date().toLocaleDateString('es-ES', { day: 'numeric', month: '2-digit', year: 'numeric' }), 
-                tasks: JSON.parse(JSON.stringify(tasks)), 
+                tasks: JSON.parse(JSON.stringify(data.weeks[currentWeek])), 
                 week: currentWeek,
-                discount: discount,
-                paid: paid
+                discount: discount, paid: paid
             };
             
             data.history.unshift(inv); 
             data.invoices[currentWeek] = inv; 
             client.invNum++; 
             saveData(); 
-            renderClientsGrid(); 
+            document.getElementById('confirm-invoice-modal').classList.add('hidden');
+            renderInvoice(inv);
             updateInvoiceButtonState();
-            closeConfirmInvoice();
-            renderInvoiceFromData(selectedClientId, 0);
         }
 
-        function renderInvoiceFromData(clientId, historyIndex) {
-            const client = clients.find(c => c.id == clientId), inv = dataByClient[clientId].history[historyIndex];
-            if (!inv) return; 
+        function renderInvoice(inv) {
+            const client = clients.find(c => c.id == selectedClientId);
+            if (!inv || !client) return; 
+
             document.getElementById('inv-date').innerText = inv.date; 
             document.getElementById('inv-number').innerText = inv.number;
             
-            let details = [];
-            if (client.rif) details.push(client.rif);
-            if (client.email) details.push(client.email);
-            if (client.phone) details.push(client.phone);
-            if (client.address) details.push(client.address);
-            if (client.web) details.push(client.web);
-
             let cobroA = `<p class="font-bold text-[8pt] mb-1 text-black">Cobro a</p>`;
-            if (client.company) cobroA += `<p class="text-[8pt] font-regular text-regular mb-2 leading-tight">${client.company}</p>`;
-            if (client.person) cobroA += `<p class="text-[8pt] font-normal text-regular leading-tight">${client.person}</p>`;
-            if (details.length > 0) cobroA += `<p class="text-[8pt] text-regular leading-tight mt-0.5">${details.join('<br>')}</p>`;
-
+            if (client.company) cobroA += `<p class="text-[8pt] font-regular mb-2">${client.company}</p>`;
+            if (client.rif) cobroA += `<p class="text-[8pt] mt-0.5">${client.rif}</p>`;
+            if (client.email) cobroA += `<p class="text-[8pt] mt-0.5">${client.email}</p>`;
             document.getElementById('inv-to').innerHTML = cobroA;
 
-            const formatNum = (n) => n.toLocaleString('es-ES', {minimumIntegerDigits: 2, minimumFractionDigits: 2, maximumFractionDigits: 2});
-
-            const canvas = document.createElement("canvas");
-            const context = canvas.getContext("2d");
-            context.font = "900 8pt Montserrat, sans-serif";
-            let maxClientWidth = 0;
-            let maxTypeWidth = 0;
-            inv.tasks.forEach(t => {
-                const text = (t.client ? t.client.trim() : 'General').toUpperCase();
-                const width = context.measureText(text).width;
-                if (width > maxClientWidth) maxClientWidth = width;
-                
-                const typeText = (t.type ? t.type.trim() : '').toUpperCase();
-                const typeWidth = context.measureText(typeText).width;
-                if (typeWidth > maxTypeWidth) typeWidth = typeWidth;
-            });
-            const clientColWidth = (Math.ceil(maxClientWidth) + 4) + 'px';
-            const typeColWidth = (Math.ceil(maxTypeWidth) + 4) + 'px';
-
-            document.getElementById('inv-rows').innerHTML = inv.tasks.map((t, idx) => `<tr class="${idx % 2 !== 0 ? 'bg-gray-50' : 'bg-white'}"><td class="py-1 pl-5 pr-0 text-left border-b border-gray-100"><div class="grid gap-2 items-center font-regular uppercase text-[8pt] text-regular" style="grid-template-columns: ${clientColWidth} 10px ${typeColWidth} 10px 40px;"><span class="whitespace-nowrap">${t.client ? t.client : 'General'}</span><span class="text-gray-300 font-normal text-center">|</span><span class="whitespace-nowrap">${t.type}</span><span class="text-gray-300 font-normal text-center">|</span><span class="text-center">${t.cant}</span></div><p class="text-[8pt] text-regular font-bold italic opacity-70 mt-0.5">${t.desc || 'Sin descripción'}</p></td><td class="py-1 pr-5 text-right font-regular border-b border-gray-100 text-regular text-[8pt]">USD ${formatNum(t.price)}</td></tr>`).join('');
+            const formatNum = (n) => n.toLocaleString('es-ES', {minimumFractionDigits: 2});
+            document.getElementById('inv-rows').innerHTML = inv.tasks.map((t, idx) => `<tr class="${idx % 2 !== 0 ? 'bg-gray-50' : 'bg-white'}"><td class="py-1 pl-5 text-left border-b border-gray-100 text-[8pt] uppercase"><b>${t.client || 'General'}</b> | ${t.type} | ${t.cant}<p class="italic opacity-70">${t.desc || '...'}</p></td><td class="py-1 pr-5 text-right border-b border-gray-100 text-[8pt]">USD ${formatNum(t.price)}</td></tr>`).join('');
             
-            const tasks = inv.tasks;
-            const ajustes = tasks.filter(t => t.type === 'Ajustes').reduce((a,b) => a + b.price, 0);
-            const subtotal = tasks.filter(t => t.type !== 'Ajustes').reduce((a,b) => a + b.price, 0);
-            const discount = inv.discount || 0;
-            const paid = inv.paid || 0;
-            const total = (subtotal + ajustes) - discount;
-            const saldo = total - paid;
+            const ajustes = inv.tasks.filter(t => t.type === 'Ajustes').reduce((a,b) => a + b.price, 0);
+            const subtotal = inv.tasks.filter(t => t.type !== 'Ajustes').reduce((a,b) => a + b.price, 0);
+            const total = (subtotal + ajustes) - (inv.discount || 0);
 
-            const fmt = (n) => "USD " + formatNum(Math.max(0, n));
-            
-            document.getElementById('inv-subtotal').innerText = fmt(subtotal);
-            document.getElementById('inv-discount').innerText = "- " + fmt(discount);
-            document.getElementById('inv-ajustes').innerText = "+ " + fmt(ajustes);
-            document.getElementById('inv-total').innerText = fmt(total);
-            document.getElementById('inv-paid').innerText = fmt(paid);
-            document.getElementById('inv-balance').innerText = fmt(saldo);
+            document.getElementById('inv-subtotal').innerText = "USD " + formatNum(subtotal);
+            document.getElementById('inv-discount').innerText = "- USD " + formatNum(inv.discount || 0);
+            document.getElementById('inv-ajustes').innerText = "+ USD " + formatNum(ajustes);
+            document.getElementById('inv-total').innerText = "USD " + formatNum(total);
+            document.getElementById('inv-paid').innerText = "USD " + formatNum(inv.paid || 0);
+            document.getElementById('inv-balance').innerText = "USD " + formatNum(total - (inv.paid || 0));
             
             document.getElementById('invoice-preview').classList.remove('hidden');
         }
 
         function updateInvoiceButtonState() {
-            const btn = document.getElementById('btn-invoice'); if (!btn) return;
-            if (selectedClientId && dataByClient[selectedClientId]?.invoices?.[currentWeek]) { btn.innerHTML = '📄 Ver Factura'; btn.className = 'bg-white/20 hover:bg-white/30 px-6 py-2.5 rounded-lg text-[9px] font-black uppercase border border-white/30 text-white transition-all shadow-md'; }
-            else { btn.innerHTML = '📄 Generar Factura'; btn.className = 'bg-black/10 hover:bg-black/20 px-6 py-2.5 rounded-lg text-[9px] font-black uppercase border border-white/10 text-white transition-all'; }
+            const btn = document.getElementById('btn-invoice');
+            if (!selectedClientId || !dataByClient[selectedClientId]) { btn.innerText = "📄 Bloqueado"; return; }
+            const hasInv = dataByClient[selectedClientId].invoices?.[currentWeek];
+            btn.innerText = hasInv ? "📄 Ver Factura" : "📄 Generar Factura";
+            btn.className = `px-6 py-2.5 rounded-lg text-[9px] font-black uppercase border transition-all shadow-md ${hasInv ? 'bg-white/20 hover:bg-white/30 text-white' : 'bg-black/10 hover:bg-black/20 text-white'}`;
         }
 
-        function toggleCategoryDropdown(event, id) { event.stopPropagation(); const menu = document.getElementById(`cat-menu-${id}`), arrow = menu.previousElementSibling.querySelector('svg'); if (activeCategoryDropdown && activeCategoryDropdown !== id) closeAllCategoryDropdowns(); if (menu.classList.contains('dropdown-open')) { menu.classList.remove('dropdown-open'); arrow.classList.remove('arrow-up'); activeCategoryDropdown = null; } else { menu.classList.add('dropdown-open'); arrow.classList.add('arrow-up'); activeCategoryDropdown = id; } }
-        function selectCategory(event, id, type) { event.stopPropagation(); updateTask(id, 'type', type); closeAllCategoryDropdowns(); renderTable(); }
-        function closeAllCategoryDropdowns() { document.querySelectorAll('[id^="cat-menu-"]').forEach(menu => { menu.classList.remove('dropdown-open'); const btn = menu.previousElementSibling; if(btn) { const arrow = btn.querySelector('svg'); if(arrow) arrow.classList.remove('arrow-up'); } }); activeCategoryDropdown = null; }
-
-        function toggleRateDropdown() { const menu = document.getElementById('rate-dropdown-menu'), arrow = document.getElementById('rate-dropdown-arrow'); menu.classList.toggle('dropdown-open'); arrow.classList.toggle('arrow-up'); }
-        function setCustomRate(val) { if (!selectedClientId) return; const r = parseFloat(val) || 0; document.getElementById('rate-display-value').innerText = r.toFixed(2); dataByClient[selectedClientId].rates[currentWeek] = r; dataByClient[selectedClientId].weeks[currentWeek].forEach(t => { const unitVal = t.unit === 'm' ? (t.time/60) : t.time; t.price = t.cant * unitVal * r; }); saveData(); renderTable(); document.getElementById('rate-dropdown-menu').classList.remove('dropdown-open'); }
-        function submitCustomRate() { setCustomRate(document.getElementById('custom-rate-input').value); }
-
-        function openHistory(clientId) {
-            const client = clients.find(c => c.id === clientId); document.getElementById('history-client-name').innerText = client.company || client.person;
-            const container = document.getElementById('history-list'); container.innerHTML = ""; const data = dataByClient[clientId];
-            if (!data || !data.history || data.history.length === 0) container.innerHTML = `<div class="py-12 text-center text-gray-300 text-[10px] font-black uppercase">Sin facturas</div>`;
-            else data.history.forEach((inv, index) => { const row = document.createElement('div'); row.className = "flex items-center justify-between p-6 bg-gray-50 rounded-lg border border-gray-100 hover:border-pink-200 transition-all group animate-fade-in"; row.innerHTML = `<div class="flex items-center gap-5"><div class="bg-white p-3.5 rounded-lg shadow-sm text-pink-500"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></div><div><p class="text-[8px] font-black text-gray-400 uppercase">#${inv.number}</p><p class="font-black text-gray-900 text-sm">${inv.date}</p></div></div><button onclick="renderInvoiceFromData(${clientId}, ${index})" class="bg-gray-900 text-white px-6 py-3 rounded-lg text-[9px] font-black uppercase hover:bg-pink-600 transition-all shadow-md">Ver PDF</button>`; container.appendChild(row); });
-            document.getElementById('history-modal').classList.remove('hidden');
-        }
-
-        function askDeleteClient(id) { const client = clients.find(c => c.id === id); if (!client) return; clientToDeleteId = id; document.getElementById('delete-client-name-modal').innerText = client.company || client.person; document.getElementById('confirm-delete-client-modal').classList.remove('hidden'); }
-        function closeConfirmDelete() { clientToDeleteId = null; document.getElementById('confirm-delete-client-modal').classList.add('hidden'); }
-        function executeDeleteClient() { if (!clientToDeleteId) return; clients = clients.filter(c => c.id !== clientToDeleteId); delete dataByClient[clientToDeleteId]; if (selectedClientId === clientToDeleteId) selectedClientId = null; saveData(); updateClientSelector(); renderClientsGrid(); renderTable(); closeConfirmDelete(); }
-
+        function toggleCategoryDropdown(e, id) { e.stopPropagation(); document.getElementById(`cat-menu-${id}`).classList.toggle('hidden'); }
+        function selectCategory(e, id, type) { e.stopPropagation(); updateTask(id, 'type', type); document.getElementById(`cat-menu-${id}`).classList.add('hidden'); }
+        function openHistory(id) { selectedClientId = id; const data = dataByClient[id]; const list = document.getElementById('history-list'); document.getElementById('history-client-name').innerText = clients.find(c => c.id == id).company; list.innerHTML = ""; if(!data.history.length) list.innerHTML = "Sin facturas"; else data.history.forEach(inv => { const d = document.createElement('div'); d.className="flex justify-between p-4 bg-gray-50 mb-2 rounded"; d.innerHTML=`<span>#${inv.number} - ${inv.date}</span><button onclick='renderInvoice(${JSON.stringify(inv)})' class='bg-gray-900 text-white px-4 py-1 rounded text-[10px] uppercase font-black'>Ver</button>`; list.appendChild(d); }); document.getElementById('history-modal').classList.remove('hidden'); }
         function closeHistory() { document.getElementById('history-modal').classList.add('hidden'); }
         function closeInvoicePreview() { document.getElementById('invoice-preview').classList.add('hidden'); }
-        function closeAllDropdowns() {
-            document.getElementById('client-dropdown-menu')?.classList.remove('dropdown-open');
-            document.getElementById('client-dropdown-arrow')?.classList.remove('arrow-up');
-        }
-        function setupClickOutsides() { document.addEventListener('click', (e) => { if (!e.target.closest('#client-dropdown-container')) { document.getElementById('client-dropdown-menu')?.classList.remove('dropdown-open'); document.getElementById('client-dropdown-arrow')?.classList.remove('arrow-up'); } if (!e.target.closest('#rate-dropdown-container')) { document.getElementById('rate-dropdown-menu')?.classList.remove('dropdown-open'); document.getElementById('rate-dropdown-arrow')?.classList.remove('arrow-up'); } if (!e.target.closest('.category-dropdown-wrapper')) closeAllCategoryDropdowns(); }); }
-
-        function askResetCurrentWeek() { if (!selectedClientId) return; document.getElementById('reset-week-num').innerText = currentWeek; document.getElementById('confirm-reset-modal').classList.remove('hidden'); }
+        function closeConfirmInvoice() { document.getElementById('confirm-invoice-modal').classList.add('hidden'); }
+        function askDeleteClient(id) { clientToDeleteId = id; document.getElementById('confirm-delete-client-modal').classList.remove('hidden'); }
+        function closeConfirmDelete() { document.getElementById('confirm-delete-client-modal').classList.add('hidden'); }
+        function executeDeleteClient() { clients = clients.filter(c => c.id !== clientToDeleteId); delete dataByClient[clientToDeleteId]; saveData(); renderClientsGrid(); closeConfirmDelete(); }
+        function askResetCurrentWeek() { document.getElementById('reset-week-num').innerText = currentWeek; document.getElementById('confirm-reset-modal').classList.remove('hidden'); }
         function closeConfirmReset() { document.getElementById('confirm-reset-modal').classList.add('hidden'); }
-        function executeResetWeek() { if (dataByClient[selectedClientId]) { dataByClient[selectedClientId].weeks[currentWeek].forEach(t => t.done = true); dataByClient[selectedClientId].weeks[currentWeek] = []; dataByClient[selectedClientId].invoices[currentWeek] = null; saveData(); renderTable(); updateCharts(); updateInvoiceButtonState(); } closeConfirmReset(); }
+        function executeResetWeek() { dataByClient[selectedClientId].weeks[currentWeek] = []; dataByClient[selectedClientId].invoices[currentWeek] = null; saveData(); renderTable(); updateInvoiceButtonState(); closeConfirmReset(); }
+        function setupClickOutsides() { document.addEventListener('click', () => { document.querySelectorAll('[id^="cat-menu-"]').forEach(m => m.classList.add('hidden')); }); }
 
-        // Iniciar
         load();
     </script>
 </body>
