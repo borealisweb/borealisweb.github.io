@@ -136,7 +136,7 @@
                 </div>
                 <div>
                     <h1 class="text-3xl font-black text-gray-900 uppercase leading-none">Gestión</h1>
-                    <p class="text-gray-400 text-[9px] font-extrabold uppercase mt-1.5">De Tareas y Clientes</p>
+                    <p class="text-gray-400 text-[11.5px] font-extrabold uppercase mt-1.5">De Tareas y Clientes</p>
                 </div>
             </div>
 
@@ -151,7 +151,7 @@
                     Nube Activa
                 </div>
                 <div id="logo-container" class="max-w-[180px] mr-2">
-                    <img src="logotipo.png" alt="Borealis Logo" class="h-10 w-auto object-contain" onerror="this.parentElement.innerHTML='<span class=\'text-gray-300 font-black uppercase text-[10px]\'>Logotipo</span>'">
+                    <img src="logotipo_entero.png" alt="Borealis Logo" class="h-10 w-auto object-contain" onerror="this.parentElement.innerHTML='<span class=\'text-gray-300 font-black uppercase text-[10px]\'>Logotipo</span>'">
                 </div>
                 <div class="w-px h-8 bg-gray-200 mx-2"></div>
                 <button onclick="logout()" class="text-[9px] font-black uppercase text-gray-400 bg-gray-50 hover:bg-red-50 hover:text-red-500 px-4 py-2.5 rounded-lg transition-colors flex items-center gap-2">
@@ -200,7 +200,7 @@
 
             <div class="grid grid-cols-4 gap-6 mb-8 relative z-20">
                 <div class="bg-white p-7 rounded-lg shadow-sm border border-gray-100 relative overflow-hidden flex flex-col justify-between group hover:shadow-md transition-shadow">
-                    <div class="absolute top-0 left-0 w-full h-1.5 stat-color-bar transition-colors duration-500"></div>
+                    <div class="absolute top-0 left-0 w-full h-1.5 stat-color-bar transition-colors duration-500 rounded-t-lg"></div>
                     <div class="flex justify-between items-start">
                         <div>
                             <p class="text-[9px] font-bold text-gray-400 uppercase mb-2">Inversión Temporal</p>
@@ -211,7 +211,7 @@
                 </div>
 
                 <div class="bg-white p-7 rounded-lg shadow-sm border border-gray-100 relative overflow-hidden flex flex-col justify-between group hover:shadow-md transition-shadow">
-                    <div class="absolute top-0 left-0 w-full h-1.5 stat-color-bar transition-colors duration-500"></div>
+                    <div class="absolute top-0 left-0 w-full h-1.5 stat-color-bar transition-colors duration-500 rounded-t-lg"></div>
                     <div class="flex gap-8 w-full justify-center">
                         <div><p class="text-[9px] font-bold text-gray-400 uppercase mb-2">Entradas</p><h3 class="text-4xl font-black text-gray-900" id="stat-tasks">0</h3></div>
                         <div class="w-px bg-gray-100 h-12 self-center"></div>
@@ -220,14 +220,18 @@
                 </div>
 
                 <div class="bg-white p-7 rounded-lg shadow-sm border border-gray-100 relative overflow-visible flex flex-col justify-between group hover:shadow-md transition-shadow" id="rate-dropdown-container">
-                    <div class="absolute top-0 left-0 w-full h-1.5 stat-color-bar transition-colors duration-500"></div>
+                    <div class="absolute top-0 left-0 w-full h-1.5 stat-color-bar transition-colors duration-500 rounded-t-lg"></div>
                     <div class="w-full relative">
                         <p class="text-[9px] font-bold text-gray-400 uppercase mb-2">Tarifa Horaria</p>
-                        <button type="button" onclick="toggleRateDropdown()" class="w-full flex items-baseline gap-1.5 text-left focus:outline-none group">
-                            <span class="text-xl font-black text-gray-300 group-hover:text-pink-400 transition-colors">$</span>
-                            <span id="rate-display-value" class="font-black text-4xl text-gray-900 cursor-pointer group-hover:text-pink-600 transition-colors">2.50</span>
-                            <svg id="rate-dropdown-arrow" class="w-5 h-5 text-gray-200 ml-auto transition-transform duration-300 group-hover:text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
+                        <div class="flex justify-between items-start">
+                            <button type="button" onclick="toggleRateDropdown()" class="flex items-baseline gap-1.5 text-left focus:outline-none group">
+                                <div class="p-2.5 rounded-lg bg-gray-50 text-gray-400 stat-icon transition-colors duration-500 mr-1.5">
+                                    <span class="text-xl font-black">$</span>
+                                </div>
+                                <span id="rate-display-value" class="font-black text-4xl text-gray-900 cursor-pointer group-hover:text-pink-600 transition-colors">2.50</span>
+                                <svg id="rate-dropdown-arrow" class="w-5 h-5 text-gray-200 ml-3 transition-transform duration-300 group-hover:text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                        </div>
                         <div id="rate-dropdown-menu" class="absolute left-0 right-0 top-[110%] bg-white rounded-xl shadow-2xl border border-gray-100 opacity-0 invisible transition-all duration-300 transform scale-95 origin-top z-[100] p-5">
                             <p class="text-[8px] font-black text-gray-400 uppercase mb-4 text-center">Presets de Cobro</p>
                             <div class="grid grid-cols-3 gap-2 mb-5">
@@ -329,7 +333,7 @@
                 </div>
                 <div class="flex-1">
                     <h2 class="font-black text-xs uppercase text-gray-400 mb-8 px-2">Gestión de Clientes</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="clients-grid"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6" id="clients-grid"></div>
                 </div>
             </div>
         </div>
@@ -468,21 +472,36 @@
 
                     <footer class="mt-auto flex justify-between items-end">
                         <div class="text-[6pt] text-black space-y-1 leading-tight">
-                            <div class="flex items-center gap-2"><div class="w-0.5 h-2 bg-[#00AEEF]"></div><p><span class="font-bold">Teléfono:</span> +58 414 - 3571705</p></div>
-                            <div class="flex items-center gap-2"><div class="w-0.5 h-2 bg-[#E2007A]"></div><p><span class="font-bold">Web:</span> http://borealis.com.ve</p></div>
-                            <div class="flex items-center gap-2"><div class="w-0.5 h-2 bg-[#FFF200]"></div><p><span class="font-bold">Correo:</span> contacto@borealis.com.ve</p></div>
-                            <div class="flex items-center gap-2"><div class="w-0.5 h-2 bg-[#000000]"></div><p><span class="font-bold">Dirección:</span> Independencia - Estado Yaracuy - Venezuela</p></div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-0.5 h-2 bg-[#00AEEF]"></div>
+                                <p><span class="font-bold">Teléfono:</span> +58 414 - 3571705</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-0.5 h-2 bg-[#E2007A]"></div>
+                                <p><span class="font-bold">Web:</span> http://borealis.com.ve</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-0.5 h-2 bg-[#FFF200]"></div>
+                                <p><span class="font-bold">Correo:</span> contacto@borealis.com.ve</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-0.5 h-2 bg-[#000000]"></div>
+                                <p><span class="font-bold">Dirección:</span> Independencia - Estado Yaracuy - Venezuela</p>
+                            </div>
                         </div>
                     </footer>
                 </div>
+
                 <!-- Barra Lateral Derecha -->
                 <div class="absolute top-0 bottom-0 right-10 w-28 bg-white flex flex-col pr-9 pl-0">
                     <img src="logo_carta.png" class="h-full w-full object-cover object-left mix-blend-multiply" onerror="this.style.display='none'">
                 </div>
+
             </div>
         </div>
     </div>
 
+    <!-- JavaScript Principal -->
     <script>
         // --- CONFIGURACIÓN DE CLOUDFLARE ---
         const CLOUDFLARE_WORKER_URL = "https://borealis-api.borealiscreadoresdeideas.workers.dev";
@@ -525,9 +544,15 @@
                     return;
                 } else { throw new Error("Cloudflare Error"); }
             } catch(e) { 
-                console.warn("Usando respaldo local:", e); 
-                if (SECRET_KEY) { loadLocalFallback(); document.getElementById('cloud-status').classList.add('hidden'); unlockApp(); } 
-                else { showLoginError("Sin conexión."); showLoginScreen(); }
+                console.warn("Respaldo local:", e); 
+                if (SECRET_KEY) {
+                    loadLocalFallback();
+                    document.getElementById('cloud-status').classList.add('hidden');
+                    unlockApp();
+                } else {
+                    showLoginError("Sin conexión.");
+                    showLoginScreen();
+                }
             }
         }
 
@@ -596,7 +621,8 @@
             document.getElementById('card-total').style.backgroundColor = c.accent;
             document.getElementById('table-title').innerText = `REGISTRO SEMANA ${currentWeek}`;
             if (selectedClientId && dataByClient[selectedClientId]) {
-                document.getElementById('rate-display-value').innerText = (dataByClient[selectedClientId].rates[currentWeek] || 0).toFixed(2);
+                const r = (dataByClient[selectedClientId].rates[currentWeek] || 2.50);
+                document.getElementById('rate-display-value').innerText = r.toFixed(2);
             }
             updateInvoiceButtonState();
         }
@@ -614,7 +640,7 @@
             clients.forEach(c => {
                 const isSelected = c.id == selectedClientId;
                 if(isSelected) triggerText.innerText = c.company || c.person;
-                html += `<button onclick="handleClientSelect(${c.id})" class="w-full text-left px-5 py-4 rounded-lg text-[10px] font-black uppercase transition-all flex justify-between items-center ${isSelected ? 'bg-pink-50 text-pink-600 shadow-sm' : 'text-gray-700 hover:bg-gray-50'} mb-2"><span>${c.company || c.person}</span></button>`;
+                html += `<button onclick="handleClientSelect(${c.id})" class="w-full text-left px-5 py-4 rounded-lg text-[10px] font-black uppercase transition-all flex justify-between items-center ${isSelected ? 'bg-pink-50 text-pink-600 shadow-sm' : 'text-gray-700 hover:bg-gray-50'} mb-2 group"><span class="truncate pr-4">${c.company || c.person}</span></button>`;
             });
             if (!selectedClientId) triggerText.innerText = 'Seleccionar...';
             list.innerHTML = html;
@@ -626,13 +652,16 @@
             selectedClientId = id;
             const badge = document.getElementById('active-client-badge');
             if (!id) { badge.classList.add('hidden'); updateStats(true); renderTable(); saveData(); updateClientSelector(); return; }
-            const client = clients.find(c => c.id == id); badge.classList.remove('hidden'); document.getElementById('current-client-name').innerText = client.company || client.person;
+            const client = clients.find(c => c.id == id); 
+            badge.classList.remove('hidden'); 
+            document.getElementById('current-client-name').innerText = client.company || client.person;
             if (!dataByClient[id]) dataByClient[id] = { weeks: { 1: [], 2: [], 3: [], 4: [] }, rates: { 1: 2.50, 2: 2.50, 3: 2.50, 4: 2.50 }, invoices: { 1: null, 2: null, 3: null, 4: null }, history: [] };
             updateUIColors(); renderTable(); saveData(); updateClientSelector(); renderClientsGrid();
         }
 
         function saveNewClient() {
             const company = document.getElementById('c-company').value.trim();
+            if (!company && !document.getElementById('c-person').value) return;
             const clientData = {
                 id: editingClientId || Date.now(),
                 company: company.toUpperCase(),
@@ -677,40 +706,61 @@
         function renderClientsGrid() {
             const grid = document.getElementById('clients-grid');
             grid.innerHTML = clients.map(c => {
+                const displayName = c.company || c.person;
+                const formattedInvoice = String(c.invNum).padStart(3, '0') + (c.invSuffix || '');
                 const isActive = c.id == selectedClientId;
                 return `<div class="bg-white border ${isActive ? 'border-emerald-200 bg-emerald-50/10' : 'border-gray-100'} rounded-lg p-5 shadow-sm relative group animate-fade-in text-[10px]">
                     <div class="absolute top-4 right-4 flex gap-1 opacity-0 group-hover:opacity-100 transition-all">
-                        <button onclick="editClient(${c.id})" class="bg-white border p-1 rounded">✏️</button>
-                        <button onclick="openHistory(${c.id})" class="bg-white border p-1 rounded">🕒</button>
-                        <button onclick="askDeleteClient(${c.id})" class="bg-white border p-1 rounded">✕</button>
+                        <button onclick="editClient(${c.id})" class="bg-white border border-gray-100 p-1.5 rounded hover:text-blue-500">✏️</button>
+                        <button onclick="openHistory(${c.id})" class="bg-white border border-gray-100 p-1.5 rounded hover:text-emerald-500">🕒</button>
+                        <button onclick="askDeleteClient(${c.id})" class="bg-white border border-gray-100 p-1.5 rounded hover:text-red-500">✕</button>
                     </div>
-                    <h4 class="font-black text-sm uppercase truncate">${c.company || c.person}</h4>
-                    <p class="font-bold text-gray-400 uppercase mb-3">${c.person || 'N/A'}</p>
-                    <button onclick="selectClient(${c.id}); switchTab('dashboard');" class="w-full py-2 ${isActive ? 'bg-emerald-500' : 'bg-gray-900'} text-white rounded font-black uppercase">${isActive ? 'Activo' : 'Activar'}</button>
+                    <h4 class="font-black text-sm uppercase text-gray-900 truncate pr-12">${displayName}</h4>
+                    <p class="font-bold text-[9px] text-gray-400 uppercase mb-3 truncate">${c.person || 'Sin Responsable'}</p>
+                    <div class="space-y-1.5 mb-4">
+                        <div class="flex justify-between items-center bg-gray-50/50 p-1.5 rounded-lg text-[8px]"><span class="font-black uppercase text-gray-400">RIF:</span><span class="text-gray-700 font-bold">${c.rif || 'N/A'}</span></div>
+                        <div class="flex justify-between items-center bg-pink-50/30 p-1.5 rounded-lg text-[8px]"><span class="font-black uppercase text-pink-400">FACTURA:</span><span class="text-pink-600 font-black">${formattedInvoice}</span></div>
+                        <div class="px-2 space-y-1 mt-2 border-t border-gray-50 pt-2 text-gray-500">
+                            <div class="flex items-center gap-2 overflow-hidden"><svg class="w-3 h-3 text-gray-300 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg><span class="truncate">${c.email || 'Sin correo'}</span></div>
+                            <div class="flex items-center gap-2"><svg class="w-3 h-3 text-gray-300 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg><span>${c.phone || 'N/A'}</span></div>
+                        </div>
+                    </div>
+                    <button onclick="selectClient(${c.id}); switchTab('dashboard');" class="w-full py-2.5 ${isActive ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-gray-900 hover:bg-pink-600'} text-white rounded-lg font-black uppercase transition-all shadow-md">${isActive ? 'Cliente Activo' : 'Activar Cliente'}</button>
                 </div>`;
             }).join('');
         }
 
         function renderTable() {
             const body = document.getElementById('task-body'); body.innerHTML = "";
-            if (!selectedClientId) { body.innerHTML = '<tr><td colspan="9" class="py-32 text-center font-black text-gray-200 uppercase">Activa un cliente</td></tr>'; updateStats(true); return; }
+            if (!selectedClientId) { body.innerHTML = '<tr><td colspan="9" class="py-32 text-center font-black text-gray-200 uppercase">Activa un cliente para empezar</td></tr>'; updateStats(true); return; }
             const tasks = dataByClient[selectedClientId].weeks[currentWeek];
-            if(tasks.length === 0) body.innerHTML = '<tr><td colspan="9" class="py-24 text-center font-black text-gray-300 uppercase">Semana vacía</td></tr>';
+            if(tasks.length === 0) body.innerHTML = '<tr><td colspan="9" class="py-24 text-center font-black text-gray-300 uppercase">Semana vacía ↓</td></tr>';
             tasks.forEach(t => {
                 const tr = document.createElement('tr');
                 tr.className = `hover:bg-gray-50/50 border-b border-gray-50 ${t.done ? 'row-done' : ''}`;
-                tr.innerHTML = `<td class="px-2 py-1.5 text-center"><input type="checkbox" ${t.done ? 'checked' : ''} onchange="updateTask(${t.id}, 'done', this.checked)" class="w-4 h-4 rounded"></td>
-                    <td class="px-6 py-1.5"><input type="text" value="${t.client || ''}" oninput="updateTask(${t.id},'client',this.value)" class="w-full bg-transparent font-bold focus:outline-none text-xs"></td>
-                    <td class="px-6 py-1.5"><input type="text" value="${t.desc}" oninput="updateTask(${t.id},'desc',this.value)" class="w-full bg-transparent font-bold focus:outline-none text-xs"></td>
-                    <td class="px-6 py-1.5">
+                tr.innerHTML = `<td class="px-2 py-1.5 text-center"><input type="checkbox" ${t.done ? 'checked' : ''} onchange="updateTask(${t.id}, 'done', this.checked)" class="w-4 h-4 rounded border-gray-300 text-pink-600"></td>
+                    <td class="px-6 py-1.5"><input type="text" value="${t.client || ''}" oninput="updateTask(${t.id},'client',this.value)" class="w-full bg-transparent font-bold focus:outline-none text-xs" placeholder="..."></td>
+                    <td class="px-6 py-1.5"><input type="text" value="${t.desc}" oninput="updateTask(${t.id},'desc',this.value)" class="w-full bg-transparent font-bold focus:outline-none text-xs" placeholder="..."></td>
+                    <td class="px-6 py-1.5 relative">
                         <button onclick="toggleCategoryDropdown(event, ${t.id})" class="w-full bg-gray-100 px-4 py-1 rounded text-[10px] uppercase font-black">${t.type}</button>
-                        <div id="cat-menu-${t.id}" class="absolute hidden bg-white shadow-xl z-[200] p-2 rounded border">${taskTypes.map(type => `<button onclick="selectCategory(event, ${t.id}, '${type}')" class="block w-full text-left px-2 py-1 uppercase text-[9px] font-black hover:bg-pink-50">${type}</button>`).join('')}</div>
+                        <div id="cat-menu-${t.id}" class="absolute hidden bg-white shadow-xl z-[200] p-2 rounded border border-gray-100 left-6 top-full w-[80%]">${taskTypes.map(type => `<button onclick="selectCategory(event, ${t.id}, '${type}')" class="block w-full text-left px-3 py-2 uppercase text-[9px] font-black hover:bg-pink-50 rounded">${type}</button>`).join('')}</div>
                     </td>
-                    <td class="px-4 py-1.5 text-center font-black">${t.cant}</td>
-                    <td class="px-4 py-1.5 text-center font-black">${t.time} ${t.unit}</td>
+                    <td class="px-4 py-1.5">
+                         <div class="flex items-center justify-center bg-gray-50 rounded-lg p-1 border border-gray-100 w-full max-w-[100px] mx-auto">
+                            <input type="number" value="${t.cant}" oninput="updateTask(${t.id},'cant',this.value)" class="w-full text-center bg-transparent no-spinners text-[11px] font-black outline-none">
+                        </div>
+                    </td>
+                    <td class="px-4 py-1.5">
+                        <div class="flex items-center gap-2 justify-center">
+                            <div class="bg-gray-50 rounded-lg p-1 border border-gray-100 w-16">
+                                <input type="number" value="${t.time}" step="0.25" oninput="updateTask(${t.id},'time',this.value)" class="w-full text-center bg-transparent no-spinners text-[11px] font-black outline-none">
+                            </div>
+                            <div class="unit-toggle"><button onclick="setUnit(${t.id}, 'h')" class="${(t.unit || 'h') === 'h' ? 'unit-active' : ''}">H</button><button onclick="setUnit(${t.id}, 'm')" class="${(t.unit || 'h') === 'm' ? 'unit-active' : ''}">M</button></div>
+                        </div>
+                    </td>
                     <td class="px-2 py-1.5 text-center font-black text-gray-400 text-xs">${t.totalHrs.toFixed(2)}</td>
                     <td class="px-2 py-1.5 text-center font-black text-gray-900 text-xs">$${t.price.toFixed(2)}</td>
-                    <td class="px-2 py-1.5 text-right"><button onclick="removeTask(${t.id})" class="text-gray-300 hover:text-red-500 p-1">✕</button></td>`;
+                    <td class="px-2 py-1.5 text-right pr-4"><button onclick="removeTask(${t.id})" class="text-gray-300 hover:text-red-500 p-1">✕</button></td>`;
                 body.appendChild(tr);
             });
             updateStats();
@@ -719,7 +769,7 @@
         function addRow() { 
             if(!selectedClientId) { switchTab('clients'); return; } 
             dataByClient[selectedClientId].weeks[currentWeek].push({ id: Date.now(), client: "", desc: "", type: "Ads", cant: 1, time: 1, unit: 'h', totalHrs: 1, price: dataByClient[selectedClientId].rates[currentWeek], done: false }); 
-            renderTable(); 
+            renderTable(); saveData();
         }
 
         function updateTask(id, field, val) {
@@ -728,7 +778,18 @@
             t[field] = (field === 'cant' || field === 'time') ? parseFloat(val) || 0 : val;
             t.totalHrs = t.cant * (t.unit === 'm' ? (t.time / 60) : t.time);
             t.price = t.totalHrs * dataByClient[selectedClientId].rates[currentWeek];
-            saveData(); updateStats(); renderTable(); updateCharts();
+            saveData(); updateStats(); updateCharts();
+            // Actualización visual parcial para rendimiento
+            const row = document.querySelector(`tr:nth-child(${dataByClient[selectedClientId].weeks[currentWeek].indexOf(t)+1})`);
+            if(row && (field === 'cant' || field === 'time')) {
+                row.children[6].innerText = t.totalHrs.toFixed(2);
+                row.children[7].innerText = "$" + t.price.toFixed(2);
+            }
+        }
+
+        function setUnit(id, unit) {
+            const t = dataByClient[selectedClientId].weeks[currentWeek].find(x => x.id === id);
+            if(t) { t.unit = unit; updateTask(id, 'unit', unit); renderTable(); }
         }
 
         function removeTask(id) { 
@@ -743,112 +804,98 @@
             hEl.innerText = h.toFixed(2); tEl.innerText = d.length; dEl.innerText = doneCount; totEl.innerText = "USD " + p.toLocaleString('es-ES', {minimumFractionDigits: 2});
         }
 
+        // --- TARIFA HORARIA (CORREGIDO) ---
+        function toggleRateDropdown() {
+            const menu = document.getElementById('rate-dropdown-menu');
+            const arrow = document.getElementById('rate-dropdown-arrow');
+            menu.classList.toggle('dropdown-open');
+            arrow.classList.toggle('arrow-up');
+        }
+
+        function setCustomRate(val) {
+            if (!selectedClientId) return;
+            const r = parseFloat(val) || 0;
+            document.getElementById('rate-display-value').innerText = r.toFixed(2);
+            dataByClient[selectedClientId].rates[currentWeek] = r;
+            // Recalcular precios de la semana
+            dataByClient[selectedClientId].weeks[currentWeek].forEach(t => {
+                const unitVal = t.unit === 'm' ? (t.time/60) : t.time;
+                t.price = t.cant * unitVal * r;
+            });
+            saveData(); renderTable();
+            document.getElementById('rate-dropdown-menu').classList.remove('dropdown-open');
+            document.getElementById('rate-dropdown-arrow').classList.remove('arrow-up');
+        }
+
+        function submitCustomRate() {
+            const val = document.getElementById('custom-rate-input').value;
+            setCustomRate(val);
+        }
+
+        // --- GRÁFICOS ---
         function initCharts() {
             try {
                 const ctx1 = document.getElementById('categoryChart').getContext('2d');
                 categoryChart = new Chart(ctx1, { type: 'doughnut', data: { labels: taskTypes, datasets: [{ data: Array(taskTypes.length).fill(0), backgroundColor: categoryColors, borderWidth: 4, borderColor: '#fff' }] }, options: { cutout: '80%', maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { font: { size: 9, weight: '900' } } } } } });
                 const ctx2 = document.getElementById('timeChart').getContext('2d');
-                timeChart = new Chart(ctx2, { type: 'bar', data: { labels: taskTypes, datasets: [{ data: Array(taskTypes.length).fill(0), backgroundColor: categoryColors }] }, options: { maintainAspectRatio: false, plugins: { legend: { display: false } } } });
+                timeChart = new Chart(ctx2, { type: 'bar', data: { labels: taskTypes, datasets: [{ label: 'Horas', data: Array(taskTypes.length).fill(0), backgroundColor: categoryColors, borderRadius: 4 }] }, options: { maintainAspectRatio: false, plugins: { legend: { display: false } } } });
                 updateCharts();
             } catch (e) {}
         }
-
         function updateCharts() { if(!categoryChart || !selectedClientId) return; const d = dataByClient[selectedClientId].weeks[currentWeek]; categoryChart.data.datasets[0].data = taskTypes.map(type => d.filter(t => t.type === type).length); categoryChart.update(); timeChart.data.datasets[0].data = taskTypes.map(type => d.filter(t => t.type === type).reduce((a,b)=>a+b.totalHrs, 0)); timeChart.update(); }
 
-        // --- GESTIÓN DE FACTURAS (CORREGIDO) ---
+        // --- FACTURACIÓN ---
         function openInvoiceManager() {
             if(!selectedClientId || !dataByClient[selectedClientId]) return;
-            const data = dataByClient[selectedClientId];
-            const inv = data.invoices[currentWeek];
-
-            if (inv) {
-                // Si ya existe factura, la mostramos directamente pasando el objeto
-                renderInvoice(inv);
-            } else {
-                // Si no existe, verificamos si hay tareas para generar una
-                const tasks = data.weeks[currentWeek];
-                if(tasks.length === 0) return;
-                
+            const data = dataByClient[selectedClientId], inv = data.invoices[currentWeek];
+            if (inv) renderInvoice(inv);
+            else {
+                if(data.weeks[currentWeek].length === 0) return;
                 document.getElementById('inv-discount-input').value = "";
                 document.getElementById('inv-paid-input').value = "";
                 document.getElementById('confirm-invoice-modal').classList.remove('hidden');
             }
         }
-
         function executeGenerateInvoice() {
-            const client = clients.find(c => c.id == selectedClientId);
-            const data = dataByClient[selectedClientId];
-            const discount = parseFloat(document.getElementById('inv-discount-input').value) || 0;
-            const paid = parseFloat(document.getElementById('inv-paid-input').value) || 0;
-
-            let inv = { 
-                number: String(client.invNum).padStart(3, '0') + (client.invSuffix || ''), 
-                date: new Date().toLocaleDateString('es-ES', { day: 'numeric', month: '2-digit', year: 'numeric' }), 
-                tasks: JSON.parse(JSON.stringify(data.weeks[currentWeek])), 
-                week: currentWeek,
-                discount: discount, paid: paid
-            };
-            
-            data.history.unshift(inv); 
-            data.invoices[currentWeek] = inv; 
-            client.invNum++; 
-            saveData(); 
+            const client = clients.find(c => c.id == selectedClientId), data = dataByClient[selectedClientId];
+            const inv = { number: String(client.invNum).padStart(3, '0') + (client.invSuffix || ''), date: new Date().toLocaleDateString('es-ES', { day: 'numeric', month: '2-digit', year: 'numeric' }), tasks: JSON.parse(JSON.stringify(data.weeks[currentWeek])), week: currentWeek, discount: parseFloat(document.getElementById('inv-discount-input').value) || 0, paid: parseFloat(document.getElementById('inv-paid-input').value) || 0 };
+            data.history.unshift(inv); data.invoices[currentWeek] = inv; client.invNum++; saveData();
             document.getElementById('confirm-invoice-modal').classList.add('hidden');
-            renderInvoice(inv);
-            updateInvoiceButtonState();
+            renderInvoice(inv); updateInvoiceButtonState();
         }
-
         function renderInvoice(inv) {
-            const client = clients.find(c => c.id == selectedClientId);
-            if (!inv || !client) return; 
-
-            document.getElementById('inv-date').innerText = inv.date; 
-            document.getElementById('inv-number').innerText = inv.number;
-            
-            let cobroA = `<p class="font-bold text-[8pt] mb-1 text-black">Cobro a</p>`;
-            if (client.company) cobroA += `<p class="text-[8pt] font-regular mb-2">${client.company}</p>`;
-            if (client.rif) cobroA += `<p class="text-[8pt] mt-0.5">${client.rif}</p>`;
-            if (client.email) cobroA += `<p class="text-[8pt] mt-0.5">${client.email}</p>`;
-            document.getElementById('inv-to').innerHTML = cobroA;
-
+            const client = clients.find(c => c.id == selectedClientId); if (!inv || !client) return; 
+            document.getElementById('inv-date').innerText = inv.date; document.getElementById('inv-number').innerText = inv.number;
+            let clientDetails = []; if (client.rif) clientDetails.push(client.rif); if (client.email) clientDetails.push(client.email); if (client.phone) clientDetails.push(client.phone); if (client.address) clientDetails.push(client.address);
+            document.getElementById('inv-to').innerHTML = `<p class="font-bold text-[8pt] mb-1 text-black">Cobro a</p>` + (client.company ? `<p class="text-[8pt] font-regular mb-1">${client.company}</p>` : '') + (client.person ? `<p class="text-[8pt] font-normal mb-1">${client.person}</p>` : '') + `<p class="text-[8pt] leading-tight mt-0.5">${clientDetails.join('<br>')}</p>`;
             const formatNum = (n) => n.toLocaleString('es-ES', {minimumFractionDigits: 2});
             document.getElementById('inv-rows').innerHTML = inv.tasks.map((t, idx) => `<tr class="${idx % 2 !== 0 ? 'bg-gray-50' : 'bg-white'}"><td class="py-1 pl-5 text-left border-b border-gray-100 text-[8pt] uppercase"><b>${t.client || 'General'}</b> | ${t.type} | ${t.cant}<p class="italic opacity-70">${t.desc || '...'}</p></td><td class="py-1 pr-5 text-right border-b border-gray-100 text-[8pt]">USD ${formatNum(t.price)}</td></tr>`).join('');
-            
-            const ajustes = inv.tasks.filter(t => t.type === 'Ajustes').reduce((a,b) => a + b.price, 0);
-            const subtotal = inv.tasks.filter(t => t.type !== 'Ajustes').reduce((a,b) => a + b.price, 0);
-            const total = (subtotal + ajustes) - (inv.discount || 0);
-
-            document.getElementById('inv-subtotal').innerText = "USD " + formatNum(subtotal);
-            document.getElementById('inv-discount').innerText = "- USD " + formatNum(inv.discount || 0);
-            document.getElementById('inv-ajustes').innerText = "+ USD " + formatNum(ajustes);
-            document.getElementById('inv-total').innerText = "USD " + formatNum(total);
-            document.getElementById('inv-paid').innerText = "USD " + formatNum(inv.paid || 0);
-            document.getElementById('inv-balance').innerText = "USD " + formatNum(total - (inv.paid || 0));
-            
+            const ajustes = inv.tasks.filter(t => t.type === 'Ajustes').reduce((a,b) => a + b.price, 0), subtotal = inv.tasks.filter(t => t.type !== 'Ajustes').reduce((a,b) => a + b.price, 0), total = (subtotal + ajustes) - (inv.discount || 0);
+            document.getElementById('inv-subtotal').innerText = "USD " + formatNum(subtotal); document.getElementById('inv-discount').innerText = "- USD " + formatNum(inv.discount || 0); document.getElementById('inv-ajustes').innerText = "+ USD " + formatNum(ajustes); document.getElementById('inv-total').innerText = "USD " + formatNum(total); document.getElementById('inv-paid').innerText = "USD " + formatNum(inv.paid || 0); document.getElementById('inv-balance').innerText = "USD " + formatNum(total - (inv.paid || 0));
             document.getElementById('invoice-preview').classList.remove('hidden');
         }
+        function updateInvoiceButtonState() { const btn = document.getElementById('btn-invoice'); if (!selectedClientId || !dataByClient[selectedClientId]) { btn.innerText = "📄 Bloqueado"; return; } const hasInv = dataByClient[selectedClientId].invoices?.[currentWeek]; btn.innerText = hasInv ? "📄 Ver Factura" : "📄 Generar Factura"; btn.className = `px-6 py-2.5 rounded-lg text-[9px] font-black uppercase border transition-all shadow-md ${hasInv ? 'bg-white/20 hover:bg-white/30 text-white' : 'bg-black/10 hover:bg-black/20 text-white'}`; }
 
-        function updateInvoiceButtonState() {
-            const btn = document.getElementById('btn-invoice');
-            if (!selectedClientId || !dataByClient[selectedClientId]) { btn.innerText = "📄 Bloqueado"; return; }
-            const hasInv = dataByClient[selectedClientId].invoices?.[currentWeek];
-            btn.innerText = hasInv ? "📄 Ver Factura" : "📄 Generar Factura";
-            btn.className = `px-6 py-2.5 rounded-lg text-[9px] font-black uppercase border transition-all shadow-md ${hasInv ? 'bg-white/20 hover:bg-white/30 text-white' : 'bg-black/10 hover:bg-black/20 text-white'}`;
-        }
-
-        function toggleCategoryDropdown(e, id) { e.stopPropagation(); document.getElementById(`cat-menu-${id}`).classList.toggle('hidden'); }
-        function selectCategory(e, id, type) { e.stopPropagation(); updateTask(id, 'type', type); document.getElementById(`cat-menu-${id}`).classList.add('hidden'); }
-        function openHistory(id) { selectedClientId = id; const data = dataByClient[id]; const list = document.getElementById('history-list'); document.getElementById('history-client-name').innerText = clients.find(c => c.id == id).company; list.innerHTML = ""; if(!data.history.length) list.innerHTML = "Sin facturas"; else data.history.forEach(inv => { const d = document.createElement('div'); d.className="flex justify-between p-4 bg-gray-50 mb-2 rounded"; d.innerHTML=`<span>#${inv.number} - ${inv.date}</span><button onclick='renderInvoice(${JSON.stringify(inv)})' class='bg-gray-900 text-white px-4 py-1 rounded text-[10px] uppercase font-black'>Ver</button>`; list.appendChild(d); }); document.getElementById('history-modal').classList.remove('hidden'); }
+        // --- MISC ---
+        function toggleCategoryDropdown(e, id) { e.stopPropagation(); document.querySelectorAll('[id^="cat-menu-"]').forEach(m => { if(m.id !== `cat-menu-${id}`) m.classList.add('hidden'); }); document.getElementById(`cat-menu-${id}`).classList.toggle('hidden'); }
+        function selectCategory(e, id, type) { e.stopPropagation(); updateTask(id, 'type', type); document.getElementById(`cat-menu-${id}`).classList.add('hidden'); renderTable(); }
+        function openHistory(id) { const client = clients.find(c => c.id == id), data = dataByClient[id]; document.getElementById('history-client-name').innerText = client.company || client.person; const list = document.getElementById('history-list'); list.innerHTML = ""; if(!data.history.length) list.innerHTML = "<p class='text-center py-8 text-gray-400 font-bold uppercase text-[10px]'>Sin facturas registradas</p>"; else data.history.forEach(inv => { const d = document.createElement('div'); d.className="flex items-center justify-between p-4 bg-gray-50 mb-2 rounded border border-gray-100 group hover:border-pink-200 transition-all"; d.innerHTML=`<div><p class="text-[8px] font-black uppercase text-gray-400">#${inv.number}</p><p class="font-black text-sm text-gray-900">${inv.date}</p></div><button onclick='renderInvoice(${JSON.stringify(inv)})' class='bg-gray-900 text-white px-4 py-2 rounded text-[9px] uppercase font-black hover:bg-pink-600 transition-colors'>Ver PDF</button>`; list.appendChild(d); }); document.getElementById('history-modal').classList.remove('hidden'); }
         function closeHistory() { document.getElementById('history-modal').classList.add('hidden'); }
         function closeInvoicePreview() { document.getElementById('invoice-preview').classList.add('hidden'); }
         function closeConfirmInvoice() { document.getElementById('confirm-invoice-modal').classList.add('hidden'); }
         function askDeleteClient(id) { clientToDeleteId = id; document.getElementById('confirm-delete-client-modal').classList.remove('hidden'); }
-        function closeConfirmDelete() { document.getElementById('confirm-delete-client-modal').classList.add('hidden'); }
+        function closeConfirmDelete() { clientToDeleteId = null; document.getElementById('confirm-delete-client-modal').classList.add('hidden'); }
         function executeDeleteClient() { clients = clients.filter(c => c.id !== clientToDeleteId); delete dataByClient[clientToDeleteId]; saveData(); renderClientsGrid(); closeConfirmDelete(); }
         function askResetCurrentWeek() { document.getElementById('reset-week-num').innerText = currentWeek; document.getElementById('confirm-reset-modal').classList.remove('hidden'); }
         function closeConfirmReset() { document.getElementById('confirm-reset-modal').classList.add('hidden'); }
         function executeResetWeek() { dataByClient[selectedClientId].weeks[currentWeek] = []; dataByClient[selectedClientId].invoices[currentWeek] = null; saveData(); renderTable(); updateInvoiceButtonState(); closeConfirmReset(); }
-        function setupClickOutsides() { document.addEventListener('click', () => { document.querySelectorAll('[id^="cat-menu-"]').forEach(m => m.classList.add('hidden')); }); }
+        function setupClickOutsides() { document.addEventListener('click', (e) => { 
+            if(!e.target.closest('.relative')) { document.querySelectorAll('[id^="cat-menu-"]').forEach(m => m.classList.add('hidden')); }
+            if(!e.target.closest('#rate-dropdown-container')) { 
+                document.getElementById('rate-dropdown-menu').classList.remove('dropdown-open');
+                document.getElementById('rate-dropdown-arrow').classList.remove('arrow-up');
+            }
+        }); }
 
         load();
     </script>
