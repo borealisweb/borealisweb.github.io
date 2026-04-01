@@ -427,8 +427,8 @@
                     
                     <div class="flex justify-between items-start mb-10">
                         <div class="w-1/2">
-                            <p class="text-[8pt] font-bold text-black">De<br>Borealis - Creadores de Ideas</p>
-                            <p class="text-[8pt] text-black leading-relaxed mt-1">Angel J. Gómez H.<br>Rif: V-27.258.133-5<br>contacto@borealis.com.ve<br>Código Postal: 3221</p>
+                            <p class="text-[8pt] font-bold text-black">De<br>BOREALIS - CREADORES DE IDEAS</p>
+                            <p class="text-[8pt] text-black leading-relaxed mt-1">Angel J. Gómez H.<br>RIF: V-27.258.133-5<br>contacto@borealis.com.ve<br>Código Postal: 3221</p>
                         </div>
                         <div id="inv-to" class="w-1/2 text-right flex flex-col items-end"></div>
                     </div>
@@ -473,7 +473,7 @@
                         <div class="text-[6pt] text-black space-y-1 leading-tight">
                             <div class="flex items-center gap-2">
                                 <div class="w-0.5 h-2 bg-[#00AEEF]"></div>
-                                <p><span class="font-bold">Teléfono:</span> +58 414 - 3571705</p>
+                                <p><span class="font-bold">Número:</span> +58 414 - 3571705</p>
                             </div>
                             <div class="flex items-center gap-2">
                                 <div class="w-0.5 h-2 bg-[#E2007A]"></div>
@@ -865,8 +865,12 @@
         function renderInvoice(inv) {
             const client = clients.find(c => c.id == selectedClientId); if (!inv || !client) return; 
             document.getElementById('inv-date').innerText = inv.date; document.getElementById('inv-number').innerText = inv.number;
-            let clientDetails = []; if (client.rif) clientDetails.push(client.rif); if (client.email) clientDetails.push(client.email); if (client.phone) clientDetails.push(client.phone); if (client.address) clientDetails.push(client.address);
-            document.getElementById('inv-to').innerHTML = `<p class="font-bold text-[8pt] mb-1 text-black">Cobro a</p>` + (client.company ? `<p class="text-[8pt] font-regular mb-1">${client.company}</p>` : '') + (client.person ? `<p class="text-[8pt] font-normal mb-1">${client.person}</p>` : '') + `<p class="text-[8pt] leading-tight mt-0.5">${clientDetails.join('<br>')}</p>`;
+            let clientDetails = []; 
+            if (client.rif) clientDetails.push("NIF/CIF/RIF: " + client.rif); 
+            if (client.email) clientDetails.push(client.email); 
+            if (client.phone) clientDetails.push("Número: " + client.phone); 
+            if (client.address) clientDetails.push(client.address);
+            document.getElementById('inv-to').innerHTML = `<p class="font-bold text-[8pt] mb-1 text-black">Cobro a</p>` + (client.company ? `<p class="text-[8pt] font-regular mb-1">${client.company}</p>` : '') + (client.person ? `<p class="text-[8pt] font-normal">${client.person}</p>` : '') + `<p class="text-[8pt] leading-tight mt-0.5">${clientDetails.join('<br>')}</p>`;
             const formatNum = (n) => n.toLocaleString('es-ES', {minimumFractionDigits: 2});
             document.getElementById('inv-rows').innerHTML = inv.tasks.map((t, idx) => `<tr class="${idx % 2 !== 0 ? 'bg-gray-50' : 'bg-white'}"><td class="py-1 pl-5 text-left border-b border-gray-100 text-[8pt] uppercase"><b>${t.client || 'General'}</b> | ${t.type} | ${t.cant}<p class="italic opacity-70">${t.desc || '...'}</p></td><td class="py-1 pr-5 text-right border-b border-gray-100 text-[8pt]">USD ${formatNum(t.price)}</td></tr>`).join('');
             const ajustes = inv.tasks.filter(t => t.type === 'Ajustes').reduce((a,b) => a + b.price, 0), subtotal = inv.tasks.filter(t => t.type !== 'Ajustes').reduce((a,b) => a + b.price, 0), total = (subtotal + ajustes) - (inv.discount || 0);
