@@ -469,10 +469,17 @@
     <!-- INVOICE PREVIEW -->
     <div id="invoice-preview" class="fixed inset-0 bg-slate-900/95 z-[160] hidden overflow-auto py-12 backdrop-blur-xl">
         <div class="w-fit mx-auto flex flex-col gap-8 mb-20 px-8">
-            <!-- BOTONES SUPERIORES (AHORA CON CLASE no-print AQUÍ) -->
+            <!-- BOTONES SUPERIORES -->
             <div class="flex justify-between items-center text-white w-[794px] mx-auto no-print">
                 <button onclick="closeInvoicePreview()" class="text-[10px] font-bold uppercase flex items-center gap-3 hover:text-pink-400 group"><span class="bg-white/10 p-2 rounded-lg group-hover:bg-pink-500/20 transition-colors">←</span>Volver</button>
-                <button id="btn-print-pdf" onclick="downloadPDF()" class="bg-pink-600 px-12 py-4 rounded-lg font-bold text-[10px] uppercase shadow-2xl flex items-center gap-3"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>Descargar PDF</button>
+                
+                <div class="flex gap-3">
+                    <button id="btn-send-email" onclick="sendInvoiceEmail()" class="bg-indigo-600 px-6 py-4 rounded-lg font-bold text-[10px] uppercase shadow-xl flex items-center gap-3 hover:bg-indigo-700 transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        Enviar al Cliente
+                    </button>
+                    <button id="btn-print-pdf" onclick="downloadPDF()" class="bg-pink-600 px-10 py-4 rounded-lg font-bold text-[10px] uppercase shadow-2xl flex items-center gap-3"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>Descargar PDF</button>
+                </div>
             </div>
             
             <div id="invoice-container" class="invoice-paper flex mx-auto">
@@ -1062,6 +1069,88 @@
                 btn.innerHTML = originalHTML;
                 btn.disabled = false;
                 element.style.boxShadow = originalShadow; 
+            }
+        }
+
+        // --- NUEVA FUNCIÓN PARA ENVIAR CORREO ---
+        async function sendInvoiceEmail() {
+            const client = clients.find(c => c.id == selectedClientId);
+            const btn = document.getElementById('btn-send-email');
+            
+            // Verificación para evitar usar alert()
+            if (!client || !client.email) {
+                const originalErrorHTML = btn.innerHTML;
+                btn.innerHTML = "⚠ Sin correo registrado";
+                btn.classList.replace('bg-indigo-600', 'bg-red-500');
+                btn.disabled = true;
+                setTimeout(() => {
+                    btn.innerHTML = originalErrorHTML;
+                    btn.classList.replace('bg-red-500', 'bg-indigo-600');
+                    btn.disabled = false;
+                }, 3000);
+                return;
+            }
+
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = "Procesando PDF y Enviando...";
+            btn.disabled = true;
+
+            const element = document.getElementById('invoice-container');
+            const invNumber = document.getElementById('inv-number').innerText || '000';
+            const invDate = document.getElementById('inv-date').innerText || '';
+            const originalShadow = element.style.boxShadow;
+            element.style.boxShadow = 'none';
+            element.style.transform = 'none';
+
+            const opt = {
+                margin: 0,
+                filename: `Factura_Borealis_${invNumber}.pdf`,
+                image: { type: 'jpeg', quality: 1 },
+                html2canvas: { scale: 2, useCORS: true, logging: false, scrollY: 0 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            try {
+                // 1. Generar PDF como string Base64 (Data URI)
+                const pdfDataUri = await html2pdf().set(opt).from(element).outputPdf('datauristring');
+                // Extraer solo la parte pura en base64
+                const base64Data = pdfDataUri.split('base64,')[1];
+
+                // 2. Enviar a nuestro Cloudflare Worker
+                const response = await fetch(`${CLOUDFLARE_WORKER_URL}/send-email`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': SECRET_KEY
+                    },
+                    body: JSON.stringify({
+                        to: client.email,
+                        personName: client.person,
+                        companyName: client.company,
+                        invoiceNumber: invNumber,
+                        issueDate: invDate,
+                        pdfBase64: base64Data
+                    })
+                });
+
+                if (response.ok) {
+                    btn.innerHTML = "¡Correo Enviado!";
+                    btn.classList.replace('bg-indigo-600', 'bg-emerald-500');
+                } else {
+                    throw new Error("Error del servidor");
+                }
+            } catch (err) {
+                console.error("Error al enviar correo:", err);
+                btn.innerHTML = "Error al enviar";
+                btn.classList.replace('bg-indigo-600', 'bg-red-500');
+            } finally {
+                element.style.boxShadow = originalShadow; 
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.classList.remove('bg-emerald-500', 'bg-red-500');
+                    btn.classList.add('bg-indigo-600');
+                    btn.disabled = false;
+                }, 4000);
             }
         }
 
