@@ -1055,7 +1055,7 @@
             const client = clients.find(c => c.id == selectedClientId); if (!inv || !client) return; 
             document.getElementById('inv-date').innerText = inv.date; document.getElementById('inv-number').innerText = inv.number;
             let clientDetails = []; 
-            if (client.rif) clientDetails.push("NIF/CIF: " + client.rif); 
+            if (client.rif) clientDetails.push("RIF/NIF/RUC: " + client.rif); 
             if (client.email) clientDetails.push(client.email); 
             if (client.phone) clientDetails.push("Número: " + client.phone); 
             if (client.address) clientDetails.push(client.address);
@@ -1065,7 +1065,7 @@
             const ajustes = inv.tasks.filter(t => t.type === 'Ajustes').reduce((a,b) => a + b.price, 0), subtotal = inv.tasks.filter(t => t.type !== 'Ajustes').reduce((a,b) => a + b.price, 0), total = (subtotal + ajustes) - (inv.discount || 0);
             document.getElementById('inv-subtotal').innerText = "USD " + formatNum(subtotal); document.getElementById('inv-discount').innerText = "- USD " + formatNum(inv.discount || 0); document.getElementById('inv-ajustes').innerText = "+ USD " + formatNum(ajustes); document.getElementById('inv-total').innerText = "USD " + formatNum(total); document.getElementById('inv-paid').innerText = "USD " + formatNum(inv.paid || 0); document.getElementById('inv-balance').innerText = "USD " + formatNum(total - (inv.paid || 0));
             document.getElementById('invoice-preview').classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; // Evitar scroll de fondo
+            document.body.style.overflow = 'hidden'; 
         }
         function updateInvoiceButtonState() { const btn = document.getElementById('btn-invoice'); if (!selectedClientId || !dataByClient[selectedClientId]) { btn.innerText = "📄 Bloqueado"; return; } const hasInv = dataByClient[selectedClientId].invoices?.[currentWeek]; btn.innerText = hasInv ? "📄 Ver Factura" : "📄 Generar Factura"; btn.className = `px-4 md:px-6 py-2 md:py-2.5 rounded-lg text-[9px] font-bold uppercase border transition-all shadow-md shrink-0 ${hasInv ? 'bg-white/20 hover:bg-white/30 text-white' : 'bg-black/10 hover:bg-black/20 text-white'}`; }
 
