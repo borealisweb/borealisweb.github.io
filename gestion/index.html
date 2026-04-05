@@ -7,6 +7,7 @@
     <link rel="icon" href="../favicon.ico" sizes="256x256" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
@@ -44,24 +45,61 @@
             border-radius: 2px 2px 0 0;
         }
         
+        /* CORRECCIÓN: Mejorado el sistema de impresión */
         @media print {
-            body * { visibility: hidden; }
-            #invoice-container, #invoice-container * { visibility: visible; }
-            #invoice-container { position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 0; box-shadow: none; }
+            @page { margin: 10mm; }
+            
+            /* Restablecer layout para impresión */
+            body { background: white; margin: 0; padding: 0; min-width: auto; }
+            
+            /* Ocultar todo excepto la previsualización de la factura */
+            body > *:not(#invoice-preview) { display: none !important; }
+            
+            #invoice-preview { 
+                display: block !important; 
+                position: static !important; 
+                background: transparent !important; 
+                padding: 0 !important; 
+                margin: 0 !important; 
+                overflow: visible !important; 
+                backdrop-filter: none !important;
+            }
+            
+            #invoice-preview > div { margin: 0 !important; max-width: 100% !important; }
+            
+            #invoice-container { 
+                box-shadow: none !important; 
+                margin: 0 !important; 
+                padding: 0 !important; 
+                width: 100% !important; 
+                border-radius: 0 !important;
+                min-height: auto !important;
+            }
+            
             .no-print { display: none !important; }
+            
+            /* Forzar renderizado de colores y fondos en el PDF */
+            * { 
+                -webkit-print-color-adjust: exact !important; 
+                print-color-adjust: exact !important; 
+            }
         }
 
         .invoice-paper {
-            width: 215.9mm;
-            min-height: 279.4mm;
-            padding: 15mm 20mm;
+            width: 794px !important;
+            min-width: 794px !important;
+            height: 1120px !important;
+            min-height: 1120px !important;
+            padding: 60px 75px;
             margin: auto;
             background: white;
             box-shadow: 0 20px 50px rgba(0,0,0,0.15);
             position: relative;
             color: #1f2937;
-            border-radius: 4px;
+            border-radius: 0px;
             overflow: hidden;
+            flex-shrink: 0;
+            box-sizing: border-box;
         }
 
         .no-spinners::-webkit-inner-spin-button, .no-spinners::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
@@ -132,7 +170,7 @@
     <div id="login-screen" class="fixed inset-0 bg-gray-50 z-[999] flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl p-10 w-full max-w-sm text-center animate-fade-in">
             <div class="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-6">
-                <img src="logotipo_simple.png" alt="Borealis Logo" class="h-12 w-12 object-contain">
+                <img src="logotipo_simple.png" alt="Borealis Logo" class="h-12 w-12 object-contain" onerror="this.style.display='none'">
             </div>
             <h2 class="text-2xl font-bold text-gray-900 mb-2 ">Gestión Interna</h2>
             <p class="text-xs text-gray-500 font-bold mb-8 ">Ingresa la clave maestra para acceder</p>
@@ -333,7 +371,7 @@
                     <div class="space-y-4">
                         <input id="c-company" placeholder="NOMBRE DE EMPRESA" class="w-full p-4 bg-gray-50 border border-gray-100 rounded-lg text-xs font-bold uppercase focus:ring-2 focus:ring-pink-500 focus:outline-none transition-all">
                         <input id="c-person" placeholder="RESPONSABLE" class="w-full p-4 bg-gray-50 border border-gray-100 rounded-lg text-xs font-bold focus:ring-2 focus:ring-pink-500 focus:outline-none transition-all">
-                        <input id="c-rif" placeholder="DOCUMENTO FISCAL (RIF / CIF / NIF)" class="w-full p-4 bg-gray-50 border border-gray-100 rounded-lg text-xs focus:ring-2 focus:ring-pink-500 focus:outline-none transition-all uppercase">
+                        <input id="c-rif" placeholder="DOCUMENTO FISCAL (RIF / CIF / NIF / RUC)" class="w-full p-4 bg-gray-50 border border-gray-100 rounded-lg text-xs focus:ring-2 focus:ring-pink-500 focus:outline-none transition-all uppercase">
                         
                         <div class="grid grid-cols-2 gap-4">
                             <input id="c-inv-num" type="number" placeholder="NRO FACTURA (000)" class="w-full p-4 bg-gray-50 border border-pink-100 rounded-lg text-xs font-bold text-pink-600 focus:ring-2 focus:ring-pink-500 no-spinners">
@@ -429,17 +467,19 @@
     </div>
 
     <!-- INVOICE PREVIEW -->
-    <div id="invoice-preview" class="fixed inset-0 bg-slate-900/95 z-[160] hidden overflow-y-auto py-12 no-print backdrop-blur-xl">
-        <div class="max-w-5xl mx-auto flex flex-col gap-8 mb-20">
-            <div class="flex justify-between items-center text-white px-6">
+    <div id="invoice-preview" class="fixed inset-0 bg-slate-900/95 z-[160] hidden overflow-auto py-12 backdrop-blur-xl">
+        <div class="w-fit mx-auto flex flex-col gap-8 mb-20 px-8">
+            <!-- BOTONES SUPERIORES (AHORA CON CLASE no-print AQUÍ) -->
+            <div class="flex justify-between items-center text-white w-[794px] mx-auto no-print">
                 <button onclick="closeInvoicePreview()" class="text-[10px] font-bold uppercase flex items-center gap-3 hover:text-pink-400 group"><span class="bg-white/10 p-2 rounded-lg group-hover:bg-pink-500/20 transition-colors">←</span>Volver</button>
-                <button onclick="window.print()" class="bg-pink-600 px-12 py-4 rounded-lg font-bold text-[10px] uppercase shadow-2xl flex items-center gap-3"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>Imprimir PDF</button>
+                <button id="btn-print-pdf" onclick="downloadPDF()" class="bg-pink-600 px-12 py-4 rounded-lg font-bold text-[10px] uppercase shadow-2xl flex items-center gap-3"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>Descargar PDF</button>
             </div>
-            <div id="invoice-container" class="invoice-paper flex">
+            
+            <div id="invoice-container" class="invoice-paper flex mx-auto">
                 <!-- Contenedor Izquierdo -->
                 <div class="flex-1 flex flex-col pr-28">
                     <div class="flex justify-between items-start mb-6">
-                        <h1 class="text-5xl font-bold text-black leading-none">¡Hola!</h1>
+                        <h1 class="text-5xl font-black text-black leading-none">¡Hola!</h1>
                         <div class="text-right flex flex-col items-end leading-[1.1]">
                             <div class="text-[8pt] text-black"><span class="font-bold mr-1">Fecha:</span> <span id="inv-date" class="font-normal"></span></div>
                             <div class="text-[8pt] text-black"><span class="font-bold mr-1">Nro. de Factura:</span> <span id="inv-number" class="font-normal"></span></div>
@@ -449,7 +489,7 @@
                     <div class="flex justify-between items-start mb-10">
                         <div class="w-1/2">
                             <p class="text-[8pt] font-bold text-black">De<br>Borealis - Creadores de Ideas</p>
-                            <p class="text-[8pt] text-black leading-relaxed mt-1">Angel J. Gómez H.<br>NIF/CIF/RIF: V-27.258.133-5<br>contacto@borealis.com.ve<br>Código Postal: 3221</p>
+                            <p class="text-[8pt] text-black leading-relaxed mt-1">Angel J. Gómez H.<br>RIF: V-27.258.133-5<br>contacto@borealis.com.ve<br>Código Postal: 3221</p>
                         </div>
                         <div id="inv-to" class="w-1/2 text-right flex flex-col items-end"></div>
                     </div>
@@ -474,7 +514,7 @@
                                 <p>ID: 407 915 290</p>
                                 <p><b>QR:</b></p>
                             </div>
-                            <img src="qr.png" class="w-24 h-24 rounded-lg border border-gray-200 shadow-sm shrink-0">
+                            <img src="qr.png" class="w-24 h-24 rounded-lg border border-gray-200 shadow-sm shrink-0" onerror="this.style.display='none'">
                         </div>
                         <div class="w-[40%] space-y-1.5">
                             <div class="flex justify-between text-[8pt] text-black"><span>Total Parcial:</span><span id="inv-subtotal" class="font-bold"></span></div>
@@ -514,7 +554,7 @@
 
                 <!-- Barra Lateral Derecha -->
                 <div class="absolute top-0 bottom-0 right-10 w-28 bg-white flex flex-col pr-9 pl-0">
-                    <img src="logo_carta.png" class="h-full w-full object-cover object-left mix-blend-multiply" onerror="this.style.display='none'">
+                    <img src="logo_carta.png" class="h-full w-full object-cover object-left" onerror="this.style.display='none'">
                 </div>
 
             </div>
@@ -981,6 +1021,49 @@
                 document.getElementById('rate-dropdown-arrow').classList.remove('arrow-up');
             }
         }); }
+
+        async function downloadPDF() {
+            const btn = document.getElementById('btn-print-pdf');
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = "Generando PDF...";
+            btn.disabled = true;
+
+            const element = document.getElementById('invoice-container');
+            const invNumber = document.getElementById('inv-number').innerText || '000';
+            
+            const originalShadow = element.style.boxShadow;
+            element.style.boxShadow = 'none'; // Quitar sombra para una captura limpia
+            element.style.transform = 'none';
+
+            const opt = {
+                margin:       0,
+                filename:     `Factura_Borealis_${invNumber}.pdf`,
+                image:        { type: 'jpeg', quality: 1 },
+                html2canvas:  { 
+                    scale: 2, 
+                    useCORS: true, 
+                    logging: false,
+                    scrollY: 0
+                },
+                jsPDF:        { 
+                    unit: 'mm', 
+                    format: 'a4',
+                    orientation: 'portrait' 
+                }
+            };
+
+            try {
+                // Manejo de promesa seguro para evitar bloqueos
+                await html2pdf().set(opt).from(element).save();
+            } catch (err) {
+                console.error("Error capturado de html2pdf:", err);
+            } finally {
+                // El finally garantiza que el botón regrese a su estado original pase lo que pase
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+                element.style.boxShadow = originalShadow; 
+            }
+        }
 
         load();
     </script>
