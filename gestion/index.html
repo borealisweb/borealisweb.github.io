@@ -46,7 +46,7 @@
             border-radius: 2px 2px 0 0;
         }
         
-      
+        
         @media print {
             @page { margin: 10mm; }
             
@@ -571,7 +571,7 @@
                     </footer>
                 </div>
 
-           
+            
                 <div class="absolute top-0 bottom-0 right-0 w-20 md:w-28 bg-white flex flex-col pr-4 md:pr-9 pl-0 z-0">
                     <img src="logo_carta.png" class="h-full w-full object-cover object-left opacity-30 md:opacity-100" onerror="this.style.display='none'">
                 </div>
@@ -1059,6 +1059,7 @@
             if (client.email) clientDetails.push(client.email); 
             if (client.phone) clientDetails.push("Número: " + client.phone); 
             if (client.address) clientDetails.push(client.address);
+            if (client.web) clientDetails.push(client.web);
             document.getElementById('inv-to').innerHTML = `<p class="font-bold text-[8pt] mb-1 text-black">Cobro a</p>` + (client.company ? `<p class="text-[8pt] font-regular mb-1">${client.company}</p>` : '') + (client.person ? `<p class="text-[8pt] font-normal mb-1">${client.person}</p>` : '') + `<p class="text-[8pt] leading-tight mt-0.5">${clientDetails.join('<br>')}</p>`;
             const formatNum = (n) => n.toLocaleString('es-ES', {minimumFractionDigits: 2});
             document.getElementById('inv-rows').innerHTML = inv.tasks.map((t, idx) => `<tr class="${idx % 2 !== 0 ? 'bg-gray-50' : 'bg-white'}"><td class="py-1.5 pl-5 text-left border-b border-gray-100 text-[8pt] uppercase"><b>${t.client || 'General'}</b> | ${t.type} | ${t.cant}<p class="italic opacity-70 normal-case">${t.desc || '...'}</p></td><td class="py-1.5 pr-5 text-right border-b border-gray-100 text-[8pt]">USD ${formatNum(t.price)}</td></tr>`).join('');
@@ -1106,7 +1107,7 @@
             const invNumber = document.getElementById('inv-number').innerText || '000';
             
             const originalShadow = element.style.boxShadow;
-            element.style.boxShadow = 'none'; // Quitar sombra para una captura limpia
+            element.style.boxShadow = 'none'; 
             element.style.transform = 'none';
 
             const opt = {
