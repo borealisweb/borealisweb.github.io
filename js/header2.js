@@ -61,6 +61,10 @@
       <a href="https://instagram.com/borealis.oficial" target="_blank">
         <img src="${prefix}img/insta.webp" alt="Instagram Borealis" class="social-media-icon">
       </a>
+
+      <a href="https://www.linkedin.com/company/borealis-creadores-de-ideas/" target="_blank">
+        <img src="${prefix}img/in.webp" alt="LinkedIn Borealis" class="social-media-icon">
+      </a>
     </div>
     `;
 

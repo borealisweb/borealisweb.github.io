@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const path = window.location.pathname;
   let prefix = "";
 
-  if (path.includes("/blog") || path.includes("/angel-gomez")  || path.includes("/virginia-fernandez")  || path.includes("/walkiria-jimenez") || path.includes("/inicio") || path.includes("/nosotros") || path.includes("/contacto") || path.includes("/acerca-de-mi") || path.includes("/briefing")  || path.includes("/branding") || path.includes("/packaging") || path.includes("/soluciones-audiovisuales") || path.includes("/portafolio-web") || path.includes("/social-media") || path.includes("/flyers") || path.includes("/soluciones-creativas")  || path.includes("/aviso-legal")  || path.includes("/politica-de-privacidad")  || path.includes("/terminos-y-condiciones")) {
+  if (path.includes("/blog") || path.includes("gestion") || path.includes("/angel-gomez")  || path.includes("/virginia-fernandez")  || path.includes("/walkiria-jimenez") || path.includes("/inicio") || path.includes("/nosotros") || path.includes("/contacto") || path.includes("/acerca-de-mi") || path.includes("/briefing")  || path.includes("/branding") || path.includes("/packaging") || path.includes("/soluciones-audiovisuales") || path.includes("/portafolio-web") || path.includes("/social-media") || path.includes("/flyers") || path.includes("/soluciones-creativas")  || path.includes("/aviso-legal")  || path.includes("/politica-de-privacidad")  || path.includes("/terminos-y-condiciones")) {
     prefix = "../";
   }
 
@@ -26,6 +26,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         <a href="https://instagram.com/borealis.oficial" target="_blank">
           <img src="${prefix}img/insta.webp" alt="Instagram Borealis" class="social-media-icon">
+        </a>
+        
+        <a href="https://www.linkedin.com/company/borealis-creadores-de-ideas/" target="_blank">
+          <img src="${prefix}img/in.webp" alt="LinkedIn Borealis" class="social-media-icon">
         </a>
         <button class="scroll-top">▲</button>
       </div>
