@@ -101,11 +101,12 @@ b {
   align-items: center;
   bottom: 25px;
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  gap: 15px;
   position: fixed;
   right: 25px;
   transition: all 0.3s ease;
-  z-index: 9999;
+  z-index: 997;
 }
 
 .whatsapp-float-container.closing {
