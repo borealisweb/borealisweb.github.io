@@ -4,15 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Borealis - Creadores de Ideas</title>
-    <meta property="og:title" content="Borealis - Creadores de Ideas">
-    <meta property="og:description" content="Estudio Creativo Independiente">
-    <meta property="og:image" content="https://borealis.com.ve/img/preview.png">
-    <meta property="og:url" content="https://borealis.com.ve">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Borealis - Creadores de Ideas">
-    <meta name="twitter:description" content="Estudio Creativo Independiente">
-    <meta name="twitter:image" content="https://borealis.com.ve/img/preview.png">
     <link rel="icon" href="../favicon.ico" sizes="256x256" type="image/x-icon">
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/header.css" />
@@ -26,63 +17,70 @@
     <header></header>
 
     <section class="hero-section">
-
     <div class="hero">
       <div class="slider">
 
         <div class="slide active-slide">
-          <picture>
-            <source media="(max-width: 890px)" srcset="../img/slide1-mobile.webp">
-            <img class="slide-img" src="../img/slide1.webp" alt="Ángel J. Gómez H." loading="lazy">
-          </picture>
-         <div class="slide-content1">
-          <div class="slide-texts">
-            <h2 class="slide-text1">¡Hola!</h2>
-            <p class="slide-text2">Te doy la bienvenida a nuestro universo creativo.</p>
-            <h1 class="slide-text3">Explora el <b>Portafolio</b> de <b>Borealis</b>: Un estudio fundado en el arte de ser <b>Creadores de Ideas</b>.</h1>
-          </div>
-         </div>
+          <div class="slide-content1">
+            <div class="slide-texts-s1">
+              <h2 class="slide-text1">¡Hola!</h2>
+              <p class="slide-text2">Te damos la bienvenida a nuestro universo creativo.</p>
+              <h1 class="slide-text3">
+                Explora el <b>Portafolio</b> de <b>Borealis</b>: <br>
+                Un estudio fundado en el arte de ser <b>Creadores de Ideas</b>.
+              </h1>
+            </div>
 
+            <div class="slide-visuals">
+              <a href="/angel-gomez/" class="oval-img-link main-oval">
+                <img src="../img/retrato1.webp" alt="Borealis Principal">
+              </a>
+              <a href="/walkiria-jimenez/" class="oval-img-link side-oval-top">
+                <img src="../img/retrato-w.webp" alt="Diseño Creativo">
+              </a>
+              <a href="/virginia-fernandez/" class="oval-img-link side-oval-bottom">
+                <img src="../img/retrato-v.webp" alt="Tecnología">
+              </a>
+            </div>
+          </div>
         </div>
 
         <div class="slide">
-          <div class="slide-content2">
-            <div class="slide-texts">
-              <h2 class="slide-text1">Impresión en 3D</h2>
-              <p class="slide-text2">Proximamente, con productos innovadores y por encargo.</p>
+          <div class="slide-content-standard">
+            <div class="overlay-premium"></div>
+            <div class="slide-texts-centered">
+              <h2>Impresión en 3D</h2>
+              <p>Próximamente, con productos innovadores y por encargo.</p>
             </div>
-            <video
-                id="slide2-video"
-                class="zoom-video"
-                src="../videos/slide2.webm" muted playsinline loading="lazy">
-              </video>
+            <video id="slide2-video" src="../videos/slide2.webm" muted loop playsinline disablePictureInPicture disableRemotePlayback></video>
           </div>
         </div>
 
-    <div class="slide">
-       <video
-          src="../videos/slide3.webm" autoplay muted loop playsinline loading="lazy">
-        </video>
-  </div>
+        <div class="slide">
+          <div class="slide-content-standard">
+            <div class="overlay-premium"></div>
+            <video src="../videos/slide3.webm" autoplay muted loop playsinline disablePictureInPicture disableRemotePlayback></video>
+          </div>
+        </div>
 
-        <button class="arrow prev">
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-    <path d="M15 18l-6-6 6-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>
-</button>
-<button class="arrow next">
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-    <path d="M9 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>
-</button>
+        <div class="slider-controls">
+          <button class="arrow prev">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
 
-        <ul class="slide-dots">
-          <li class="dot active-dot" onclick="currentSlide(0)"></li>
-          <li class="dot" onclick="currentSlide(1)"></li>
-          <li class="dot" onclick="currentSlide(2)"></li>
-        </ul>
+          <ul class="slide-dots">
+            <li class="dot active-dot"></li>
+            <li class="dot"></li>
+            <li class="dot"></li>
+          </ul>
+
+          <button class="arrow next">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
        <div class="contenido" id="branding">
 
@@ -325,7 +323,6 @@
 
     <script src="../js/jobs-slider.js"></script>
     <script src="../js/portfolio-cards.js"></script>
-    <script src="../js/typewriter.js"></script>
     <script src="../js/video-title-glitch.js"></script>
     <script src="../js/title-weight.js"></script>
 

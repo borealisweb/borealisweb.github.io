@@ -207,6 +207,7 @@ b {
     border-radius: 100px;
     font-size: 3vw;
     padding: 10px 15px;
+    display: none;
   }
 
   .whatsapp-close {
