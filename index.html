@@ -8,12 +8,11 @@
     <link rel="stylesheet" href="css/index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Vollkorn:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- SECCIÓN INFERIOR REVELADA -->
-    <section class="reveal-section">
+ <section class="reveal-section">
         <div class="grid-bg"></div>
         <div class="glow-effect"></div>
 
@@ -115,13 +114,20 @@
 
             <!-- Imagen Hero -->
             <div class="hero-image-container">
-                <img src="img/home_image.webp" class="hero-image-render">
+                <img src="img/home_image.webp" class="hero-image-render animate-float-slow">
             </div>
+        </div>
+
+        <!-- INDICADOR DE SCROLL -->
+        <div class="scroll-indicator" id="scroll-indicator">
+            <div class="mouse-icon">
+                <div class="mouse-wheel"></div>
+            </div>
+            <span class="scroll-text">Desliza</span>
         </div>
 
     </section>
 
     <script src="js/index.js"></script>
-    <script src="js/whatsapp.js" defer></script>
 </body>
 </html>

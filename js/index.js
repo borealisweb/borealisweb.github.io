@@ -1,27 +1,15 @@
-document.addEventListener('DOMContentLoaded', () => {
-            const home = document.querySelector('.home-section');
-            let isScrolling = false;
-
-            function onScroll() {
-                const scrollY = window.scrollY;
-                const vh = window.innerHeight;
-                const maxScroll = vh * 0.5; 
-                
-                if (scrollY <= maxScroll) {
-                    home.style.transform = `translate3d(0, ${-scrollY}px, 0)`;
-                } else {
-                    home.style.transform = `translate3d(0, -${maxScroll}px, 0)`;
-                }
-                isScrolling = false;
-            }
-
+ document.addEventListener('DOMContentLoaded', () => {
+            const scrollIndicator = document.getElementById('scroll-indicator');
+            
             window.addEventListener('scroll', () => {
-                if (!isScrolling) {
-                    window.requestAnimationFrame(onScroll);
-                    isScrolling = true;
+                if (!scrollIndicator) return;
+                
+                if (window.scrollY > 50) {
+                    scrollIndicator.classList.add('hidden-indicator');
+                } else {
+                    scrollIndicator.classList.remove('hidden-indicator');
                 }
             }, { passive: true });
-
-            window.addEventListener('resize', () => window.requestAnimationFrame(onScroll));
-            onScroll();
+            
+            console.log('Scroll animado 100% por CSS nativo. Adiós Lag.');
         });
