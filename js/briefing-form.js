@@ -34,13 +34,25 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
+      const btn = form.querySelector('button[type="submit"]');
+      const originalText = btn.innerText;
+      btn.disabled = true;
+      btn.innerText = 'Enviando...';
+
       const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
 
       try {
-        const response = await fetch(form.action, {
-          method: form.method,
-          body: formData,
-          headers: { 'Accept': 'application/json' }
+       
+        const WORKER_URL = 'https://briefing-borealis.borealiscreadoresdeideas.workers.dev'; 
+
+        const response = await fetch(WORKER_URL, {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json' 
+          }
         });
 
         if (response.ok) {
@@ -56,6 +68,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       } catch (error) {
         alert('Error de conexión. Por favor, inténtalo de nuevo.');
+      } finally {
+        btn.disabled = false;
+        btn.innerText = originalText;
       }
     });
   }

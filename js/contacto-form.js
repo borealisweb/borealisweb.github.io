@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
- 
   const empleadosInput = document.getElementById("empleados");
   if (empleadosInput) {
     empleadosInput.addEventListener("input", function() {
@@ -17,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (form) {
- 
     form.addEventListener('submit', (e) => {
       if (telefonoInput && !telefonoInput.checkValidity()) {
         e.preventDefault(); 
@@ -33,13 +31,24 @@ document.addEventListener("DOMContentLoaded", () => {
   async function handleFormSubmit(e) {
     e.preventDefault(); 
 
+    const btn = form.querySelector('button[type="submit"]');
+    const originalText = btn.innerText;
+    btn.disabled = true;
+    btn.innerText = 'Enviando...';
+
     const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch(form.action, {
-        method: form.method,
-        body: formData,
-        headers: { 'Accept': 'application/json' }
+      const WORKER_URL = 'https://contacto-borealis.borealiscreadoresdeideas.workers.dev/'; 
+
+      const response = await fetch(WORKER_URL, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json' 
+        }
       });
 
       if (response.ok) {
@@ -50,6 +59,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } catch (error) {
       alert('Hubo un error de conexión. Por favor, inténtalo nuevamente.');
+    } finally {
+      btn.disabled = false;
+      btn.innerText = originalText;
     }
   }
 });
