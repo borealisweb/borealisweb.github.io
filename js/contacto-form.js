@@ -40,7 +40,7 @@
     const data = Object.fromEntries(formData.entries());
 
     try {
-      const WORKER_URL = 'https:
+      const WORKER_URL = 'https://contacto-borealis.borealiscreadoresdeideas.workers.dev';
 
       const response = await fetch(WORKER_URL, {
         method: 'POST',

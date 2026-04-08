@@ -44,7 +44,7 @@
 
       try {
        
-        const WORKER_URL = 'https:
+        const WORKER_URL = 'https://briefing-borealis.borealiscreadoresdeideas.workers.dev';
 
         const response = await fetch(WORKER_URL, {
           method: 'POST',
