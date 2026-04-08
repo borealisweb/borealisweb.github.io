@@ -1,4 +1,4 @@
-.portafolio-web-section {
+﻿.portafolio-web-section {
   max-width: 95%;
   margin: 100px auto;
   padding: 0 20px;
@@ -6,7 +6,7 @@
 
 .title-title {
   display: flex;
-  font-size: 4vw;
+  font-size: calc(4 * var(--cw));
 }
 
 .title-title .title-text {
@@ -78,8 +78,7 @@
   transform: scale(1.05);
   border: 2px solid #000;
   font-weight: 500;
-}
-
+}\n\n
 
 @media (max-width: 890px) {
   .portafolio-web-section {

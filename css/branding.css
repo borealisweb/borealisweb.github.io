@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --header-height: 80px;
 }
 
@@ -23,7 +23,7 @@
 
 .hero {
   clip-path: circle(300% at 50% -632%);
-  height: 30vw;
+  height: calc(30 * var(--cw));
   margin-top: 80px;
   overflow: hidden;
   position: relative;
@@ -73,7 +73,7 @@
   height: auto;
   margin-bottom: 20px;
   width: 100%;
-}
+}\n\n
 
 @media screen and (max-width: 890px) {
   :root {

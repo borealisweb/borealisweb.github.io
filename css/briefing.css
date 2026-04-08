@@ -1,4 +1,4 @@
-.hero {
+﻿.hero {
   clip-path: circle(300% at 50% -632%);
   height: 30vw;
   margin-top: 80px;
@@ -158,7 +158,7 @@
   background-color: #e6007d;
   color: #fff;
   transform: scale(1.05);
-}
+}\n\n
 
 @media (max-width: 890px) {
   .hero {

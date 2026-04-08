@@ -1,20 +1,17 @@
-.portfolio-section {
+﻿.portfolio-section {
   margin: 100px auto;
   width: 95%;
 }
 
 .title-title {
   display: flex;
-  font-size: 4vw;
+  font-size: calc(4 * var(--cw));
 }
 
 .title-title .title-text {
   color: #e1e1e1;
   margin: 0 auto;
-}
-
-
-.portfolio-grid {
+}\n\n.portfolio-grid {
   display: grid;
   gap: 7px;
   grid-template-columns: repeat(4, 1fr);
@@ -137,7 +134,7 @@ body.gallery-hover::before {
     opacity: 1;
     transform: scale(1);
   }
-}
+}\n\n
 
 @media screen and (max-width: 890px) {
   .portfolio-section {

@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+﻿document.addEventListener("DOMContentLoaded", () => {
   const header = document.querySelector("header");
 
   const path = window.location.pathname;
@@ -35,14 +35,14 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
 
     <div class="col right">
-      <a href="https://www.facebook.com/borealis.com.ve" target="_blank" class="social-media-icon">
-        <img src="${prefix}img/fb.webp" alt="Facebook" style="height: 25px;">
+      <a href="https://www.facebook.com/borealis.com.ve">
+        <img src="${prefix}img/fb.webp" alt="Facebook Borealis" class="social-media-icon">
       </a>
-      <a href="https://instagram.com/borealis.oficial" target="_blank" class="social-media-icon">
-        <img src="${prefix}img/insta.webp" alt="Instagram" style="height: 25px;">
+      <a href="https://www.instagram.com/borealis.oficial">
+        <img src="${prefix}img/insta.webp" alt="Instagram Borealis" class="social-media-icon">
       </a>
-      <a href="https://www.linkedin.com/company/borealis-creadores-de-ideas/" target="_blank" class="social-media-icon">
-        <img src="${prefix}img/in.webp" alt="LinkedIn" style="height: 25px;">
+      <a href="https://www.linkedin.com/company/borealis-creadores-de-ideas/">
+        <img src="${prefix}img/in.webp" alt="LinkedIn Borealis" class="social-media-icon">
       </a>
       <a href="${prefix}contacto/" class="btn-accent header-cta-mobile">Agendar Cita</a>
     </div>

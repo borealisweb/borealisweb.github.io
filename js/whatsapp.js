@@ -1,7 +1,7 @@
-document.addEventListener("DOMContentLoaded", () => {
+﻿document.addEventListener("DOMContentLoaded", () => {
   const whatsappHTML = `
     <div class="whatsapp-float-container">
-      <a href="https://wa.me/+584143571705" target="_blank" rel="noopener noreferrer" class="whatsapp-float">
+      <a href="https://wa.me/584143571705" target="_blank" class="whatsapp-float">
         <span class="whatsapp-bubble">Contacto Directo</span>
         <div class="whatsapp-icon-wrapper">
           <img src="../img/whatsapp.webp" alt="WhatsApp" class="whatsapp-icon"

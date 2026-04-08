@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+﻿document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll('.input-group input[type="number"]').forEach(numInput => {
     numInput.addEventListener('input', () => {
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       try {
        
-        const WORKER_URL = 'https://briefing-borealis.borealiscreadoresdeideas.workers.dev'; 
+        const WORKER_URL = 'https:
 
         const response = await fetch(WORKER_URL, {
           method: 'POST',

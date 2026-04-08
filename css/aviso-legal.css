@@ -17,9 +17,9 @@
   width: 95%;
 }
 
-.legal-container h1.title{
+.legal-container h1.title {
   color: var(--text);
-  font-size: 4vw;
+  font-size: calc(4 * var(--cw));
   letter-spacing: -0.5px;
   margin-bottom: 20px;
   text-align: center;
@@ -84,14 +84,14 @@
 }
 
 @media (max-width: 890px) {
-.legal-container {
-  border-radius: 18px;
-  margin-top: 110px;
-  padding: 40px 25px;
-}
+  .legal-container {
+    border-radius: 18px;
+    margin-top: 110px;
+    padding: 40px 25px;
+  }
 
-.legal-container h1.title{
-  font-size: 6.5vw;
-}
+  .legal-container h1.title {
+    font-size: 6.5vw;
+  }
 
 }

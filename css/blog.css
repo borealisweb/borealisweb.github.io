@@ -1,4 +1,4 @@
-.blog-section {
+﻿.blog-section {
   margin: 50px auto;
   margin-top: 100px;
   width: 95%;
@@ -166,7 +166,7 @@
 .blog-item2:hover .title {
   color: #e6007d;
   transform: translateY(-10px);
-}
+}\n\n
 
 @media screen and (max-width: 1000px) {
   .blog-grid {

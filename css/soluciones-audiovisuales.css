@@ -1,6 +1,6 @@
-.hero {
+﻿.hero {
   clip-path: circle(300% at 50% -632%);
-  height: 30vw;
+  height: calc(30 * var(--cw));
   margin-top: 80px;
   overflow: hidden;
   position: relative;
@@ -41,7 +41,7 @@
   align-items: center;
   justify-content: center;
   margin: 50px auto;
-  font-size: 4vw;
+  font-size: calc(4 * var(--cw));
 }
 
 .styles-title .styles-text {
@@ -68,7 +68,7 @@
   justify-content: center;
   margin: 50px auto;
   margin-top: 0px;
-  font-size: 4vw;
+  font-size: calc(4 * var(--cw));
 }
 
 .reels-title .reels-text {
@@ -167,7 +167,7 @@ body.gallery-hover::before {
   align-items: center;
   justify-content: center;
   margin: 50px auto;
-  font-size: 4vw;
+  font-size: calc(4 * var(--cw));
 }
 
 .motion-title .motion-text {
@@ -279,7 +279,7 @@ body.gallery-hover::before {
     opacity: 1;
     transform: scale(1);
   }
-}
+}\n\n
 
 @media screen and (max-width: 890px) {
   .hero {

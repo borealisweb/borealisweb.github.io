@@ -1,4 +1,4 @@
-.hero {
+﻿.hero {
   clip-path: circle(300% at 50% -632%);
   height: 30vw;
   margin-top: 80px;
@@ -111,7 +111,7 @@
   margin-bottom: 15px;
   opacity: 30%;
   width: 100%;
-}
+}\n\n
 
 @media screen and (max-width: 890px) {
   .hero {

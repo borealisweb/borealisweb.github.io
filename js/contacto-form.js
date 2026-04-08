@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+﻿document.addEventListener("DOMContentLoaded", () => {
   const empleadosInput = document.getElementById("empleados");
   if (empleadosInput) {
     empleadosInput.addEventListener("input", function() {
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const data = Object.fromEntries(formData.entries());
 
     try {
-      const WORKER_URL = 'https://contacto-borealis.borealiscreadoresdeideas.workers.dev/'; 
+      const WORKER_URL = 'https:
 
       const response = await fetch(WORKER_URL, {
         method: 'POST',

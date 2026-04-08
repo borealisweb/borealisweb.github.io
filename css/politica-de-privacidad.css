@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --bg: #f8fafc;
   --border: rgba(0, 0, 0, 0.08);
   --card: #ffffff;
@@ -19,7 +19,7 @@
 
 .legal-container h1.title{
   color: var(--text);
-  font-size: 4vw;
+  font-size: calc(4 * var(--cw));
   letter-spacing: -0.5px;
   margin-bottom: 20px;
   text-align: center;
@@ -81,7 +81,7 @@
   font-weight: 500;
   margin: 35px 0;
   padding: 18px 22px;
-}
+}\n\n
 
 @media (max-width: 890px) {
 .legal-container {

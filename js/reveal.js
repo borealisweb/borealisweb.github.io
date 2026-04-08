@@ -1,4 +1,4 @@
-function iniciarAnimacionScroll() {
+﻿function iniciarAnimacionScroll() {
     const elementos = document.querySelectorAll('.reveal');
     
     const observer = new IntersectionObserver(
@@ -18,7 +18,7 @@ function iniciarAnimacionScroll() {
     );
 
     elementos.forEach((el) => {
-        // No afectar al header
+        
         if (el.tagName !== 'HEADER' && !el.closest('header')) {
             el.style.opacity = '0';
             el.style.transform = 'translateY(50px)';

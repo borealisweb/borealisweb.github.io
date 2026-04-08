@@ -1,4 +1,4 @@
-.portfolio-section {
+﻿.portfolio-section {
   margin: 100px auto;
   position: relative;
   width: 95%;
@@ -11,7 +11,7 @@
 
 .title-title {
   display: flex;
-  font-size: 4vw;
+  font-size: calc(4 * var(--cw));
 }
 
 .title-title .title-text {
@@ -135,7 +135,7 @@ body::before {
 
 body.gallery-hover::before {
   opacity: 1;
-}
+}\n\n
 
 @media screen and (max-width: 890px) {
   .portfolio-grid {

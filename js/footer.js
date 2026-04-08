@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+﻿document.addEventListener("DOMContentLoaded", () => {
   const body = document.querySelector("body");
   const footer = document.createElement("footer");
   const path = window.location.pathname;
@@ -20,15 +20,15 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
 
       <div class="footer-icons">
-      <a href="https://www.facebook.com/borealis.com.ve" target="_blank">
+      <a href="https://www.facebook.com/borealis.com.ve">
           <img src="${prefix}img/fb.webp" alt="Facebook Borealis" class="social-media-icon">
         </a>
 
-        <a href="https://instagram.com/borealis.oficial" target="_blank">
+        <a href="https://www.instagram.com/borealis.oficial">
           <img src="${prefix}img/insta.webp" alt="Instagram Borealis" class="social-media-icon">
         </a>
         
-        <a href="https://www.linkedin.com/company/borealis-creadores-de-ideas/" target="_blank">
+        <a href="https://www.linkedin.com/company/borealis-creadores-de-ideas/">
           <img src="${prefix}img/in.webp" alt="LinkedIn Borealis" class="social-media-icon">
         </a>
         <button class="scroll-top">▲</button>

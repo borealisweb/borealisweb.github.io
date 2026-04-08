@@ -1,6 +1,6 @@
-.hero {
+﻿.hero {
   clip-path: circle(200% at 50% -393%);
-  height: 30vw;
+  height: calc(30 * var(--cw));
   margin-top: 80px;
   overflow: hidden;
   position: relative;
@@ -21,7 +21,7 @@
   align-items: center;
   justify-content: center;
   margin: 0px auto;
-  font-size: 4vw;
+  font-size: calc(4 * var(--cw));
   margin-bottom: 0px;
 }
 
@@ -51,7 +51,7 @@
 
 .about-text h1{
   font-weight: 400;
-  font-size: clamp(11pt, 0.8vw, 30pt);
+  font-size: clamp(11pt, calc(0.8 * var(--cw)), 30pt);
 }
 
 .about-image {
@@ -71,15 +71,9 @@
   border-radius: 7px;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-
-.image-description:hover {
+}\n\n.image-description:hover {
   transform: translateY(-5px);
-}
-
-
-.image-description .about-image {
+}\n\n.image-description .about-image {
   object-fit: cover;
   object-position: center 80%;
   height: 300px;  
@@ -138,7 +132,7 @@
 }
 
 .stat-number {
-  font-size: clamp(36pt, 5vw, 80pt);
+  font-size: clamp(36pt, calc(5 * var(--cw)), 80pt);
   color: #b68500;
   margin-bottom: 0px;
   font-weight: 800;
@@ -147,7 +141,7 @@
 
 .stat-number::before {
   content: "+";
-  font-size: 4vw;
+  font-size: calc(4 * var(--cw));
   margin-right: 0px;
   font-weight: 500;
   color: #b68500;
@@ -256,7 +250,7 @@
 }
 
 .valor-icon {
-  font-size: clamp(70px, 4vw, 60px);
+  font-size: clamp(70px, calc(4 * var(--cw)), 60px);
   opacity: 0.8;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
@@ -361,7 +355,7 @@
 }
 
 .final-question {
-  font-size: 2.5vw;
+  font-size: calc(2.5 * var(--cw));
   margin-bottom: 30px;
   margin: 0 auto;
 }
@@ -389,7 +383,7 @@
   border: 2px solid #000000;
   transform: scale(1.05);
   font-weight: 500;
-}
+}\n\n
 
 @media (max-width: 1085px) {
 .team-section {
