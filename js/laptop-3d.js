@@ -1,5 +1,4 @@
-﻿
-(function () {
+﻿(function () {
   'use strict';
 
   const canvas = document.getElementById('laptop-canvas');
@@ -7,7 +6,6 @@
 
   const context = canvas.getContext('2d');
 
-  
   const frameCount = 71; 
   const startFrame = 0;
   const currentFrame = index => (
@@ -19,28 +17,13 @@
     frame: 0
   };
 
-  
   for (let i = 0; i < frameCount; i++) {
     const img = new Image();
     img.src = currentFrame(i);
     images.push(img);
   }
 
-  
-  
-  
-  
-  ScrollTrigger.create({
-    trigger: ".webs-portafolio",
-    start: "center center", 
-    end: "+=100%",          
-    pin: true
-  });
 
-  
-  
-  
-  
   gsap.to(laptop, {
     frame: frameCount - 1,
     snap: "frame",
@@ -48,7 +31,7 @@
     scrollTrigger: {
       trigger: ".webs-portafolio",
       start: "top 65%", 
-      end: "+=100%",    
+      end: "+=40%", 
       scrub: 1
     },
     onUpdate: render 
@@ -65,10 +48,8 @@
       canvas.width = w * window.devicePixelRatio;
       canvas.height = h * window.devicePixelRatio;
 
-      
       let scale = Math.min(canvas.width / img.width, canvas.height / img.height);
 
-      
       const isMobile = window.innerWidth <= 768;
       if (isMobile) {
         scale *= 0.95; 
@@ -78,7 +59,6 @@
       let y = (canvas.height / 2) - (img.height / 2) * scale;
 
       if (isMobile) {
-        
         y -= 25 * window.devicePixelRatio;
       }
 
@@ -87,7 +67,6 @@
     }
   }
 
-  
   window.addEventListener('resize', render);
 
 })();

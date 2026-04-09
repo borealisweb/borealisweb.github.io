@@ -172,7 +172,6 @@ body {
     align-items: center;
     justify-content: center;
     transform: rotate(-2deg);
-    letter-spacing: 0.05em;
     line-height: 1;
     font-size: 4.8rem;
     padding: 0.625rem 1.5rem;
@@ -601,21 +600,29 @@ body {
     }
 
     .hero-heading-main {
+        font-size: 3.1rem;
+    }
+
+      .hero-heading-main2 {
         font-size: 3.8rem;
     }
 
     .creativo-badge {
-        font-size: 4.8rem;
+        font-size: 8.1rem;
     }
 }
 
 @media (max-width: 1023px) {
     .hero-heading-main {
-        font-size: 2.25rem;
+        font-size: 2.48rem;
+    }
+
+    .hero-heading-main2 {
+        font-size: 3rem;
     }
 
     .creativo-badge {
-        font-size: 3rem;
+        font-size: 6.3rem;
     }
 
     .hero-image-render {
@@ -725,11 +732,16 @@ body {
     }
 
     .hero-heading-main {
-        font-size: 1.8rem;
+        font-size: 1.85rem;
     }
 
+    .hero-heading-main2 {
+        font-size: 2.25rem;
+    }
+
+
     .creativo-badge {
-        font-size: 2.2rem;
+        font-size: 6rem;
         padding: 0.25rem 1rem;
     }
 }
