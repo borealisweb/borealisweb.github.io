@@ -569,7 +569,7 @@
 
                 <div class="overflow-x-auto pb-6 md:pb-12 custom-scrollbar">
                     <table class="w-full text-left table-fixed min-w-[1000px]">
-                        
+
                         <thead class="bg-gray-50/50 text-[10px] uppercase text-gray-400 font-extrabold border-b">
                             <tr>
                                 <th class="px-2 py-2 w-12 text-center"></th>
@@ -746,6 +746,46 @@
                     class="flex-1 py-4 rounded-lg bg-gray-100 text-gray-500 font-bold text-[10px] uppercase hover:bg-gray-200 transition-colors">Cancelar</button>
                 <button onclick="executeGenerateInvoice()"
                     class="flex-1 py-4 rounded-lg bg-pink-600 text-white font-bold text-[10px] uppercase hover:bg-pink-700 transition-all shadow-md">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE CORREOS ALTERNATIVOS -->
+    <div id="alt-email-modal"
+        class="fixed inset-0 bg-slate-900/80 backdrop-blur-xl z-[300] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-sm p-6 md:p-8 text-center">
+            <div
+                class="w-16 h-16 md:w-20 md:h-20 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center mx-auto mb-6">
+                <svg class="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                    </path>
+                </svg>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2 uppercase">Destinatarios</h3>
+            <p class="text-[10px] text-gray-500 mb-6 font-bold">El correo principal ya está incluido. ¿Deseas enviarlo a
+                otros adicionales?</p>
+
+            <div class="text-left mb-6">
+                <label class="text-[10px] font-bold text-gray-400 uppercase block mb-2">Añadir nuevo correo:</label>
+                <input type="email" id="new-alt-email"
+                    class="w-full p-3 bg-gray-50 border border-gray-100 rounded-lg text-xs font-bold text-gray-900 focus:ring-2 focus:ring-indigo-500 outline-none mb-4"
+                    placeholder="ejemplo@correo.com">
+
+                <label class="text-[10px] font-bold text-gray-400 uppercase block mb-2">Historial del cliente
+                    (Selecciona):</label>
+                <div id="alt-email-history"
+                    class="max-h-28 overflow-y-auto custom-scrollbar bg-gray-50 p-3 rounded-lg border border-gray-100 space-y-2">
+                    <!-- Los checkboxes del historial se inyectarán aquí -->
+                </div>
+            </div>
+
+            <div class="flex gap-3 md:gap-4">
+                <button onclick="closeAltEmailModal()"
+                    class="flex-1 py-4 rounded-lg bg-gray-100 text-gray-500 font-bold text-[10px] uppercase hover:bg-gray-200 transition-colors">Cancelar</button>
+                <button onclick="executeSendWithAltEmails()"
+                    class="flex-1 py-4 rounded-lg bg-indigo-600 text-white font-bold text-[10px] uppercase hover:bg-indigo-700 transition-all shadow-md">Enviar
+                    PDF</button>
             </div>
         </div>
     </div>
@@ -1099,9 +1139,15 @@
                 email: document.getElementById('c-email').value,
                 phone: document.getElementById('c-phone').value,
                 address: document.getElementById('c-address').value,
-                web: document.getElementById('c-web').value
+                web: document.getElementById('c-web').value,
+                altEmails: [] // Aseguramos que el array se cree para clientes nuevos
             };
-            if (editingClientId) { const idx = clients.findIndex(c => c.id === editingClientId); clients[idx] = clientData; }
+            if (editingClientId) {
+                const idx = clients.findIndex(c => c.id === editingClientId);
+                // Mantener los altEmails existentes al editar
+                clientData.altEmails = clients[idx].altEmails || [];
+                clients[idx] = clientData;
+            }
             else clients.push(clientData);
             saveData(); renderClientsGrid(); cancelEdit(); updateClientSelector();
         }
@@ -1196,7 +1242,6 @@
             tasks.forEach((t, index) => {
                 const tr = document.createElement('tr');
                 tr.className = `hover:bg-gray-50/50 border-b border-gray-50 ${t.done ? 'row-done' : ''}`;
-                // Agregado un z-index descendente para que los menús desplegables no se superpongan mal
                 tr.style.zIndex = 100 - index;
                 tr.style.position = 'relative';
 
@@ -1257,7 +1302,6 @@
             dataByClient[selectedClientId].weeks[currentWeek].push({ id: Date.now(), client: "", desc: "", type: "Ads", cant: 1, time: 1, unit: 'h', totalHrs: 1, price: rate, done: false });
             renderTable(); saveData();
 
-            // Auto scroll a la tabla (útil en móviles)
             setTimeout(() => {
                 const tableContainer = document.querySelector('.overflow-x-auto');
                 if (tableContainer) {
@@ -1444,7 +1488,7 @@
             }
         }
 
-        async function sendInvoiceEmail() {
+        function sendInvoiceEmail() {
             const client = clients.find(c => c.id == selectedClientId);
             const btn = document.getElementById('btn-send-email');
 
@@ -1460,6 +1504,68 @@
                 }, 3000);
                 return;
             }
+
+            // Inicializar historial si no existe
+            client.altEmails = client.altEmails || [];
+
+            // Cargar historial en el modal
+            const historyContainer = document.getElementById('alt-email-history');
+            historyContainer.innerHTML = '';
+
+            if (client.altEmails.length === 0) {
+                historyContainer.innerHTML = '<p class="text-[9px] text-gray-400 italic">No hay correos guardados previamente.</p>';
+            } else {
+                client.altEmails.forEach(email => {
+                    historyContainer.innerHTML += `
+                        <label class="flex items-center gap-2 text-[10px] font-bold text-gray-700 cursor-pointer">
+                            <input type="checkbox" value="${email}" class="alt-email-checkbox w-3.5 h-3.5 text-indigo-600 rounded border-gray-300">
+                            ${email}
+                        </label>
+                    `;
+                });
+            }
+
+            document.getElementById('new-alt-email').value = '';
+            document.getElementById('alt-email-modal').classList.remove('hidden');
+        }
+
+        function closeAltEmailModal() {
+            document.getElementById('alt-email-modal').classList.add('hidden');
+        }
+
+        async function executeSendWithAltEmails() {
+            const client = clients.find(c => c.id == selectedClientId);
+            client.altEmails = client.altEmails || [];
+
+            const newEmailInput = document.getElementById('new-alt-email').value.trim();
+            let selectedEmails = [];
+
+            // Recoger los correos del historial que hayan sido marcados
+            document.querySelectorAll('.alt-email-checkbox:checked').forEach(cb => {
+                selectedEmails.push(cb.value);
+            });
+
+            // Validar y guardar el correo nuevo en el historial
+            if (newEmailInput) {
+                if (newEmailInput.includes('@') && newEmailInput.includes('.')) {
+                    selectedEmails.push(newEmailInput);
+                    if (!client.altEmails.includes(newEmailInput)) {
+                        client.altEmails.push(newEmailInput);
+                        saveData(); // Se encarga de guardarlo
+                    }
+                } else {
+                    alert("Por favor, ingresa un correo electrónico válido.");
+                    return;
+                }
+            }
+
+            closeAltEmailModal();
+            await processActualEmailSending(selectedEmails);
+        }
+
+        async function processActualEmailSending(altEmailsArray) {
+            const client = clients.find(c => c.id == selectedClientId);
+            const btn = document.getElementById('btn-send-email');
 
             const originalHTML = btn.innerHTML;
             btn.innerHTML = "Enviando...";
@@ -1481,33 +1587,50 @@
             };
 
             try {
+                // Generamos el PDF en base64 de manera limpia
                 const pdfDataUri = await html2pdf().set(opt).from(element).outputPdf('datauristring');
                 const base64Data = pdfDataUri.split('base64,')[1];
 
-                const response = await fetch(`${CLOUDFLARE_WORKER_URL}/send-email`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': SECRET_KEY
-                    },
-                    body: JSON.stringify({
-                        to: client.email,
-                        personName: client.person,
-                        companyName: client.company,
-                        invoiceNumber: invNumber,
-                        issueDate: invDate,
-                        pdfBase64: base64Data
-                    })
-                });
+                // Unimos el principal y los alternativos, y eliminamos campos vacíos
+                const allEmails = [client.email, ...altEmailsArray].filter(e => typeof e === 'string' && e.trim() !== '');
 
-                if (response.ok) {
+                let hasError = false;
+
+                // SOLUCIÓN: Hacemos una petición (fetch) independiente por CADA correo.
+                // Esto evita que el Worker de Cloudflare se sature al intentar leer una coma.
+                for (const email of allEmails) {
+                    const response = await fetch(`${CLOUDFLARE_WORKER_URL}/send-email`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': SECRET_KEY
+                        },
+                        body: JSON.stringify({
+                            to: email.trim(), // Se envía estríctamente como un string individual
+                            personName: client.person,
+                            companyName: client.company,
+                            invoiceNumber: invNumber,
+                            issueDate: invDate,
+                            pdfBase64: base64Data
+                        })
+                    });
+
+                    if (!response.ok) {
+                        hasError = true;
+                        const errorDetails = await response.text();
+                        console.error(`Fallo del servidor enviando a ${email}:`, errorDetails);
+                    }
+                }
+
+                if (!hasError) {
                     btn.innerHTML = "¡Enviado!";
                     btn.classList.replace('bg-indigo-600', 'bg-emerald-500');
                 } else {
-                    throw new Error("Error del servidor");
+                    throw new Error("Uno o más correos fueron rechazados por el servidor.");
                 }
+
             } catch (err) {
-                console.error("Error al enviar correo:", err);
+                console.error("Error capturado:", err);
                 btn.innerHTML = "Error";
                 btn.classList.replace('bg-indigo-600', 'bg-red-500');
             } finally {
