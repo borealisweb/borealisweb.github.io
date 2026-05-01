@@ -514,6 +514,55 @@ body {
     animation: pulseText 2s infinite;
 }
 
+.allied-footer {
+    position: absolute;
+    bottom: 3.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    pointer-events: none;
+    z-index: 30;
+}
+
+.allied-brands {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    opacity: 0.8;
+    transition: var(--transition-smooth);
+    pointer-events: auto;
+    text-decoration: none;
+}
+
+.allied-brands:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+}
+
+.allied-text {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 800;
+    color: var(--brand-dark);
+    opacity: 0.7;
+}
+
+.allied-logo {
+    height: 2.64rem;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(1) opacity(0.8);
+    transition: var(--transition-smooth);
+    margin-left: -0.3rem;
+    margin-top: -0.3rem
+}
+
+.allied-brands:hover .allied-logo {
+    filter: grayscale(0) opacity(1);
+}
+
 @keyframes panGrid {
     0% {
         background-position: 0 0;
@@ -702,6 +751,18 @@ body {
     .avatar {
         width: 3rem;
         height: 3rem;
+    }
+
+    .allied-footer {
+        bottom: 3rem;
+    }
+
+    .allied-logo {
+        height: 2.2rem;
+    }
+
+    .allied-text {
+        font-size: 0.5rem;
     }
 }
 
