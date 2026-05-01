@@ -1,0 +1,149 @@
+:root {
+  --header-height: 80px;
+}
+
+#alerta-bar {
+  background-color: #FFD200;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  color: #e6007d;
+  font-weight: bold;
+  left: 0;
+  padding: 10px 20px;
+  position: fixed;
+  text-align: center;
+  top: calc(var(--header-height) * -1);
+  transition: top 0.4s ease;
+  width: 100%;
+  z-index: 1;
+}
+
+#alerta-bar .alerta {
+  margin: 0;
+}
+
+.hero {
+  clip-path: ellipse(160% 100% at 50% 0%);
+  height: calc(40 * var(--cw));
+  min-height: 31.25rem;
+  margin-top: 0;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.hero-overlay {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 100%);
+  inset: 0;
+  position: absolute;
+  z-index: 1;
+}
+
+.hero-text {
+  color: #fff;
+  position: relative;
+  text-align: center;
+  width: 90%;
+  max-width: 1200px;
+  z-index: 2;
+  padding-top: 2rem;
+}
+
+.hero-title {
+  font-size: clamp(2rem, calc(4 * var(--cw)), 1000rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.category-tag {
+  display: inline-block;
+  background: var(--primary-magenta, #e6007d);
+  color: #fff;
+  padding: 0.5rem 1.2rem;
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0.5rem 1.5rem rgba(230, 0, 125, 0.4);
+}
+
+.hero-text p {
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.2em;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.image-section {
+  margin: 0 auto;
+  padding: 40px 0;
+  width: 95%;
+}
+
+.image-section img {
+  display: block;
+  height: auto;
+  margin: 0 auto 20px auto;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.image-section video {
+  display: block;
+  height: auto;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+@media screen and (max-width: 890px) {
+  :root {
+    --header-height: 80px;
+  }
+
+  #alerta-bar {
+    margin-top: 0px;
+  }
+
+  .hero {
+    height: 50vh;
+    min-height: 400px;
+  }
+
+  .hero-text h1 {
+    font-size: 8vw;
+  }
+
+}
+
+@media screen and (max-width: 500px) {
+  :root {
+    --header-height: 80px;
+  }
+
+  .hero {
+    height: 45vh;
+  }
+
+  .hero-text h1 {
+    font-size: 10vw;
+  }
+
+}

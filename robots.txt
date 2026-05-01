@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://borealis.com.ve/sitemap.xml
